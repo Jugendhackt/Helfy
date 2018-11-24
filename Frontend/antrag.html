@@ -19,47 +19,51 @@
         </div>
 
         <br />
-        <div id="search-box" class="col-sm-12 col-md-4" action="#" onsubmit="readInput()">
+        <!--<div id="search-box" class="col-sm-12 col-md-4" action="#" onsubmit="readInput()">
             <img src="img/pos-icon.png" onClick="getPos();" />
             <input id="searchbar" class="form-control" type="text" />
             <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
-        </div>
-        <div id="formular">
+        </div>-->
+        <div id="formular" class="row">
             <form>
                 <div class="form-group">
-                    <div id="search-box" class="col-sm-12 col-md-4" action="#" onsubmit="readInput()">
+                    <span class="location">
+                        <label>Von:</label>
                         <img src="img/pos-icon.png" onClick="getPos();" />
-                        <label for="exampleInputEmail1">Von:</label>
-                        <input name="username" type="text" class="form-control" id="searchbar" aria-describedby="emailHelp"
-                            placeholder="Von welchem Ort">
-                        <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
-                    </div>
+                        <input name="start" type="text" placeholder="Von welchem Ort" />
+                    </span><br />
+                    <span class="location">
+                        <label>Nach:</label>
+                        <img src="img/pos-icon.png" onClick="getPos();" />
+                        <input name="ende" type="text" placeholder="Zu welchem Ort" />
+                    </span>
+                    <br />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Nach:</label>
-                    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Zu welchem Ort">
+                    <label>Wann:</label>
+                    <input name="datetime" type="datetime-local" placeholder="Zeitpunkt" /><br />
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword2">Wann:</label>
-                    <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Uhrzeit">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword2">Von</label>
-                    <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Max Mustermann">
-                </div>
-                <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Eintrag erstellen!</button>
-                <input type="hidden" name="request" value="login"></input>
+                <button class="btn btn-dark" type="submit">Eintrag einstellen!</button>
             </form>
-
-            <br />
-
         </div>
+        <!--<form>
+            <div class="form-group">
+                <label for="exampleInputPassword2">Von</label>
+                <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Max Mustermann">
+            </div>
+            <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Eintrag erstellen!</button>
+            <input type="hidden" name="request" value="login"></input>
+        </form>-->
 
-        <div id="footer">
-            <hr style="margin: 10px; border-radius: 20px;">
-            <p id="list">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#">Log Out</a></p>
-        </div>
-        <script src="js/script.js"></script>
+        <br />
+
+    </div>
+
+    <div id="footer">
+        <hr style="margin: 10px; border-radius: 20px;">
+        <p id="list">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#">Log Out</a></p>
+    </div>
+    <script src="js/script.js"></script>
     </div>
 </body>
 
