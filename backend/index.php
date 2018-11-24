@@ -19,6 +19,28 @@ function guidv4($data)
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
+function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+    if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+      return 0;
+    }
+    else {
+      $theta = $lon1 - $lon2;
+      $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+      $dist = acos($dist);
+      $dist = rad2deg($dist);
+      $miles = $dist * 60 * 1.1515;
+      $unit = strtoupper($unit);
+  
+      if ($unit == "K") {
+        return ($miles * 1.609344);
+      } else if ($unit == "N") {
+        return ($miles * 0.8684);
+      } else {
+        return $miles;
+      }
+    }
+}
+
 function loginDataCorrect($ldc_username, $ldc_password){
 	global $mysqli;
     $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
@@ -86,8 +108,8 @@ $request = $_POST['request'];
 
 
 if($request == "registrateUser"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_password = mysql_real_escape_string($_POST['password']);
+    $u_username = ($_POST['username']);
+    $u_password = ($_POST['password']);
     if(registrateUser($u_username, $u_password)){
         echo "success";
     } else {
@@ -96,8 +118,8 @@ if($request == "registrateUser"){
 }
 
 if($request == "checkLoginData"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_password = mysql_real_escape_string($_POST['password']);
+    $u_username = ($_POST['username']);
+    $u_password = ($_POST['password']);
     if(loginDataCorrect($u_username, $u_password)){
         echo "correct";
     } else {
@@ -106,8 +128,8 @@ if($request == "checkLoginData"){
 }
 
 if($request == "newSeccion"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_password = mysql_real_escape_string($_POST['password']);
+    $u_username = ($_POST['username']);
+    $u_password = ($_POST['password']);
     if(loginDataCorrect($u_username, $u_password)){
         echo login($u_username, $u_password);
     }
@@ -115,13 +137,13 @@ if($request == "newSeccion"){
 
 
 if($request == "addRide"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_seccion_id = mysql_real_escape_string($_POST['seccion_id']);
+    $u_username = ($_POST['username']);
+    $u_seccion_id = ($_POST['seccion_id']);
     if(seccionCheck($u_username, $u_seccion_id)){
-        $u_type = mysql_real_escape_string($_POST['type']);
-        $u_start = mysql_real_escape_string($_POST['start']);
-        $u_ziel = mysql_real_escape_string($_POST['ziel']);
-        $u_description = mysql_real_escape_string($_POST['description']);
+        $u_type = ($_POST['type']);
+        $u_start = ($_POST['start']);
+        $u_ziel = ($_POST['ziel']);
+        $u_description = ($_POST['description']);
         if($u_type == "true"){
             $fahrer_id = idByUsername($u_username);
             $mitfahrer_id = "";
@@ -134,6 +156,25 @@ if($request == "addRide"){
         echo "success";
     } else {
         echo "failed";
+    }
+}
+
+
+if($request == "nearbyRides"){
+    $u_username = ($_POST['username']);
+    $u_seccion_id = ($_POST['seccion_id']);
+    if(seccionCheck($u_username, $u_seccion_id)){
+        $u_lat = $_POST['lat'];
+        $u_lon = $_POST['lon'];
+        $sql = "SELECT * FROM `mitfahren`";
+        $result = $mysqli->query($sql);
+        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $cur = explode(":::", $row[4])[1];
+            $curr = explode(";;;", $cur);
+            if(distance(intval(u_lat), intval(u_lon), $d_lat, $d_lon, "K") < 10){
+                echo $row[0].",".$row[1].",".$row[2].",".$row[3].",".$row[4].",".$row[5].",".$row[6].",".$row[7]."\n";
+            }
+          }
     }
 }
 ?>
