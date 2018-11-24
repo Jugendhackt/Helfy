@@ -6,7 +6,7 @@
     <title>Helfy - Mitfahrer</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/mitfahrer.css" />
-    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no" />
 </head>
 
 <body>
@@ -18,10 +18,11 @@
         </div>
         <div class="row">
             <div class="col-md-4"></div>
-            <div id="search-box" class="col-sm-12 col-md-4">
+            <form id="search-box" class="col-sm-12 col-md-4" action="#" onsubmit="readInput()">
                 <img src="img/pos-icon.png" onClick="getPos();" />
-                <input class="form-control" type="text" />
-            </div>
+                <input id="searchbar" class="form-control" type="text" />
+                <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
+            </form>
         </div>
         <div id="alleFahren" class="row">
             <div class="col-md-2"></div>
