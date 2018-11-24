@@ -17,7 +17,6 @@ function convert(input) { // Konvertiert input von getPos in String um
 function readInput() { // Wird ausgeführt durch Form searchbar
     let inputElement = document.getElementById("searchbar");
     let inputContent = inputElement.value;
-    console.log(inputElement);
     checkPos(inputContent);
 }
 
@@ -38,12 +37,30 @@ Load Page
 */
 
 async function showRoutes() {
+    /*try {
+        const request = await fetch('http://192.168.10.60/helfy/backend/index.php', {
+            method: "POST",
+            contentType: "application/x-www-form-urlencoded",
+            body: "request=nearbyRides&lat=51.0834196&lon=10.4234469"
+        });
+        const data = await request.json();
+
+        console.log(data)
+    } catch (e) {
+        console.error('fetch error', e);
+    }*/
+
     try {
-        const request = await fetch('http://192.168.10.60/helfy/backend/index.php');
+        const request = await fetch('http://192.168.10.60/helfy/backend/index.php?request=nearbyRides&lat=48.39649305&lon=9.99022954542048', {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+            //body: "request=nearbyRides&lat=51.0834196&lon=10.4234469"
+        });
         const data = await request.json();
 
         console.log(data)
     } catch (e) {
         console.error('fetch error', e);
     }
+    
 }
