@@ -23,7 +23,7 @@ body {
     margin: 15px;
     display: inline;
     white-space: nowrap;
-    margin-right: 10px;
+    width: 65%;
 }
 
 #search-box * {

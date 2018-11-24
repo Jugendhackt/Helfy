@@ -24,66 +24,119 @@
                 <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
             </form>
         </div>
-        <div id="alleFahren" class="row">
+
+        <br />
+
+        <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-sm-12 col-md-4">
-                <h2>Gesuchte Fahrten</h2>
-                <div style="overflow-x:auto;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Von</th>
-                                <th scope="col">Nach</th>
-                                <th scope="col">Wann?</th>
-                                <th scope="col">Von</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>A</td>
-                                <td>B</td>
-                                <td>Heute, 12 Uhr</td>
-                                <td>Mustermensch</td>
-                                <td>
-                                    <button class="btn btn-dark btn-sm">Diese Fahrt anbieten</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div id="menu" class="col-sm-12 col-md-8">
+
+                <div>
+                    <h2 id="gesucht">Gesuchte Fahrten</h2>
                 </div>
-                <div class="text-center">
-                    <button class="btn btn-dark btn-lg addFahrten" style="position: center;">Weitere Fahrt suchen</button>
+
+                <hr class="hr">
+                <div>
+                    <p id="frage"><b>Von:</b></p>
+                    <p style="margin-left: 70px;">A</p>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
-                <h2>Angebotene Fahrten</h2>
-                <div style="overflow-x:auto;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Von</th>
-                                <th scope="col">Nach</th>
-                                <th scope="col">Wann?</th>
-                                <th scope="col">Fahrer</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>A</td>
-                                <td>B</td>
-                                <td>Heute, 12 Uhr</td>
-                                <td>Mustermensch</td>
-                                <td>
-                                    <button class="btn btn-dark btn-sm">Mitfahren</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div id="menu" class="col-sm-12 col-md-8">
+                <div>
+                    <p id="frage"><b>Nach:</b></p>
+                    <p style="margin-left: 70px;">B</p>
                 </div>
-                <div class="text-center">
-                    <button class="btn btn-dark btn-lg addFahrten">Weitere Fahrt anbieten</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div id="menu" class="col-sm-12 col-md-8">
+                <div>
+                    <p id="frage"><b>Wann:</b></p>
+                    <p style="margin-left: 70px;">Heute, 12 Uhr</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div id="menu" class="col-sm-12 col-md-8">
+                <div>
+                    <p id="frage"><b>Von:</b></p>
+                    <p style="margin-left: 70px;">Mustermensch</p>
+                    <button class="btn btn-dark btn-sm" style="float: right; margin-right: 10px;">Diese Fahrt anbieten</button>
+                    <br />
+                    <hr class="hr">
+                    <div>
+                        <p id="frage"><b>Von:</b></p>
+                        <p style="margin-left: 70px;">C</p>
+                    </div>
+                    <div>
+                        <p id="frage"><b>Nach:</b></p>
+                        <p style="margin-left: 70px;">D</p>
+                    </div>
+                    <div>
+                        <p id="frage"><b>Wann:</b></p>
+                        <p style="margin-left: 70px;">Heute, 19 Uhr</p>
+                    </div>
+                    <div>
+                        <p id="frage"><b>Von:</b></p>
+                        <p style="margin-left: 70px;">Mustermensch</p>
+                    </div>
+                    <button class="btn btn-dark btn-sm" style="float: right; margin-right: 10px;">Diese Fahrt anbieten</button>
+                    <br />
+                    <hr id="hr">
+                    <br /><br /><br />
+                    <div>
+                        <h2 id="gesucht">Angebotene Fahrten</h2>
+                    </div>
+
+                    <hr class="hr">
+                    <div>
+                        <p id="frage"><b>Von:</b></p>
+                        <p style="margin-left: 70px;">A</p>
+                    </div>
+                    <div>
+                        <p id="frage"><b>Nach:</b></p>
+                        <p style="margin-left: 70px;">B</p>
+                    </div>
+                    <div>
+                        <p id="frage"><b>Wann:</b></p>
+                        <p style="margin-left: 70px;">Heute, 12 Uhr</p>
+                    </div>
+                    <div>
+                        <p id="frage"><b>Von:</b></p>
+                        <p style="margin-left: 70px;">Mustermensch</p>
+                        <button class="btn btn-dark btn-sm" style="float: right; margin-right: 10px;">Mitfahren!</button>
+                        <br />
+                        <hr class="hr">
+
+                        <div>
+                            <p id="frage"><b>Von:</b></p>
+                            <p style="margin-left: 70px;">C</p>
+                        </div>
+                        <div>
+                            <p id="frage"><b>Nach:</b></p>
+                            <p style="margin-left: 70px;">D</p>
+                        </div>
+                        <div>
+                            <p id="frage"><b>Wann:</b></p>
+                            <p style="margin-left: 70px;">Heute, 19 Uhr</p>
+                        </div>
+                        <div>
+                            <p id="frage"><b>Von:</b></p>
+                            <p style="margin-left: 70px;">Mustermensch</p>
+                            <button class="btn btn-dark btn-sm" style="float: right; margin-right: 10px;">Mitfahren!</button>
+                            <br />
+                            <hr class="hr">
+                        </div>
+                        <br /><br /><br />
+                    </div>
                 </div>
             </div>
         </div>

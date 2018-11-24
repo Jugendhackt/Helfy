@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
-    <title>Helfy - Log In</title>
+    <title>Helfy - Registration</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/login.css" />
@@ -14,7 +14,7 @@
     <div class="container-float">
         <div class="row">
             <div id="header" class="col-sm-12">
-                <h1 id="headertext">Helfy - Log In</h1>
+                <h1 id="headertext">Helfy - Registration</h1>
             </div>
         </div>
 
@@ -24,23 +24,23 @@
 
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Benutzername:</label>
+                    <label for="exampleInputEmail1">Benutzername</label>
                     <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="Benutzername">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Passwort:</label>
+                    <label for="exampleInputPassword1">Passwort</label>
                     <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Passwort">
                 </div>
-                <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Anmelden!</button>
+                <div class="form-group">
+                    <label for="exampleInputPassword2">Passwort wiederholen</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Passwort wiederholen">
+                </div>
+                <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Registrieren!</button>
                 <input type="hidden" name="request" value="login"></input>
             </form>
 
             <br />
-
-            <div>
-                <p id="list">Noch nicht angemeldet ? Jetzt <a href="registrieren.html">registrieren</a> !</p>
-            </div>
 
         </div>
 
