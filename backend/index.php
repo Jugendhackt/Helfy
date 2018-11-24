@@ -7,6 +7,18 @@ error_reporting(E_ALL);
 
 $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
 
+$current_seccion_id = $_POST['seccion_id_helfy'];
+
+function guidv4($data)
+{
+    assert(strlen($data) == 16);
+
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
+
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
 function loginDataCorrect($ldc_username, $ldc_password){
 	global $mysqli;
     $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
@@ -17,21 +29,19 @@ function loginDataCorrect($ldc_username, $ldc_password){
 
 function login($ldc_username, $ldc_password){
     if(loginDataCorrect($ldc_username, $ldc_password)){
-        $ranseccion = random_int(10000000000000000000, 99999999999999999999);
+        $ranseccion = guidv4(random_bytes(16));
         $sql = "UPDATE `users` WHERE `username` = '$ldc_username' SET `seccion` = '$ranseccion'";
         $update = $mysqli->query($sql);
-        return true;
-    } else {
-        return false;
+        return $ranseccion;
     }
 }
 
-function seccionCheck($username, $seccion_id){
-    global $mysqli;
+function seccionCheck($username){
+    global $mysqli, $current_seccion_id;
     $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
-    return ($seccion_id == $res['seccion'] && $seccion_id != "");
+    return ($current_seccion_id == $res['seccion'] && $current_seccion_id != "");
 }
 
 function idByUsername($username){
@@ -94,6 +104,15 @@ if($request == "checkLoginData"){
         echo "incorrect";
     }
 }
+
+if($request == "newSeccion"){
+    $u_username = mysql_real_escape_string($_POST['username']);
+    $u_password = mysql_real_escape_string($_POST['password']);
+    if(loginDataCorrect($u_username, $u_password)){
+        echo login($u_username, $u_password);
+    }
+}
+
 
 if($request == "addRide"){
     $u_username = mysql_real_escape_string($_POST['username']);
