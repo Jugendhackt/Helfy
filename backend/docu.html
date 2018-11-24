@@ -18,4 +18,8 @@ returns: success/failed<br><br>
 
 nearbyRides<br>
 requires: username, seccion_id, lat, lon<br>
-returns: csv of results<br><br>
+returns: csv of results (fahrt_id, type, mitfahrer_id, fahrer_id, start, ziel, description, timestamp) <br><br>
+
+editRide<br>
+requires: fahrt_id, seccion_id, username, type, mitfahrer_id, fahrer_id, start, ziel, description, timestamp<br>
+returns: success/failed<br><br>
