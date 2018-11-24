@@ -9,6 +9,7 @@
 body {
     overflow-x: hidden;
     height: 100%;
+    position: relative;
 }
 
 #alleFahren {
@@ -23,6 +24,7 @@ body {
     margin: 15px;
     display: inline;
     white-space: nowrap;
+    width: 65%;
 }
 
 #search-box * {
@@ -36,6 +38,18 @@ body {
 #footer {
     position:absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
     text-align: center;
+    height: 0;
+}
+
+#frage {
+    float: left;
+    margin-right: 10px; 
+    margin-left: 10px;
+}
+
+#gesucht {
+    margin-left: 10px;
 }
