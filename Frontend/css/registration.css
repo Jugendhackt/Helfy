@@ -1,0 +1,65 @@
+#list a:link {
+    color: navy;
+}
+
+#list a:visited {
+    color: navy;
+}
+
+body {
+    background-color: white;
+    overflow-x: hidden;
+}
+
+#header {
+    text-align: center;
+    background-color: darkorange;
+    height: 100px;
+}
+
+#headertext {
+    margin-top: 25px;
+    display: inline-block;
+}
+
+#formular {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 5px;
+}
+
+@media (min-width: 450px) {
+    #formular {
+        background-color: lightgrey;
+        margin: 10px;
+        box-shadow: 4px 4px 2px -2px gray;
+        padding: 5px;
+        width: 40%;
+        margin-left: 30%;
+    }
+  }
+
+#footer {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#search-box {
+    margin: 15px;
+    display: inline;
+    white-space: nowrap;
+    width: 65%;
+}
+
+#search-box * {
+    display: inline;
+}
+
+#search-box img {
+    cursor: pointer;
+}
+
+
