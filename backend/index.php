@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
 
-$current_seccion_id = $_POST['seccion_id_helfy'];
+$current_seccion_id = $_POST['seccion_id'];
 
 function guidv4($data)
 {
@@ -169,12 +169,34 @@ if($request == "nearbyRides"){
         $sql = "SELECT * FROM `mitfahren`";
         $result = $mysqli->query($sql);
         while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            $cur = explode(":::", $row[4])[1];
+            $cur = explode(":::", $row['start'])[1];
             $curr = explode(";;;", $cur);
-            if(distance(intval(u_lat), intval(u_lon), $d_lat, $d_lon, "K") < 10){
-                echo $row[0].",".$row[1].",".$row[2].",".$row[3].",".$row[4].",".$row[5].",".$row[6].",".$row[7]."\n";
-            }
-          }
+            $d_lat = $curr[0];
+            $d_lon = $curr[1];
+            if(distance(intval($u_lat), intval($u_lon), intval($d_lat), intval($d_lon), "K") < 10){
+				echo $row['id'].",".$row['type'].",".$row['mitfahrer_id'].",".$row['fahrer_id'].",".$row['start'].",".$row['ziel'].",".$row['description'].",".$row['timestamp']."\n";
+			}
+        }
     }
 }
+
+if($request == "editRide"){
+	$u_username = ($_POST['username']);
+    $u_seccion_id = ($_POST['seccion_id']);
+    if(seccionCheck($u_username, $u_seccion_id)){
+		$u_fahrt_id = ($_POST['fahrt_id']);
+		$u_type = ($_POST['type']);
+        $u_start = ($_POST['start']);
+        $u_ziel = ($_POST['ziel']);
+        $u_description = ($_POST['description']);
+        $fahrer_id = $_POST['fahrer_id'];
+        $mitfahrer_id = $_POST['mitfahrer_id'];
+        $sql = "INSERT INTO `mitfahren` VALUES (NULL, '$u_type', '$mitfahrer_id', '$fahrer_id', '$u_start', '$u_ziel', '$u_description', CURRENT_TIMESTAMP)";
+        $insert = $mysqli->query($sql);
+        echo "success";
+    } else {
+        echo "failed";
+    }
+}
+
 ?>
