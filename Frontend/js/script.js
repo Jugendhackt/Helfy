@@ -64,7 +64,11 @@ async function showRoutes() {
 
         for(x in data){
             currentRoute = data[x];
-            el.innerHTML += "<article style='margin-left: 200px;'><span id='frage'><b>Von: </b></span><span>" + currentRoute["start_klar"] + "</span><br /><span id='frage'><b>Nach: </b></span><span> " + currentRoute["ziel_klar"] + " </span><br /><span id='frage'><b>Fahrer:</b></span><span>" + currentRoute["fahrer_id"] + "</span><br><span id='frage'><b>Mitfahrer:</b></span><span><button>Mitfahren!</button></span><hr /></article>";
+            if(currentRoute["type"] == "1"){
+                el.innerHTML += "<article style='margin-left: 200px;'><span id='frage'><b>Von: </b></span><span>" + currentRoute["start_klar"] + "</span><br /><span id='frage'><b>Nach: </b></span><span> " + currentRoute["ziel_klar"] + " </span><br /><span id='frage'><b>Fahrer: </b></span><span>" + currentRoute["fahrer_name"] + "</span><br><span id='frage'><b>Mitfahrer: </b></span><span><button>Mitfahren!</button></span><hr /></article>";
+            } else {
+                el.innerHTML += "<article style='margin-left: 200px;'><span id='frage'><b>Von: </b></span><span>" + currentRoute["start_klar"] + "</span><br /><span id='frage'><b>Nach: </b></span><span> " + currentRoute["ziel_klar"] + " </span><br /><span id='frage'><b>Fahrer: </b></span><span><button>Anbieten!</button></span><br><span id='frage'><b>Mitfahrer: </b></span><span>" + currentRoute["mitfahrer_name"] + "</span><hr /></article>";
+            }
         }
 
         // append to the element's content
