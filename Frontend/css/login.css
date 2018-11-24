@@ -47,19 +47,21 @@ body {
     text-align: center;
 }
 
-#search-box {
+#location {
     margin: 15px;
     display: inline;
     white-space: nowrap;
-    width: 65%;
 }
 
-#search-box * {
+#location * {
     display: inline;
 }
 
-#search-box img {
+#location img {
     cursor: pointer;
 }
 
 
+input {
+    width: 100%;
+}
