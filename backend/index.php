@@ -165,6 +165,15 @@ if($request == "addRide"){
 }
 
 
+function idToName($u_id){
+	global $mysqli;
+    $sql = "SELECT * FROM `users` WHERE `id` = '$u_id'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    return $res['username'];
+	}
+
+
 if($request == "nearbyRides"){
     //$u_username = ($_GET['username']);
     //$u_seccion_id = ($_GET['seccion_id']);
@@ -181,7 +190,7 @@ if($request == "nearbyRides"){
             $d_lat = $curr[0];
             $d_lon = $curr[1];
             #echo json_encode($row);
-            if(distance(intval($u_lat), intval($u_lon), intval($d_lat), intval($d_lon), "K") < 10000000000000000000000){
+            if(distance(intval($u_lat), intval($u_lon), intval($d_lat), intval($d_lon), "K") < 10){
 				#echo $row['id'].",".$row['type'].",".$row['mitfahrer_id'].",".$row['fahrer_id'].",".$row['start'].",".$row['ziel'].",".$row['description'].",".$row['timestamp']."\n";
 				$row['start_klar'] = explode(":::", $row['start'])[0];
 				$row['start_lat'] = explode(";;;", explode(":::", $row['start'])[1])[0];
@@ -189,6 +198,8 @@ if($request == "nearbyRides"){
 				$row['ziel_klar'] = explode(":::", $row['ziel'])[0];
 				$row['ziel_lat'] = explode(";;;", explode(":::", $row['ziel'])[1])[0];
 				$row['ziel_lon'] = explode(";;;", explode(":::", $row['ziel'])[1])[1];
+				$row['fahrer_name'] = idToName($row['fahrer_id']);
+				$row['mitfahrer_name'] = idToName($row['mitfahrer_id']);
 				$row['distance'] = distance(intval($row['start_lat']), intval($row['start_lon']), intval($row['ziel_lat']), intval($row['ziel_lon']), "K");
 				$rawo[$i] = $row;
 				$i = $i + 1;
