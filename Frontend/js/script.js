@@ -3,10 +3,9 @@ Search Bar
  */
 
  var lat = 0;
- var let = 0;
+ var lon = 0;
 
-var latme = 0;
-var lonme = 0;
+
 
 function getPos() { // Wird ausgeführt bei Klick auf GPS
     if (navigator.geolocation) {
@@ -31,6 +30,9 @@ async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis
         const request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=10&q=' + search);
         const data = await request.json();
 
+        lat = data[0]["lat"];
+        lon = data[0]["lon"];
+
         let inputElement = document.getElementById("searchbar");
         inputElement.value = data[0]["display_name"];
         
@@ -47,7 +49,7 @@ Load Page
 
 async function showRoutes() {
     try {
-        const request = await fetch('http://192.168.10.60/helfy/backend/index.php?request=nearbyRides&lat=48.39649305&lon=9.99022954542048', {
+        const request = await fetch('http://192.168.10.60/helfy/backend/index.php?request=nearbyRides&lat=' + lat + '&lon=' + lon, {
             method: "GET",
             dataType: "application/x-www-form-urlencoded",
         });
