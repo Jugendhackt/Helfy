@@ -1,6 +1,13 @@
-<b>example</b><br>
-POST: request=registrateUser&username=benutzername&password=passwort<br>
->> creates user<br><br>
+<h1>Documentation for Helfy</h1>
+<h3>A project by Jugend Hackt</h3>
+
+<h2>MySQL Database</h2>
+<p>Helfy requiers a database with two tables ("users" and "mitfahren"). Configure the passwords.php file to adjust Helfy to your database (see passwords.sample.php)</p>
+<b>users</b> has got the following collumns: `id`, `username`, `password`, `seccion`<br>
+<b>mitfahren</b> has got the following collumns: `id`, `type`, `mitfahrer_id`, `fahrer_id`, `start`, `ziel`, `description`, `timestamp`<br><br>
+
+<h2>Backend</h2>
+<p>You can access the backend using GET requests. Sending e.g. request=registrateUser&username=benutzername&password=passwort to it will create a new user.<br><br>
 
 registrateUser<br>
 requires: username, password<br><br>

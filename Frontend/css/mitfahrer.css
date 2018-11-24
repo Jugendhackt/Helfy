@@ -55,3 +55,7 @@ body {
 .fahrten h2 {
     margin-left: 10px;
 }
+
+.hr {
+    background-color: dimgrey;
+}
