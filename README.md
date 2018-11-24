@@ -1,2 +1,2 @@
 # Helfy
-Gegenseitige Hilfe
+Gegenseitige Hilfe für alle
