@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Helfy - Mitfahrer</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+    <div class="container-float">
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center; background-color: darkorange; height: 100px;">
+                <h1 style="margin-top: 25px; display: inline-block;">Helfy - Mitfahren</h1>
+                <a class="btn btn-dark" href="#" role="button" style="float: right; margin-top: 10px; margin-right: 5px;">Log
+                    In</a>
+            </div>
+        </div>
+        <div id="alleFahren" class="row">
+            <div class="col-md-2"></div>
+            <div class="col-sm-12 col-md-4">
+                <h2>Gesuchte Fahrten</h2>
+                <div style="overflow-x:auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Von</th>
+                                <th scope="col">Nach</th>
+                                <th scope="col">Wann?</th>
+                                <th scope="col">Von</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>Heute, 12 Uhr</td>
+                                <td>Mustermensch</td>
+                                <td>
+                                    <button class="btn btn-dark btn-sm">Diese Fahrt anbieten</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-dark btn-lg addFahrten" style="position: center;">Weitere Fahrt suchen</button>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <h2>Angebotene Fahrten</h2>
+                <div style="overflow-x:auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Von</th>
+                                <th scope="col">Nach</th>
+                                <th scope="col">Wann?</th>
+                                <th scope="col">Fahrer</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>Heute, 12 Uhr</td>
+                                <td>Mustermensch</td>
+                                <td>
+                                    <button class="btn btn-dark btn-sm">Mitfahren</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-dark btn-lg addFahrten">Weitere Fahrt anbieten</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
