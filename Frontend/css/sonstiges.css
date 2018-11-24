@@ -1,3 +1,11 @@
+#list a:link {
+    color: navy;
+}
+
+#list a:visited {
+    color: navy;
+}
+
 body {
     overflow-x: hidden;
     height: 100%;
