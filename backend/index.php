@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
 
-$current_seccion_id = $_POST['seccion_id'];
+$current_session_id = $_POST['session_id'];
 
 function guidv4($data)
 {
@@ -51,19 +51,19 @@ function loginDataCorrect($ldc_username, $ldc_password){
 
 function login($ldc_username, $ldc_password){
     if(loginDataCorrect($ldc_username, $ldc_password)){
-        $ranseccion = guidv4(random_bytes(16));
-        $sql = "UPDATE `users` WHERE `username` = '$ldc_username' SET `seccion` = '$ranseccion'";
+        $ransession = guidv4(random_bytes(16));
+        $sql = "UPDATE `users` WHERE `username` = '$ldc_username' SET `session` = '$ransession'";
         $update = $mysqli->query($sql);
-        return $ranseccion;
+        return $ransession;
     }
 }
 
-function seccionCheck($username){
-    global $mysqli, $current_seccion_id;
+function sessionCheck($username){
+    global $mysqli, $current_session_id;
     $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
-    return ($current_seccion_id == $res['seccion'] && $current_seccion_id != "");
+    return ($current_session_id == $res['session'] && $current_session_id != "");
 }
 
 function idByUsername($username){
@@ -138,8 +138,8 @@ if($request == "newSeccion"){
 
 if($request == "addRide"){
     $u_username = ($_POST['username']);
-    $u_seccion_id = ($_POST['seccion_id']);
-    if(seccionCheck($u_username, $u_seccion_id)){
+    $u_session_id = ($_POST['session_id']);
+    if(sessionCheck($u_username, $u_session_id)){
         $u_type = ($_POST['type']);
         $u_start = ($_POST['start']);
         $u_ziel = ($_POST['ziel']);
@@ -162,8 +162,8 @@ if($request == "addRide"){
 
 if($request == "nearbyRides"){
     $u_username = ($_POST['username']);
-    $u_seccion_id = ($_POST['seccion_id']);
-    if(seccionCheck($u_username, $u_seccion_id)){
+    $u_session_id = ($_POST['session_id']);
+    //if(sessionCheck($u_username, $u_session_id)){
         $u_lat = $_POST['lat'];
         $u_lon = $_POST['lon'];
         $sql = "SELECT * FROM `mitfahren`";
@@ -177,13 +177,13 @@ if($request == "nearbyRides"){
 				echo $row['id'].",".$row['type'].",".$row['mitfahrer_id'].",".$row['fahrer_id'].",".$row['start'].",".$row['ziel'].",".$row['description'].",".$row['timestamp']."\n";
 			}
         }
-    }
+    //}
 }
 
 if($request == "editRide"){
 	$u_username = ($_POST['username']);
-    $u_seccion_id = ($_POST['seccion_id']);
-    if(seccionCheck($u_username, $u_seccion_id)){
+    $u_session_id = ($_POST['session_id']);
+    if(sessionCheck($u_username, $u_session_id)){
 		$u_fahrt_id = ($_POST['fahrt_id']);
 		$u_type = ($_POST['type']);
         $u_start = ($_POST['start']);
@@ -206,7 +206,7 @@ if($request == "editRide"){
 
 if($request == "logout"){
     $u_username = ($_POST['username']);
-    $sql = "UPDATE `users` WHERE `username` = '$u_username' SET `seccion` = ''";
+    $sql = "UPDATE `users` WHERE `username` = '$u_username' SET `session` = ''";
     $update = $mysqli->query($sql);
 }
 ?>
