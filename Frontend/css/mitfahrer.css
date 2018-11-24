@@ -1,0 +1,25 @@
+body {
+    overflow-x: hidden;
+}
+
+#alleFahren {
+    padding: 10px;
+}
+
+.addFahrten {
+    margin-bottom: 25px;
+}
+
+#search-box {
+    margin: 15px;
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box * {
+    display: inline;
+}
+
+#search-box img {
+    cursor: pointer;
+}
