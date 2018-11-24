@@ -61,6 +61,7 @@ async function showRoutes() {
         var elb = document.getElementById('gesuche');
         // get element content as string
         console.log(el.innerHTML);
+        // kommentar
         
         el.innerHTML = '';
         elb.innerHTML = '';
