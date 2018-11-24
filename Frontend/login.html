@@ -7,45 +7,32 @@
     <title>Helfy</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-
-    <style type="text/css">
-        #list a:link {
-            color: navy;
-        }
-
-        #list a:visited {
-            color: navy;
-        }
-
-        body {
-            background-color: white;
-            overflow-x: hidden;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
     <div class="container-float">
         <div class="row">
-            <div class="col-sm-12" style="text-align: center; background-color: darkorange; height: 100px;">
-                <h1 style="margin-top: 25px; display: inline-block;">Helfy - Log In</h1>
+            <div id="header" class="col-sm-12">
+                <h1 id="headertext">Helfy - Log In</h1>
             </div>
         </div>
 
         <br />
 
-        <div style="background-color: lightgrey; margin: 10px; box-shadow: 4px 4px 2px -2px gray; padding: 5px;">
+        <div id="formular">
 
                 <form>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Benutzername</label>
-                          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Benutzername">
+                          <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Benutzername">
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                          <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>
                         <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Submit</button>
+                        <input type="hidden" name="request" value="login"></input>
                       </form>
 
         </div>

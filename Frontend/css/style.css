@@ -23,3 +23,33 @@ body {
 #search-box img {
     cursor: pointer;
 }
+#list a:link {
+    color: navy;
+}
+
+#list a:visited {
+    color: navy;
+}
+
+body {
+    background-color: white;
+    overflow-x: hidden;
+}
+
+#header {
+    text-align: center;
+    background-color: darkorange;
+    height: 100px;
+}
+
+#headertext {
+    margin-top: 25px;
+    display: inline-block;
+}
+
+#formular {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 5px;
+}
