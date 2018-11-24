@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
 
-$current_seccion_id = $_POST['seccion_id_helfy'];
+$current_seccion_id = $_POST['seccion_id'];
 
 function guidv4($data)
 {
@@ -17,6 +17,28 @@ function guidv4($data)
     $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
 
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+}
+
+function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+    if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+      return 0;
+    }
+    else {
+      $theta = $lon1 - $lon2;
+      $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+      $dist = acos($dist);
+      $dist = rad2deg($dist);
+      $miles = $dist * 60 * 1.1515;
+      $unit = strtoupper($unit);
+  
+      if ($unit == "K") {
+        return ($miles * 1.609344);
+      } else if ($unit == "N") {
+        return ($miles * 0.8684);
+      } else {
+        return $miles;
+      }
+    }
 }
 
 function loginDataCorrect($ldc_username, $ldc_password){
@@ -86,8 +108,8 @@ $request = $_POST['request'];
 
 
 if($request == "registrateUser"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_password = mysql_real_escape_string($_POST['password']);
+    $u_username = ($_POST['username']);
+    $u_password = ($_POST['password']);
     if(registrateUser($u_username, $u_password)){
         echo "success";
     } else {
@@ -96,8 +118,8 @@ if($request == "registrateUser"){
 }
 
 if($request == "checkLoginData"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_password = mysql_real_escape_string($_POST['password']);
+    $u_username = ($_POST['username']);
+    $u_password = ($_POST['password']);
     if(loginDataCorrect($u_username, $u_password)){
         echo "correct";
     } else {
@@ -106,8 +128,8 @@ if($request == "checkLoginData"){
 }
 
 if($request == "newSeccion"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_password = mysql_real_escape_string($_POST['password']);
+    $u_username = ($_POST['username']);
+    $u_password = ($_POST['password']);
     if(loginDataCorrect($u_username, $u_password)){
         echo login($u_username, $u_password);
     }
@@ -115,13 +137,13 @@ if($request == "newSeccion"){
 
 
 if($request == "addRide"){
-    $u_username = mysql_real_escape_string($_POST['username']);
-    $u_seccion_id = mysql_real_escape_string($_POST['seccion_id']);
+    $u_username = ($_POST['username']);
+    $u_seccion_id = ($_POST['seccion_id']);
     if(seccionCheck($u_username, $u_seccion_id)){
-        $u_type = mysql_real_escape_string($_POST['type']);
-        $u_start = mysql_real_escape_string($_POST['start']);
-        $u_ziel = mysql_real_escape_string($_POST['ziel']);
-        $u_description = mysql_real_escape_string($_POST['description']);
+        $u_type = ($_POST['type']);
+        $u_start = ($_POST['start']);
+        $u_ziel = ($_POST['ziel']);
+        $u_description = ($_POST['description']);
         if($u_type == "true"){
             $fahrer_id = idByUsername($u_username);
             $mitfahrer_id = "";
@@ -136,4 +158,49 @@ if($request == "addRide"){
         echo "failed";
     }
 }
+
+
+if($request == "nearbyRides"){
+    $u_username = ($_POST['username']);
+    $u_seccion_id = ($_POST['seccion_id']);
+    if(seccionCheck($u_username, $u_seccion_id)){
+        $u_lat = $_POST['lat'];
+        $u_lon = $_POST['lon'];
+        $sql = "SELECT * FROM `mitfahren`";
+        $result = $mysqli->query($sql);
+        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $cur = explode(":::", $row['start'])[1];
+            $curr = explode(";;;", $cur);
+            $d_lat = $curr[0];
+            $d_lon = $curr[1];
+            if(distance(intval($u_lat), intval($u_lon), intval($d_lat), intval($d_lon), "K") < 10){
+				echo $row['id'].",".$row['type'].",".$row['mitfahrer_id'].",".$row['fahrer_id'].",".$row['start'].",".$row['ziel'].",".$row['description'].",".$row['timestamp']."\n";
+			}
+        }
+    }
+}
+
+if($request == "editRide"){
+	$u_username = ($_POST['username']);
+    $u_seccion_id = ($_POST['seccion_id']);
+    if(seccionCheck($u_username, $u_seccion_id)){
+		$u_fahrt_id = ($_POST['fahrt_id']);
+		$u_type = ($_POST['type']);
+        $u_start = ($_POST['start']);
+        $u_ziel = ($_POST['ziel']);
+        $u_description = ($_POST['description']);
+        $fahrer_id = $_POST['fahrer_id'];
+        $mitfahrer_id = $_POST['mitfahrer_id'];
+        $u_timestamp = $_POST['timestamp'];
+        if($u_timestamp == ""){
+            $u_timestamp = "CURRENT_TIMESTAMP";
+        }
+        $sql = "UPDATE `mitfahren` SET `type`='$u_type',`mitfahrer_id`='$u_mitfahrer_id',`fahrer_id`='$fahrer_id',`start`='$u_start',`ziel`='$u_ziel',`description`='$u_description',`timestamp`=$u_timestamp WHERE `id` = $u_fahrt_id";
+        $update = $mysqli->query($sql);
+        echo "success";
+    } else {
+        echo "failed";
+    }
+}
+
 ?>

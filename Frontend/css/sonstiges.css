@@ -1,0 +1,68 @@
+body {
+    overflow-x: hidden;
+    height: 100%;
+}
+
+#alleFahren {
+    padding: 10px;
+}
+
+.addFahrten {
+    margin-bottom: 25px;
+}
+
+#search-box {
+    margin: 15px;
+    display: inline;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+#search-box * {
+    display: inline;
+}
+
+#search-box img {
+    cursor: pointer;
+}
+
+#footer {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#header {
+    text-align: center;
+    background-color: darkorange; 
+    height: 100px;
+}
+
+#headertext {
+    margin-top: 25px; 
+    display: inline-block;
+}
+
+#gesucht {
+    margin-left: 10px;
+}
+
+#hr {
+    background-color: dimgrey;
+}
+
+#frage {
+    float: left;
+    margin-right: 10px; 
+    margin-left: 10px;
+}
+
+#hrfooter {
+    margin: 10px; 
+    border-radius: 20px;
+}
+
+#searchicon {
+    margin-left: 10px;
+}
