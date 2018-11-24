@@ -9,6 +9,7 @@
 body {
     background-color: white;
     overflow-x: hidden;
+    height: 100%;
 }
 
 #header {
@@ -31,4 +32,11 @@ body {
 #menu {
     margin-top: 40px;
     margin-left: 10px;
+}
+
+#footer {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
