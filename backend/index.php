@@ -203,4 +203,10 @@ if($request == "editRide"){
     }
 }
 
+
+if($request == "logout"){
+    $u_username = ($_POST['username']);
+    $sql = "UPDATE `users` WHERE `username` = '$u_username' SET `seccion` = ''";
+    $update = $mysqli->query($sql);
+}
 ?>
