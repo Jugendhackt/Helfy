@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy - Registration</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/login.css" />
+</head>
+
+<body>
+    <div class="container-float">
+        <div class="row">
+            <div id="header" class="col-sm-12">
+                <h1 id="headertext">Helfy - Registration</h1>
+            </div>
+        </div>
+
+        <br />
+        <div id="search-box" class="col-sm-12 col-md-4" action="#" onsubmit="readInput()">
+            <img src="img/pos-icon.png" onClick="getPos();" />
+            <input id="searchbar" class="form-control" type="text" />
+            <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
+        </div>
+        <div id="formular">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Von:</label>
+                    <input name="username" type="text" class="form-control" id="searchbar" aria-describedby="emailHelp"
+                        placeholder="Von welchem Ort">
+                        <img style="float: left;" src="img/pos-icon.png" onClick="getPos();" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Nach:</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Zu welchem Ort">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword2">Wann:</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Uhrzeit">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword2">Von</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Max Mustermann">
+                </div>
+                <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Eintrag erstellen!</button>
+                <input type="hidden" name="request" value="login"></input>
+            </form>
+
+            <br />
+
+        </div>
+
+        <div id="footer">
+            <hr style="margin: 10px; border-radius: 20px;">
+            <p id="list">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#">Log Out</a></p>
+        </div>
+        <script src="js/script.js"></script>
+    </div>
+</body>
+
+</html>

@@ -46,3 +46,20 @@ body {
     width: 100%;
     text-align: center;
 }
+
+#search-box {
+    margin: 15px;
+    display: inline;
+    white-space: nowrap;
+    width: 65%;
+}
+
+#search-box * {
+    display: inline;
+}
+
+#search-box img {
+    cursor: pointer;
+}
+
+
