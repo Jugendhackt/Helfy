@@ -1,5 +1,6 @@
 body {
     overflow-x: hidden;
+    height: 100%;
 }
 
 #alleFahren {
@@ -22,4 +23,11 @@ body {
 
 #search-box img {
     cursor: pointer;
+}
+
+#footer {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }
