@@ -24,7 +24,6 @@ body {
     margin: 15px;
     display: inline;
     white-space: nowrap;
-    width: 65%;
 }
 
 #search-box * {
@@ -45,11 +44,14 @@ body {
 }
 
 #frage {
-    float: left;
-    margin-right: 10px; 
-    margin-left: 10px;
+    margin: 30px;
+    margin-right: 0;
 }
 
-#gesucht {
+.fahrten {
+    margin-bottom: 20px;
+}
+
+.fahrten h2 {
     margin-left: 10px;
 }
