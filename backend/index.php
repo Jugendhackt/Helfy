@@ -191,8 +191,12 @@ if($request == "editRide"){
         $u_description = ($_POST['description']);
         $fahrer_id = $_POST['fahrer_id'];
         $mitfahrer_id = $_POST['mitfahrer_id'];
-        $sql = "INSERT INTO `mitfahren` VALUES (NULL, '$u_type', '$mitfahrer_id', '$fahrer_id', '$u_start', '$u_ziel', '$u_description', CURRENT_TIMESTAMP)";
-        $insert = $mysqli->query($sql);
+        $u_timestamp = $_POST['timestamp'];
+        if($u_timestamp == ""){
+            $u_timestamp = "CURRENT_TIMESTAMP";
+        }
+        $sql = "UPDATE `mitfahren` SET `type`='$u_type',`mitfahrer_id`='$u_mitfahrer_id',`fahrer_id`='$fahrer_id',`start`='$u_start',`ziel`='$u_ziel',`description`='$u_description',`timestamp`=$u_timestamp WHERE `id` = $u_fahrt_id";
+        $update = $mysqli->query($sql);
         echo "success";
     } else {
         echo "failed";
