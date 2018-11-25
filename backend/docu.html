@@ -3,7 +3,7 @@
 
 <h2>MySQL Database</h2>
 <p>Helfy requiers a database with two tables ("users" and "mitfahren"). Configure the passwords.php file to adjust Helfy to your database (see passwords.sample.php)</p>
-<b>users</b> has got the following collumns: `id`, `username`, `password`, `seccion`<br>
+<b>users</b> has got the following collumns: `id`, `username`, `password`, `session`<br>
 <b>mitfahren</b> has got the following collumns: `id`, `type`, `mitfahrer_id`, `fahrer_id`, `start`, `ziel`, `description`, `timestamp`<br><br>
 
 <h2>Backend</h2>
@@ -17,16 +17,16 @@ requires: username, password<br><br>
 
 newSeccion<br>
 requires: username, password<br>
-returns: seccion_id<br><br>
+returns: session_id<br><br>
 
 addRide<br>
-requires: username, seccion_id, type, start, ziel, description<br>
+requires: username, session_id, type, start, ziel, description<br>
 returns: success/failed<br><br>
 
 nearbyRides<br>
-requires: username, seccion_id, lat, lon<br>
+requires: username, session_id, lat, lon<br>
 returns: csv of results (fahrt_id, type, mitfahrer_id, fahrer_id, start, ziel, description, timestamp) <br><br>
 
 editRide<br>
-requires: fahrt_id, seccion_id, username, type, mitfahrer_id, fahrer_id, start, ziel, description, timestamp<br>
+requires: fahrt_id, session_id, username, type, mitfahrer_id, fahrer_id, start, ziel, description, timestamp<br>
 returns: success/failed<br><br>
