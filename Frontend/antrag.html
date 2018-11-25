@@ -44,8 +44,11 @@
                 </div>
                 <div class="form-group">
                     <li style="list-style-type: none;">Wann:</li>
-                    <input style="width: 100%;" name="datetime" type="datetime-local" placeholder="tt.mm.jjjj, --:--"
-                        onfocus="cont=this.value;this.value=''" /><br />
+                    <div id="search-box3">
+                        <img style="visibility: hidden" src="img/pos-icon.png" onClick="getPos('endPlace');" />
+                        <input style="width: 90%;" name="datetime" type="text" placeholder="tt.mm.jjjj, --:--"
+                            onfocus="cont=this.value;this.value=''" /><br />
+                    </div>
                 </div>
                 <div style="text-align: center;">
                     <button id="einstellen" class="btn btn-dark" type="submit">Eintrag
