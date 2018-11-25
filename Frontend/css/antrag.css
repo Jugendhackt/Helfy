@@ -48,7 +48,7 @@ body {
 }
 
 #search-box1 {
-    display: inline-block;
+    display: inline;
     white-space: nowrap;
 }
 
