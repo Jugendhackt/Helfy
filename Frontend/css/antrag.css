@@ -1,0 +1,92 @@
+#list a:link {
+    color: navy;
+}
+
+#list a:visited {
+    color: navy;
+}
+
+body {
+    background-color: white;
+    overflow-x: hidden;
+}
+
+#header {
+    text-align: center;
+    background-color: darkorange;
+    height: 100px;
+}
+
+#headertext {
+    margin-top: 25px;
+    display: inline-block;
+}
+
+#formular {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 10px;
+}
+
+@media (min-width: 450px) {
+    #formular {
+        background-color: lightgrey;
+        margin: 10px;
+        box-shadow: 4px 4px 2px -2px gray;
+        padding: 12px;
+        width: 40%;
+        margin-left: 30%;
+    }
+  }
+
+#footer {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#search-box1 {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#search-box1 * {
+    display: inline;
+}
+
+#search-box1 img {
+    cursor: pointer;
+}
+
+#search-box2 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box2 * {
+    display: inline;
+}
+
+#search-box2 img {
+    cursor: pointer;
+    
+}
+
+#search-box3 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box3 * {
+    display: inline;
+}
+
+#search-box3 img {
+    cursor: pointer;
+    
+}
+
+
+

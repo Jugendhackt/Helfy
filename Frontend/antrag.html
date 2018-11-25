@@ -7,7 +7,7 @@
     <title>Helfy - Registration</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/registration.css" />
+    <link rel="stylesheet" href="css/antrag.css" />
 </head>
 
 <body>
@@ -24,22 +24,27 @@
             <form>
                 <div class="form-group">
                     <span class="location">
-                        <label>Von:</label>
+                        <li style="list-style-type: none;">Von:</li>
+                        <div id="search-box1">
                         <img src="img/pos-icon.png" onClick="getPos('startPlace');" />
-                        <input id="startPlace" style="display: inline-block;" name="start" type="text" placeholder="Von welchem Ort" onfocus="cont=this.value;this.value=''" />
-                    </span><br />
+                        <input style="width: 180%;" id="startPlace" style="display: inline-block;" name="start" type="text" placeholder="Von welchem Ort" onfocus="cont=this.value;this.value=''" />
+                        </div>
+                    </span>
+                    <br />
                     <span class="location">
-                        <label>Nach:</label>
+                        <li style="list-style-type: none;">Nach:</li>
+                        <div id="search-box2">
                         <img src="img/pos-icon.png" onClick="getPos('endPlace');" />
-                        <input id="endPlace" name="ende" type="text" placeholder="Zu welchem Ort" onfocus="cont=this.value;this.value=''" />
+                        <input style="width: 180%;" id="endPlace" name="ende" type="text" placeholder="Zu welchem Ort" onfocus="cont=this.value;this.value=''" />
+                        </div>
                     </span>
                     <br />
                 </div>
                 <div class="form-group">
-                    <label>Wann:</label>
-                    <input name="datetime" type="datetime-local" placeholder="Zeitpunkt" onfocus="cont=this.value;this.value=''" /><br />
+                    <li style="list-style-type: none;">Wann:</li>
+                    <input style="width: 200%;" name="datetime" type="datetime-local" placeholder="tt.mm.jjjj, --:--" onfocus="cont=this.value;this.value=''" /><br />
                 </div>
-                <button id="einstellen" class="btn btn-dark" type="submit">Eintrag einstellen!</button>
+                <button style="margin-left: 70%" class="btn btn-dark" type="submit">Eintrag einstellen!</button>
             </form>
         </div>
 
