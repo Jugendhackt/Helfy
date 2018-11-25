@@ -27,7 +27,7 @@ function readInput() { // Wird ausgeführt durch Form searchbar
 
 async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis aus und gibts in input ein
     try {
-        const request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=10&q=' + search);
+        const request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&q=' + search);
         const data = await request.json();
 
         lat = data[0]["lat"];
