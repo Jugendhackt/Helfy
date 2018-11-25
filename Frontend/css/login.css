@@ -6,6 +6,10 @@
     color: navy;
 }
 
+#list {
+    text-align: center;
+}
+
 body {
     background-color: white;
     overflow-x: hidden;
