@@ -7,7 +7,7 @@
     <title>Helfy - Registration</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/registration.css" />
 </head>
 
 <body>
@@ -19,23 +19,19 @@
         </div>
 
         <br />
-        <!--<div id="search-box" class="col-sm-12 col-md-4" action="#" onsubmit="readInput()">
-            <img src="img/pos-icon.png" onClick="getPos();" />
-            <input id="searchbar" class="form-control" type="text" />
-            <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
-        </div>-->
+
         <div id="formular" class="row">
             <form>
                 <div class="form-group">
                     <span class="location">
                         <label>Von:</label>
-                        <img src="img/pos-icon.png" onClick="getPos();"/>
-                        <input style="display: inline-block;" name="start" type="text" placeholder="Von welchem Ort" />
+                        <img src="img/pos-icon.png" onClick="getPos('startPlace');" />
+                        <input id="startPlace" style="display: inline-block;" name="start" type="text" placeholder="Von welchem Ort" />
                     </span><br />
                     <span class="location">
                         <label>Nach:</label>
-                        <img src="img/pos-icon.png" onClick="getPos();" />
-                        <input name="ende" type="text" placeholder="Zu welchem Ort" />
+                        <img src="img/pos-icon.png" onClick="getPos('endPlace');" />
+                        <input id="endPlace" name="ende" type="text" placeholder="Zu welchem Ort" />
                     </span>
                     <br />
                 </div>
@@ -46,14 +42,6 @@
                 <button class="btn btn-dark" type="submit">Eintrag einstellen!</button>
             </form>
         </div>
-        <!--<form>
-            <div class="form-group">
-                <label for="exampleInputPassword2">Von</label>
-                <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Max Mustermann">
-            </div>
-            <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Eintrag erstellen!</button>
-            <input type="hidden" name="request" value="login"></input>
-        </form>-->
 
         <br />
 
@@ -63,7 +51,7 @@
         <hr style="margin: 10px; border-radius: 20px;">
         <p id="list">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#">Log Out</a></p>
     </div>
-    <script src="js/antrag.js"></script>
+    <script src="js/addRide.js"></script>
     </div>
 </body>
 
