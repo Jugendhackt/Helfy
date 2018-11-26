@@ -12,8 +12,8 @@ $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
 
 //$current_session_id = $_GET['session_id'];
 
-
-function guidv4($data){ // this function creates a unique session_id
+function guidv4($data)
+{
     assert(strlen($data) == 16);
 
     $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
@@ -21,6 +21,16 @@ function guidv4($data){ // this function creates a unique session_id
 
     return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
+
+//function getCoordinates($where){
+	//$url = 'https://nominatim.openstreetmap.org/search.php?q='.$where.'&format=json';
+	//$content = file_get_contents($url);
+	//$rawc = json_decode($content);
+	//$coor = $rawc[0]["lan"].";;;".$rawc[0]["lon"];
+	//return $coor;
+	//}
+
+//echo getCoordinates("harpolingen");
 
 function distance($lat1, $lon1, $lat2, $lon2, $unit) {
     if (($lat1 == $lat2) && ($lon1 == $lon2)) {
@@ -143,8 +153,8 @@ if($request == "newSession"){
 
 if($request == "addRide"){
     $u_username = ($_GET['username']);
-    $u_session_id = ($_GET['session_id']);
-    if(sessionCheck($u_username, $u_session_id)){
+    //$u_session_id = ($_GET['session_id']);
+    //if(sessionCheck($u_username, $u_session_id)){
         $u_type = ($_GET['type']);
         $u_start = ($_GET['start']);
         $u_ziel = ($_GET['ziel']);
@@ -159,9 +169,9 @@ if($request == "addRide"){
         $sql = "INSERT INTO `mitfahren` VALUES (NULL, '$u_type', '$mitfahrer_id', '$fahrer_id', '$u_start', '$u_ziel', '$u_description', CURRENT_TIMESTAMP)";
         $insert = $mysqli->query($sql);
         echo "success";
-    } else {
-        echo "failed";
-    }
+    //} else {
+    //    echo "failed";
+    //}
 }
 
 
@@ -190,7 +200,7 @@ if($request == "nearbyRides"){
             $d_lat = $curr[0];
             $d_lon = $curr[1];
             #echo json_encode($row);
-            if(distance(intval($u_lat), intval($u_lon), intval($d_lat), intval($d_lon), "K") < 10){
+            if(distance(intval($u_lat), intval($u_lon), intval($d_lat), intval($d_lon), "K") < 100){
 				#echo $row['id'].",".$row['type'].",".$row['mitfahrer_id'].",".$row['fahrer_id'].",".$row['start'].",".$row['ziel'].",".$row['description'].",".$row['timestamp']."\n";
 				$row['start_klar'] = explode(":::", $row['start'])[0];
 				$row['start_lat'] = explode(";;;", explode(":::", $row['start'])[1])[0];
