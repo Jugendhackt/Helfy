@@ -10,7 +10,9 @@ error_reporting(E_ALL);
 
 $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
 
+
 //$current_session_id = $_GET['session_id'];
+
 
 function guidv4($data)
 {
@@ -55,7 +57,8 @@ function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 }
 
 function loginDataCorrect($ldc_username, $ldc_password){
-	global $mysqli;
+    global $mysqli;
+    $ldc_username = $mysqli->real_escape_string($ldc_username);
     $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
@@ -63,14 +66,16 @@ function loginDataCorrect($ldc_username, $ldc_password){
 }
 
 function login($ldc_username, $ldc_password){
+	global $mysqli;
     if(loginDataCorrect($ldc_username, $ldc_password)){
+		$ldc_username = $mysqli->real_escape_string($ldc_username);
         $ransession = guidv4(random_bytes(16));
         $sql = "UPDATE `users` WHERE `username` = '$ldc_username' SET `session` = '$ransession'";
         $update = $mysqli->query($sql);
         return $ransession;
     }
 }
-
+/*
 function sessionCheck($username){
     global $mysqli, $current_session_id;
     $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
@@ -78,15 +83,16 @@ function sessionCheck($username){
     $res = $result->fetch_assoc();
     return ($current_session_id == $res['session'] && $current_session_id != "");
 }
-
+*/
 function idByUsername($username){
     global $mysqli;
+    $username = $mysqli->real_escape_string($username);
     $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
     return res['id'];
 }
-
+/*
 function registrateUser($rg_username, $rg_password){
 	global $mysqli;
     $sql = "SELECT * FROM `users` WHERE `username` = '$rg_username'";
@@ -119,9 +125,10 @@ function addRide($type, $user_id, $start, $ziel, $description){
 if(!(isset($_GET['request']))){
 	exit();
 }
+*/
 $request = $_GET['request'];
 
-
+/*
 if($request == "registrateUser"){
     $u_username = ($_GET['username']);
     $u_password = ($_GET['password']);
@@ -131,7 +138,7 @@ if($request == "registrateUser"){
         echo "failed";
     }
 }
-
+*/
 if($request == "checkLoginData"){
     $u_username = ($_GET['username']);
     $u_password = ($_GET['password']);
@@ -150,7 +157,7 @@ if($request == "newSession"){
     }
 }
 
-
+/*
 if($request == "addRide"){
     $u_username = ($_GET['username']);
     //$u_session_id = ($_GET['session_id']);
@@ -173,10 +180,11 @@ if($request == "addRide"){
     //    echo "failed";
     //}
 }
-
+*/
 
 function idToName($u_id){
 	global $mysqli;
+	$u_id = $mysqli->real_escape_string($u_id);
     $sql = "SELECT * FROM `users` WHERE `id` = '$u_id'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
@@ -221,6 +229,7 @@ if($request == "nearbyRides"){
     //}
 }
 
+/*
 if($request == "editRide"){
 	$u_username = ($_GET['username']);
     $u_session_id = ($_GET['session_id']);
@@ -240,10 +249,12 @@ if($request == "editRide"){
     }
 }
 
+
 if($request == "logout"){
     $u_username = ($_POST['username']);
     $sql = "UPDATE `users` WHERE `username` = '$u_username' SET `session` = ''";
     $update = $mysqli->query($sql);
 }
+*/
 
 ?>
