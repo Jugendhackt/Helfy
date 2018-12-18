@@ -1,6 +1,5 @@
 <?php 
-include("passwords.php");
-header("Access-Control-Allow-Origin: *");
+require("main.php");
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -8,6 +7,14 @@ error_reporting(E_ALL);
 
 
 if(!(isset($_GET['request']))){
+	?>
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex, nofollow"/>
+	</head>
+	<?php
 	exit();
 }
 
@@ -17,7 +24,12 @@ $request = $_GET['request'];
 if($request == "registrateUser"){
     $u_username = ($_GET['username']);
     $u_password = ($_GET['password']);
-    if(registrateUser($u_username, $u_password)){
+    $u_email = ($_GET['email']);
+    $u_vname = ($_GET['vname']);
+    $u_nname = ($_GET['nname']);
+    $u_ort = ($_GET['ort']);
+    $u_plz = ($_GET['plz']);
+    if(registrateUser($u_username, $u_password, $u_email, $u_vname, $u_nname, $u_ort, $u_plz)){
         echo "success";
     } else {
         echo "failed";

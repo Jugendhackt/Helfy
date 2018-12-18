@@ -1,11 +1,21 @@
 <?php 
 include("passwords.php");
+header("Access-Control-Allow-Origin: ".$server_name);
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex, nofollow"/>
+</head>
+<?php
 
 
 function guidv4($data)
@@ -136,20 +146,23 @@ function idToName($u_id){
 	}
 
 
-function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_nachname){
+function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_nachname, $rg_ort, $rg_plz){
 	global $mysqli;
 	$rg_username = $mysqli->real_escape_string($rg_username);
 	$rg_email = $mysqli->real_escape_string($rg_email);
 	$rg_vorname = $mysqli->real_escape_string($rg_vorname);
 	$rg_nachname = $mysqli->real_escape_string($rg_nachname);
-	
+    $rg_ort = $mysqli->real_escape_string($rg_ort);
+    $rg_plz = $mysqli->real_escape_string($rg_plz);
+    $rg_settings = "ORT=".$rg_ort.";PLZ=".$rg_plz;
+
     $sql = "SELECT * FROM `users` WHERE `username` = '$rg_username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
     $rg_password_crypt = password_hash($rg_password,PASSWORD_DEFAULT);
     $hash = guidv4(random_bytes(16));
-    if($res == ""){
-        $sql = "INSERT INTO `users` VALUES (NULL, '$rg_username', '$rg_password_crypt', '$rg_vorname', '$rg_nachname', '$rg_email', '', 0, '$hash')";
+    if($res == "" && $rg_username != "" && $rg_password != "" && $rg_email != "" && $rg_vorname != "" && $rg_nachname != ""){
+        $sql = "INSERT INTO `users` VALUES (NULL, '$rg_username', '$rg_password_crypt', '$rg_vorname', '$rg_nachname', '$rg_email', '$rg_settings', 0, '$hash')";
         $insert = $mysqli->query($sql);
         return true;
     } else {
