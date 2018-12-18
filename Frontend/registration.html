@@ -9,127 +9,145 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/registration.css" />
 </head>
-
 <body>
-    <div class="container-float">
-        <div class="row">
-            <div id="header" class="col-sm-12">
-                <h1 id="headertext">Helfy - Registration</h1>
+  <div class="container-float">
+    <h1>
+      Helfy - Registration
+    </h1>
+    <p id="simpleoutput"></p>
+    <div id="formular">
+      <form class="needs-validation" novalidate>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationVname">Vorname *</label>
+            <input type="text" class="form-control" id="validationVname" placeholder="Vorname" onkeyup="autoUsername()" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationNname">Nachname *</label>
+            <input type="text" class="form-control" id="validationNname" placeholder="Nachname" onkeyup="autoUsername()" required>
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="validationEmail">E-Mail Adresse *</label>
+                <input type="text" class="form-control" id="validationEmail" placeholder="email@example.com" required>
+                <div class="invalid-feedback">
+                        Sie müssen später ihre E-Mail Adresse bestätigen.
+                </div>
             </div>
         </div>
-
-        <br />
-
-        <div id="formular">
-                <form class="needs-validation" novalidate>
-                        <div class="form-row">
-                          <div class="col-md-6 mb-3">
-                            <label for="validationCustom01">Vorname</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="Vorname" onkeyup="autoUsername()" required>
-                            <div class="valid-feedback">
-                              Sehr gut.
-                            </div>
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="validationCustom02">Nachname</label>
-                            <input type="text" class="form-control" id="validationCustom02" placeholder="Nachname" onkeyup="autoUsername()" required>
-                            <div class="valid-feedback">
-                                Sehr gut.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-6 mb-3">
-                                <label for="validationCustom01">E-Mail Adresse</label>
-                                <input type="text" class="form-control" id="validationEmail" placeholder="email@example.com" required>
-                                <div class="invalid-feedback">
-                                        Sie müssen später ihre E-Mail Adresse bestätigen.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                                <div class="col-md-6 mb-3">
-                                  <label for="validationCustomUsername">Benutzername</label>
-                                  <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="validationCustomUsername" placeholder="Benutzername" aria-describedby="inputGroupPrepend" required>
-                                    <div class="invalid-feedback">
-                                      Bitte wählen Sie einen Benutzernamen.
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                        <div class="form-row">
-                          <div class="col-md-6 mb-3">
-                            <label for="validationCustom03">Ort</label>
-                            <input type="text" class="form-control" id="validationCustom03" placeholder="Ort" required>
-                            <div class="invalid-feedback">
-                              Bitte geben Sie ihren Wohnort ein.
-                            </div>
-                          </div>
-                          <div class="col-md-3 mb-3">
-                            <label for="validationCustom05">Postleitzahl</label>
-                            <input type="text" class="form-control" id="validationCustom05" placeholder="PLZ" required>
-                            <div class="invalid-feedback">
-                              Bitte geben Sie ihre Postleitzahl ein.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                            <label class="form-check-label" for="invalidCheck">
-                              Ich stimme den Nutzerbedingungen zu.
-                            </label>
-                            <div class="invalid-feedback">
-                              Sie müssen zustimmen um sich registrieren zu können!
-                            </div>
-                          </div>
-                        </div>
-                        <button class="btn btn-primary" type="submit">Registrieren</button>
-                      </form>
-                      
-                    <script>
-                      // Example starter JavaScript for disabling form submissions if there are invalid fields
-                      (function() {
-                        'use strict';
-                        window.addEventListener('load', function() {
-                          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                          var forms = document.getElementsByClassName('needs-validation');
-                          // Loop over them and prevent submission
-                          var validation = Array.prototype.filter.call(forms, function(form) {
-                            form.addEventListener('submit', function(event) {
-                              if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                              }
-                              form.classList.add('was-validated');
-                            }, false);
-                          });
-                        }, false);
-                      })();
-                      
-                    function autoUsername(){
-                        var vname = document.getElementById("validationCustom01").value.toLowerCase();
-                        var nname = document.getElementById("validationCustom02").value.toLowerCase();
-                        var username = document.getElementById("validationCustomUsername");
-                        if(vname + "." + nname == "."){
-                            username.value = "";    
-                        } else if(vname != "" && nname != "") {
-                            username.value = vname + "." + nname;
-                        }
-                    }
-                      
-                    </script>
-
-            <br />
-
+        <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationUsername">Benutzername *</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationUsername" placeholder="Benutzername" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                      Bitte wählen Sie einen Benutzernamen.
+                    </div>
+                  </div>
+                </div>
+              </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationPassword">Passwort *</label>
+            <input type="password" class="form-control" id="validationPassword" placeholder="Passwort" onkeyup="pwdSame()"  required>
+            <div class="invalid-feedback">
+              Sie müssen ein Passwort eingeben.
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationPasswordWdh">Passwort wiederholen *</label>
+            <input type="password" class="form-control" id="validationPasswordWdh" placeholder="Passwort wiederholen" onkeyup="pwdSame()" required>
+            <div class="invalid-feedback">
+              Sie müssen Ihr Passwort wiederholen.
+            </div>
+          </div>
+        <p id="passwordsame" style="margin-bottom: 14px; margin-left: 12px; font-size: 13px;"></p>
         </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationOrt">Ort</label>
+            <input type="text" class="form-control" id="validationOrt" placeholder="Ort">
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="validationPlz">Postleitzahl</label>
+            <input type="text" class="form-control" id="validationPlz" placeholder="PLZ">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="validationCheckbox" required>
+            <label class="form-check-label" for="validationCheckbox">
+              Ich stimme den Nutzerbedingungen zu. *
+            </label>
+            <div class="invalid-feedback">
+              Sie müssen zustimmen um sich registrieren zu können!
+            </div>
+          </div>
+        </div>
+        <div class="form-row" style="font-size: 14px; padding: 12px;">
+          Die mit * markierten Felder müssen ausgefüllt werden.
+        </div>
+        <div style="margin-top: 10px;">
+          <button class="btn btn-primary" type="submit">Registrieren</button>
+        </div>
+      </form>
+      
+      <script src="js/registrateUser.js"></script>
+      <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                } else {
+                  registrateUser();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
 
+        function pwdSame(){
+          var pwd1 = document.getElementById("validationPassword").value;
+          var pwd2 = document.getElementById("validationPasswordWdh").value;
+          if(pwd1 != pwd2 && pwd2 != "" && pwd1 != ""){
+            document.getElementById("passwordsame").innerHTML = "Die Passwörter stimmen nicht überein.";
+            document.getElementById("passwordsame").style.color = "red";
+          } else if(pwd1 == pwd2 && pwd1 != "") {
+            document.getElementById("passwordsame").innerHTML = "Die Passwörter stimmen überein.";
+            document.getElementById("passwordsame").style.color = "green";
+          } else {
+            document.getElementById("passwordsame").innerHTML = "";
+          }
+        }
 
+        function autoUsername(){
+          var vname = document.getElementById("validationVname").value.toLowerCase();
+          var nname = document.getElementById("validationNname").value.toLowerCase();
+          var username = document.getElementById("validationUsername");
+          if(vname + "." + nname == "."){
+              username.value = "";    
+          } else if(vname != "" && nname != "") {
+              username.value = vname + "." + nname;
+          }
+        }
+        
+      </script>
+      <br />
     </div>
+
+
+  </div>
 </body>
 
 </html>
