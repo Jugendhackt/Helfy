@@ -16,21 +16,21 @@
     </h1>
     <p id="simpleoutput"></p>
     <div id="formular">
-      <form class="needs-validation" novalidate>
+      <form class="needs-validation" id="registform" novalidate>
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationVname">Vorname *</label>
-            <input type="text" class="form-control" id="validationVname" placeholder="Vorname" onkeyup="autoUsername()" required>
+            <input type="text" class="form-control" id="validationVname" placeholder="Vorname" onkeyup="autoUsername()"  name="vname" required>
           </div>
           <div class="col-md-6 mb-3">
             <label for="validationNname">Nachname *</label>
-            <input type="text" class="form-control" id="validationNname" placeholder="Nachname" onkeyup="autoUsername()" required>
+            <input type="text" class="form-control" id="validationNname" placeholder="Nachname" onkeyup="autoUsername()"  name="nname" required>
           </div>
         </div>
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="validationEmail">E-Mail Adresse *</label>
-                <input type="text" class="form-control" id="validationEmail" placeholder="email@example.com" required>
+                <input type="text" class="form-control" id="validationEmail" placeholder="email@example.com"  name="email" required>
                 <div class="invalid-feedback">
                         Sie müssen später ihre E-Mail Adresse bestätigen.
                 </div>
@@ -43,24 +43,25 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
                     </div>
-                    <input type="text" class="form-control" id="validationUsername" placeholder="Benutzername" aria-describedby="inputGroupPrepend" required>
+                    <input type="text" class="form-control" id="validationUsername" placeholder="Benutzername" onkeyup="usernameCorrection()" aria-describedby="inputGroupPrepend"  name="username" required>
                     <div class="invalid-feedback">
                       Bitte wählen Sie einen Benutzernamen.
                     </div>
+                    <p id="usernameret" style="padding: 10px; font-size: 13px;"></p>
                   </div>
                 </div>
               </div>
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationPassword">Passwort *</label>
-            <input type="password" class="form-control" id="validationPassword" placeholder="Passwort" onkeyup="pwdSame()"  required>
+            <input type="password" class="form-control" id="validationPassword" placeholder="Passwort" onkeyup="pwdSame()"  name="pwd" required>
             <div class="invalid-feedback">
               Sie müssen ein Passwort eingeben.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="validationPasswordWdh">Passwort wiederholen *</label>
-            <input type="password" class="form-control" id="validationPasswordWdh" placeholder="Passwort wiederholen" onkeyup="pwdSame()" required>
+            <input type="password" class="form-control" id="validationPasswordWdh" placeholder="Passwort wiederholen" onkeyup="pwdSame()"  name="pwdWdh" required>
             <div class="invalid-feedback">
               Sie müssen Ihr Passwort wiederholen.
             </div>
@@ -70,16 +71,16 @@
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationOrt">Ort</label>
-            <input type="text" class="form-control" id="validationOrt" placeholder="Ort">
+            <input type="text" class="form-control" id="validationOrt" placeholder="Ort" name="ort">
           </div>
           <div class="col-md-3 mb-3">
             <label for="validationPlz">Postleitzahl</label>
-            <input type="text" class="form-control" id="validationPlz" placeholder="PLZ">
+            <input type="text" class="form-control" id="validationPlz" placeholder="PLZ" name="plz">
           </div>
         </div>
         <div class="form-group">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="validationCheckbox" required>
+            <input class="form-check-input" type="checkbox" value="" id="validationCheckbox" name="check" required>
             <label class="form-check-label" for="validationCheckbox">
               Ich stimme den Nutzerbedingungen zu. *
             </label>
@@ -92,12 +93,31 @@
           Die mit * markierten Felder müssen ausgefüllt werden.
         </div>
         <div style="margin-top: 10px;">
-          <button class="btn btn-primary" type="submit">Registrieren</button>
+          <input class="btn btn-primary" type="submit" method="get" value="Registrieren">
+          <input type="hidden" name="state" value="registme">
         </div>
       </form>
       
       <script src="js/registrateUser.js"></script>
       <script>
+
+      function findGetParameter(parameterName) {
+          var result = null,
+              tmp = [];
+          location.search
+              .substr(1)
+              .split("&")
+              .forEach(function (item) {
+                tmp = item.split("=");
+                if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+              });
+          return result;
+      }
+
+      if(findGetParameter("state") == "registme"){
+        window.location.href = "actinfo.html?state=registme&username=" + findGetParameter("username") + "&pwd=" + findGetParameter("pwd") + "&pwdWdh=" + findGetParameter("pwdWdh") + "&email=" + findGetParameter("email") + "&vname=" + findGetParameter("vname") + "&nname=" + findGetParameter("nname") + "&ort=" + findGetParameter("ort") + "&plz=" + findGetParameter("plz");
+      }
+
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
           'use strict';
@@ -108,8 +128,6 @@
                 if (form.checkValidity() === false) {
                   event.preventDefault();
                   event.stopPropagation();
-                } else {
-                  registrateUser();
                 }
                 form.classList.add('was-validated');
               }, false);
@@ -131,6 +149,15 @@
           }
         }
 
+        function usernameCorrection(){
+          var username = document.getElementById("validationUsername");
+          if(username.value.includes("?") || username.value.includes("&") || username.value.includes("=") || username.value.includes(" ") || username.value.includes("!") || username.value.includes("\"") || username.value.includes("'") || username.value.includes("#") || username.value.includes("*")){
+            username.value = username.value.replace("?", "").replace("&", "").replace("=", "").replace(" ", "").replace("!", "").replace("\"", "").replace("'", "").replace("*", "").replace("#", "");
+            document.getElementById("usernameret").innerHTML = "Sie können kein Leerzeichen sowie !?&=\"'#* benutzen.";
+            document.getElementById("usernameret").style.color = "red";
+          }
+        }
+
         function autoUsername(){
           var vname = document.getElementById("validationVname").value.toLowerCase();
           var nname = document.getElementById("validationNname").value.toLowerCase();
@@ -138,7 +165,7 @@
           if(vname + "." + nname == "."){
               username.value = "";    
           } else if(vname != "" && nname != "") {
-              username.value = vname + "." + nname;
+              username.value = vname.replace(" ", ".") + "." + nname.replace(" ", ".");
           }
         }
         
