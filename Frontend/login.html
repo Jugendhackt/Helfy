@@ -12,44 +12,36 @@
 
 <body>
     <div class="container-float">
-        <div class="row">
-            <div id="header" class="col-sm-12">
-                <h1 id="headertext">Helfy - Log In</h1>
-            </div>
-        </div>
+        <h1>
+            Helfy - Login
+        </h1>
 
         <br />
 
         <div id="formular">
 
             <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Benutzername:</label>
-                    <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Benutzername">
+                <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                    <input name="username" type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Benutzername">
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Passwort:</label>
-                    <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Passwort">
+                <div class="form-group"  style="max-width: 250px; margin: auto; padding: 10px 0px;">
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Passwort">
                 </div>
-                <button type="submit" class="btn btn-dark" style="margin-left: 40%;">Anmelden!</button>
+                <p id="errorline" style="color: red; font-size: 13px; text-align: center;"></p>
+                <button type="button" class="btn btn-dark" style="margin-left: 40%;" onclick="loginAction()">Anmelden!</button>
                 <input type="hidden" name="request" value="login"></input>
             </form>
 
             <br />
 
             <div>
-                <p id="list">Noch nicht angemeldet ? Jetzt <a href="registration.html">registrieren</a> !</p>
+                <p id="list">Noch nicht angemeldet? Jetzt <a href="registration.html">registrieren</a>!</p>
             </div>
 
         </div>
 
-        <div id="footer">
-            <hr style="margin: 10px; border-radius: 20px;">
-            <p id="list">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#">Log Out</a></p>
-        </div>
-
     </div>
+    <script src="js/session.js"></script>
 </body>
 
 </html>

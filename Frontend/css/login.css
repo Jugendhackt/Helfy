@@ -1,3 +1,11 @@
+h1 {
+    color: black;
+    background: orange;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
 #list a:link {
     color: navy;
 }
