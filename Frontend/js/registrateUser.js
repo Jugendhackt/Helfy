@@ -2,7 +2,7 @@
 Registration
 */
 
-var server_url = "";
+var server_url = "https://example.url.com";
 
 
 async function existsUser() {
