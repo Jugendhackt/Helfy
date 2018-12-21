@@ -74,7 +74,7 @@ async function registrateUserFromData(username, password, passwordWdh, email, vn
 
         } catch (e) {
             console.error('fetch error', e);
-            document.getElementById("simpleoutput").innerHTML = "Die Verbindung zum Server ist fehlgeschlagen!";
+            document.getElementById("simpleoutput").innerHTML = "<center>Die Verbindung zum Server ist fehlgeschlagen!</center><br />";
         }
     } else {
         document.getElementById("simpleoutput").innerHTML = "Die Passwörter sind nicht gleich!";

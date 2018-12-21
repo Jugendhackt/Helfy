@@ -16,13 +16,18 @@
         <h1 id="heading">
             Helfy
         </h1>
+
+        <br />
+        
         <form>
             <input id="answer" value="none" type="hidden">
         </form>
     </div>
     <div id="formular">
         <p id="simpleoutput">Bitte warten...</p>
+        <center>
         <button class="btn btn-primary" onclick="self.location.href='login.html'">Zum Login</button>
+        </center>
     </div>
 
     <script src="js/registrateUser.js"></script>
@@ -50,4 +55,10 @@
         document.getElementById("heading").innerHTML = "Helfy - Registration";
     }
     </script>
+
+    <div id="footer">
+        <hr style="margin: 10px; border-radius: 20px;">
+        <p id="list">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#">Log Out</a></p>
+    </div>
+
 </body>
