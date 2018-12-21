@@ -5,6 +5,7 @@ Session management
 var server_url = "https://example.url.com";
 
 
+
 var data = "";
 
 function setCookie(cname, cvalue, exdays) {
@@ -109,5 +110,7 @@ async function setupHome() {
     } catch (e) {
         console.log("fetch error");
         sdata = "fetch_error";
+        uinf = document.getElementById("userinfo");
+        uinf.innerHTML = "Verbindung zum Server fehlgeschlagen.";
     }
 }
