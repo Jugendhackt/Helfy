@@ -1,6 +1,5 @@
 <?php 
 require("main.php");
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -176,11 +175,13 @@ if($request == "editRide"){
         echo "failed";
     }
 }
-
+*/
 
 if($request == "logout"){
-
+	$u_username = $_GET['username'];
+    $u_session = $_GET['session'];
+    echo logout($u_username, $u_session);
 }
-*/
+
 
 ?>

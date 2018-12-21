@@ -90,7 +90,7 @@ function loginDataCorrect($ldc_username, $ldc_password){
     $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
-    return (password_verify($ldc_password, $res['password']) && $ldc_password != "");
+    return (password_verify($ldc_password, $res['password']) && $ldc_password != "" && $ldc_username != '');
 }
 
 function sessionDataCorrect($ldc_username, $ldc_session){
@@ -99,7 +99,7 @@ function sessionDataCorrect($ldc_username, $ldc_session){
     $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
-    return ($res['session'] == $ldc_session && $res != "");
+    return ($res['session'] == $ldc_session && $res != "" && $ldc_session != "");
 }
 
 function getHomeData($ldc_username){
@@ -204,6 +204,19 @@ function existsUser($rg_username){
     $res = $result->fetch_assoc();
     
     return ($res != "");
+}
+
+function logout($u_username, $u_session){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $mysqli;
+		$u_username = $mysqli->real_escape_string($u_username);
+
+		$sql = "UPDATE `users` SET `session` = '' WHERE `username` = '$u_username'";
+		$update = $mysqli->query($sql);
+		return "success";
+	} else {
+		return "failed";
+	}
 }
 
 /*

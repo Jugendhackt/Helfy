@@ -2,8 +2,8 @@
 Session management
 */
 
-var server_url = "https://example.url.com";
-
+//var server_url = "https://example.url.com";
+var server_url = "https://helfy.bluekite.de";
 
 
 var data = "";
@@ -59,6 +59,7 @@ async function loginAction() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     await login(username, password);
+    console.log(data);
     retcode = data;
     if (retcode == "failed") {
         document.getElementById("errorline").innerHTML = "Benutzername oder Passwort ist falsch.";
@@ -104,6 +105,15 @@ async function setupHome() {
 
         uinf = document.getElementById("userinfo");
         uinf.innerHTML = "<b>" + sdata[1] + " " + sdata[2] + "</b><br><a class='user' href=''>@" + sdata[0] + "</a><br><br>" + sdata[4] + " " + sdata[3];
+        var navPage = document.createElement("div");
+        navPage.id = "formular";
+        navPage.style.textAlign = "center";
+        navPage.innerHTML = "<h5>Mitfahrgelegenheiten" + 
+        "</h5><button class='btn btn-primary' onclick='self.location.href=\"mitfahrer.html\"'>In der Nähe suchen</button>" +
+        "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Bieten</button><br>" +
+        "<br><h5>Einkäufe</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
+        "<button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Bieten</button>";
+        document.body.appendChild(navPage);
         console.log("fetch success");
         }
 
@@ -112,5 +122,28 @@ async function setupHome() {
         sdata = "fetch_error";
         uinf = document.getElementById("userinfo");
         uinf.innerHTML = "Verbindung zum Server fehlgeschlagen.";
+        document.getElementById("logbtn").innerHTML = "Login";
+        document.getElementById("logbtn").onclick = "self.location.href='login.html'";
+    }
+}
+
+
+async function logout(){
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var fullurl = server_url + '/backend/index.php?request=logout&username=' + l_username + "&session=" + l_session;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.text();
+        console.log("fetch success");
+        window.location.href = "login.html";
+
+    } catch (e) {
+        console.error('fetch error', e);
+        data = "fetch_error";
     }
 }
