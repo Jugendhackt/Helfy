@@ -183,10 +183,21 @@ h1 {
     border-radius: 20px;
 }
 
-frage2 {
+#frage2 {
     float: left;
     margin-right: 10px; 
     margin-left: 10px;
+}
+
+#header {
+    text-align: center;
+    background-color: darkorange; 
+    height: 100px;
+}
+
+#headertext {
+    margin-top: 25px; 
+    display: inline-block;
 }
 
 a .user {
