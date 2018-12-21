@@ -2,8 +2,7 @@
 Session management
 */
 
-//var server_url = "https://example.url.com";
-var server_url = "https://helfy.bluekite.de";
+var server_url = "https://example.url.com";
 
 
 var data = "";
