@@ -11,6 +11,14 @@ body {
     height: 100%;
 }
 
+h1 {
+    color: black;
+    background: darkorange;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
 #alleFahren {
     padding: 10px;
 }

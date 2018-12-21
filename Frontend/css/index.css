@@ -12,6 +12,14 @@ body {
     height: 100%;
 }
 
+h1 {
+    color: black;
+    background: darkorange;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
 #header {
     text-align: center;
     background-color: darkorange;
