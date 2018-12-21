@@ -1,14 +1,24 @@
-#list a:link {
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container-float {
+    min-height: 90%;
+}
+
+#footer a:link {
     color: navy;
 }
 
-#list a:visited {
+#footer a:visited {
     color: navy;
 }
 
-body {
+html, body {
     overflow-x: hidden;
     height: 100%;
+    position: relative;
 }
 
 h1 {
@@ -43,10 +53,8 @@ h1 {
 }
 
 #footer {
-    position:absolute;
-    bottom: 0;
-    width: 100%;
     text-align: center;
+    height: 5%;
 }
 
 #header {

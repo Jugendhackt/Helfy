@@ -1,0 +1,190 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container-float {
+    min-height: 90%;
+}
+
+#footer a:link {
+    color: navy;
+}
+
+#footer a:visited {
+    color: navy;
+}
+
+html, body {
+    overflow-x: hidden;
+    height: 100%;
+    position: relative;
+}
+
+h1 {
+    color: black;
+    background: darkorange;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
+#alleFahren {
+    padding: 10px;
+}
+
+.addFahrten {
+    margin-bottom: 25px;
+}
+
+#search-box {
+    margin: 15px;
+    display: inline;
+    white-space: nowrap;
+    width: 65%;
+}
+
+#search-box * {
+    display: inline;
+}
+
+#search-box img {
+    cursor: pointer;
+}
+
+#search-box1 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box1 * {
+    display: inline;
+}
+
+#search-box1 img {
+    cursor: pointer;
+}
+
+#search-box2 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box2 * {
+    display: inline;
+}
+
+#search-box2 img {
+    cursor: pointer;
+    
+}
+
+#search-box3 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box3 * {
+    display: inline;
+}
+
+#search-box3 img {
+    cursor: pointer;
+    
+}
+
+#footer {
+    text-align: center;
+    height: 5%;
+}
+
+#frage {
+    margin: 30px;
+    margin-right: 0;
+}
+
+.fahrten {
+    margin-bottom: 20px;
+}
+
+.fahrten h2 {
+    margin-left: 10px;
+}
+
+.hr {
+    background-color: dimgrey;
+}
+
+#formular {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 10px;
+}
+
+@media (min-width: 450px) {
+    #formular {
+        background-color: lightgrey;
+        margin: 10px;
+        box-shadow: 4px 4px 2px -2px gray;
+        padding: 12px;
+        width: 40%;
+        margin-left: 30%;
+    }
+  }
+
+#loginbutton {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#menua {
+    margin-top: 40px;
+    margin-left: 10px;
+}
+
+#list a:link {
+    color: navy;
+}
+
+#list a:visited {
+    color: navy;
+}
+
+#list {
+    text-align: center;
+}
+
+#location {
+    margin: 15px;
+    display: inline;
+    white-space: nowrap;
+}
+
+#location * {
+    display: inline;
+}
+
+#location img {
+    cursor: pointer;
+}
+
+#gesucht {
+    margin-left: 10px;
+}
+
+#searchicon {
+    margin-left: 10px;
+}
+
+#hrfooter {
+    margin: 10px; 
+    border-radius: 20px;
+}
+
+frage2 {
+    float: left;
+    margin-right: 10px; 
+    margin-left: 10px;
+}
