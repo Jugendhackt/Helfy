@@ -21,13 +21,25 @@ html, body {
     position: relative;
 }
 
-h1 {
+.header {
     color: black;
     background: darkorange;
     width: 100%;
     text-align: center;
     padding: 15px;
 }
+
+
+#row {
+    width: 100%;
+    background-color: darkorange;
+    display: inline-block;
+    text-align: center;
+    padding: 15px;
+    margin: 0;
+    
+}
+
 
 #alleFahren {
     padding: 10px;
@@ -151,9 +163,9 @@ h1 {
     color: navy;
 }
 
-#list {
+/*#list {
     text-align: center;
-}
+}*/
 
 #location {
     margin: 15px;
