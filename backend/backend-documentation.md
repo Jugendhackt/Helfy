@@ -4,9 +4,7 @@ This documentation is about how to use the Helfy API.
 ### Usage
 The API is placed on the Sever at `/backend/index.php`.
 You can call the API via an URL encoded GET request.
-For example
-    helfy.example.com/backend/index.php?request=version
-will return `Helfy backend v0.1`.
+For example `helfy.example.com/backend/index.php?request=version` will return `Helfy backend v0.1`.
 The parameter `request` is always required.
   
 ### Requests
