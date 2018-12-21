@@ -188,3 +188,8 @@ frage2 {
     margin-right: 10px; 
     margin-left: 10px;
 }
+
+a .user {
+    text-decoration: none;
+    color: blue;
+}
