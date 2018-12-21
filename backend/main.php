@@ -1,21 +1,12 @@
-<?php 
-include("passwords.php");
-header("Access-Control-Allow-Origin: ".$server_name);
+<?php
+require("passwords.php");
+header("Access-Control-Allow-Origin: *");
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
-
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="robots" content="noindex, nofollow"/>
-</head>
-<?php
 
 
 function guidv4($data)
@@ -37,6 +28,19 @@ function guidv4($data)
 	//}
 
 //echo getCoordinates("ulm");
+
+function permissionControll($ldc_username){
+	global $mysqli;
+    $ldc_username = $mysqli->real_escape_string($ldc_username);
+    $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    if($res['verify-email'] == "1"){
+		return "ok";
+	} else {
+		return "no_email_verify";
+	}
+}
 
 function distance($lat1, $lon1, $lat2, $lon2, $unit) {
     if (($lat1 == $lat2) && ($lon1 == $lon2)) {
@@ -89,16 +93,37 @@ function loginDataCorrect($ldc_username, $ldc_password){
     return (password_verify($ldc_password, $res['password']) && $ldc_password != "");
 }
 
+function sessionDataCorrect($ldc_username, $ldc_session){
+    global $mysqli;
+    $ldc_username = $mysqli->real_escape_string($ldc_username);
+    $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    return ($res['session'] == $ldc_session && $res != "");
+}
+
+function getHomeData($ldc_username){
+	global $mysqli;
+	$ldc_username = $mysqli->real_escape_string($ldc_username);
+    $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    return [$res['username'], $res['vname'], $res['nname'], explode("=", explode(";", $res['settings'])[0])[1], explode("=", explode(";", $res['settings'])[1])[1]];
+}
+
 function login($ldc_username, $ldc_password){
 	global $mysqli;
     if(loginDataCorrect($ldc_username, $ldc_password)){
 		$ldc_username = $mysqli->real_escape_string($ldc_username);
         $ransession = guidv4(random_bytes(16));
-        $sql = "UPDATE `users` WHERE `username` = '$ldc_username' SET `session` = '$ransession'";
+        $sql = "UPDATE `users` SET `session` = '$ransession' WHERE `username` = '$ldc_username'";
         $update = $mysqli->query($sql);
         return $ransession;
-    }
+    } else {
+		return "failed";
+	}
 }
+
 /*
 function sessionCheck($username){
     global $mysqli, $current_session_id;
@@ -143,7 +168,7 @@ function idToName($u_id){
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
     return $res['username'];
-	}
+}
 
 
 function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_nachname, $rg_ort, $rg_plz){
@@ -168,6 +193,17 @@ function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_
     } else {
         return false;
     }
+}
+
+function existsUser($rg_username){
+	global $mysqli;
+	$rg_username = $mysqli->real_escape_string($rg_username);
+
+    $sql = "SELECT * FROM `users` WHERE `username` = '$rg_username'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    
+    return ($res != "");
 }
 
 /*
