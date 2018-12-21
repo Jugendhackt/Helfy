@@ -42,6 +42,17 @@
 
     </div>
     <script src="js/session.js"></script>
+    <script>
+        var input = document.getElementById("password");
+        input.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            if(document.getElementById("username").value != ""){
+                loginAction();
+            }
+        }
+        });
+    </script>
 </body>
 
 </html>
