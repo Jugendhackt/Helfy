@@ -4,14 +4,14 @@
 }
 
 .container-float {
-    min-height: 100%;
+    min-height: 90%;
 }
 
-#list a:link {
+#footer a:link {
     color: navy;
 }
 
-#list a:visited {
+#footer a:visited {
     color: navy;
 }
 
@@ -54,6 +54,7 @@ h1 {
 
 #footer {
     text-align: center;
+    height: 5%;
 }
 
 #frage {
