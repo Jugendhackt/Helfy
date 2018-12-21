@@ -21,13 +21,25 @@ html, body {
     position: relative;
 }
 
-h1 {
+.header {
     color: black;
     background: darkorange;
     width: 100%;
     text-align: center;
     padding: 15px;
 }
+
+
+#row {
+    width: 100%;
+    background-color: darkorange;
+    display: inline-block;
+    text-align: center;
+    padding: 15px;
+    margin: 0;
+    
+}
+
 
 #alleFahren {
     padding: 10px;
@@ -151,9 +163,9 @@ h1 {
     color: navy;
 }
 
-#list {
+/*#list {
     text-align: center;
-}
+}*/
 
 #location {
     margin: 15px;
@@ -182,10 +194,21 @@ h1 {
     border-radius: 20px;
 }
 
-frage2 {
+#frage2 {
     float: left;
     margin-right: 10px; 
     margin-left: 10px;
+}
+
+#header {
+    text-align: center;
+    background-color: darkorange; 
+    height: 100px;
+}
+
+#headertext {
+    margin-top: 25px; 
+    display: inline-block;
 }
 
 a .user {
