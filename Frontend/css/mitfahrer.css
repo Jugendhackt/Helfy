@@ -1,3 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container-float {
+    min-height: 100%;
+}
+
 #list a:link {
     color: navy;
 }
@@ -6,7 +15,7 @@
     color: navy;
 }
 
-body {
+html, body {
     overflow-x: hidden;
     height: 100%;
     position: relative;
@@ -44,12 +53,7 @@ h1 {
 }
 
 #footer {
-    position:absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     text-align: center;
-    height: 0;
 }
 
 #frage {
