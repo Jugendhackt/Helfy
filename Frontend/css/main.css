@@ -151,12 +151,20 @@ html, body {
         margin-left: 50%;
         width: 100%;
     }
+
+    #nmobile {
+        display: none;
+    }
   }
 
   @media (max-width: 450px) {
       #desktop {
           display: none;
           width: 100%;
+      }
+
+      #ndesktop {
+          display: none;
       }
   }
 
