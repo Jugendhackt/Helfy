@@ -50,8 +50,9 @@ html, body {
 }
 
 #search-box {
-    margin: 15px;
-    display: inline;
+    align: left;
+    margin-left: 15%;
+    display: inline-block;
     white-space: nowrap;
 }
 
@@ -214,4 +215,10 @@ html, body {
 a .user {
     text-decoration: none;
     color: blue;
+}
+
+#auswahl {
+    margin-left: 90%;
+    margin-top: 0;
+    display: inline-block;
 }
