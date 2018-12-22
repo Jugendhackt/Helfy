@@ -22,7 +22,7 @@
         <div class="input-group">
             <div class="form-group" style="width: 100%; margin: auto;">
                 <input name="groupname" type="text" class="form-control" id="groupname" placeholder="Gruppenname">
-                <br />
+                <br /><br />
             </div>
             </div>
             <label for="validationUsername">Teilnehmer1 *</label>
@@ -39,7 +39,7 @@ var anzahl = 1;
 
 function addmember() {
     anzahl ++;
-    document.getElementById("members").innerHTML = "<label>Teilnehmer" + anzahl + " *</label>" +
+    document.getElementById("members" + anzahl).innerHTML = "<label>Teilnehmer" + anzahl + " *</label>" +
     "<div class='input-group'>" +
     "<div class='input-group-prepend'>" +
     "<span class='input-group-text' id='inputGroupPrepend'>@</span>" +
@@ -47,14 +47,30 @@ function addmember() {
     "<input type='text' class='form-control' id='validationUsername' placeholder='Benutzername' onkeyup='usernameCorrection()' aria-describedby='inputGroupPrepend' name='username' required>" +
     "</div>" +
     "<br />";
+
+    pic = document.getElementById("picture");
+
+    if (anzahl >= 10){
+    pic.style.display = "none";
+    }
 }
 </script>
-<div id="members"></div>
+<div id="members2"></div>
+<div id="members3"></div>
+<div id="members4"></div>
+<div id="members5"></div>
+<div id="members6"></div>
+<div id="members7"></div>
+<div id="members8"></div>
+<div id="members9"></div>
+<div id="members10"></div>
 
-                <img src="img/add.svg" style="width: 5%; margin-left: 47%;" onclick="addmember()"></img>
+                <img id="picture" src="img/add.svg" style="width: 5%; margin-left: 47%;" onclick="addmember()"></img>
                 <br /><br /><br /><br />
-            <button type="button" class="btn btn-dark" style="margin-left: 40%;" onclick="">Erstellen!</button>
-            <input type="hidden" name="request" value="login"></input>
+            <div style="padding-right: 33%;">
+            <button type="button" class="btn btn-dark" style="margin-left: 1%; display:  inline-block;" onclick="window.location.href = 'home.html'">Abbrechen</button>
+            <button type="button" class="btn btn-dark" style="float: right;" onclick="">Gruppe Erstellen!</button>
+            </div>
         </form>
     </div>
 </div>
