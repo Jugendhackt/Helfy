@@ -107,13 +107,20 @@ async function setupHome() {
         var navPage = document.createElement("div");
         navPage.id = "formular";
         navPage.style.textAlign = "center";
-        navPage.innerHTML = "<h5>Mitfahrgelegenheiten" + 
+        navPage.innerHTML = "<h5>Mitfahrgelegenheiten:" + 
         "</h5><button class='btn btn-primary' onclick='self.location.href=\"mitfahrer.html\"'>In der Nähe suchen</button>" +
         "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Bieten</button><br>" +
-        "<br><h5>Einkäufe</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
+        "<br><h5>Einkäufe:</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
         "<button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Bieten</button>";
         document.body.appendChild(navPage);
         console.log("fetch success");
+
+        var groups = document.createElement("div");
+        groups.id = "formular";
+        groups.style.textAlign = "center";
+        groups.innerHTML = "<h5>Gruppen:</h5>" +
+        "";
+        document.body.appendChild(groups);
         }
 
     } catch (e) {
