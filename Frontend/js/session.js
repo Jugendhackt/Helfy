@@ -119,6 +119,7 @@ async function setupHome() {
         groups.id = "formular";
         groups.style.textAlign = "center";
         groups.innerHTML = "<h5>Gruppen:</h5>" +
+        "<button class='btn btn-primary' onclick='self.location.href=\"newgroup.html\"'>Neue Gruppe erstellen</button><br>"+
         "";
         document.body.appendChild(groups);
         }
