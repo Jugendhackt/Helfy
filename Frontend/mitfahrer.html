@@ -17,6 +17,7 @@
             </h1>
         </div>
         <div class="row" style="margin-top: 1%; margin-bottom: 1%;">
+            <div id="desktop" style="width: 100%;">
             <form id="search-box" style="max-width: 400px; float: left;" action="#" onsubmit="readInput()">
                 <img src="img/pos-icon.png" onClick="getPos();" />
                 <input id="searchbar" class="form-control" type="text" onfocus="cont=this.value;this.value=''"/>
@@ -31,6 +32,24 @@
                         </select>
                 </form>
             </form>
+            </div>
+            <div id="mobile" style="width: 60%;">
+                    <form id="search-box" style="max-width: 400px; float: left;" action="#" onsubmit="readInput()">
+                        <img src="img/pos-icon.png" onClick="getPos();" />
+                        <input id="searchbar" class="form-control" type="text" onfocus="cont=this.value;this.value=''"/>
+                        <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
+                        <br />
+                        <form id="auswahl">
+                                <select size="1" name="auswahl" style="width: 150%;">
+                                  <option selected value="0">-- Suchergebnisse einschränken --</option>
+                                  <option value="1">In ganzer Umgebung suchen</option>
+                                  <option value="2">Nachbarschaft</option>
+                                  <option value="3">Schule</option>
+                                  <option value="4">Verwandschaft</option>
+                                </select>
+                        </form>
+                    </form>
+                    </div>
         </div>
         <p style="text-align: center;">
             Bitte gebe oben deinen Standort ein<br>
