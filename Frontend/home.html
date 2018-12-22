@@ -11,10 +11,10 @@
 </head>
 
 <body>
+    <div class="container-float">
     <h1 class="header">
         Helfy - Home <button class="btn btn-dark" style="float: right;" id="logbtn" onclick="logout()">Logout</button>
     </h1>
-    </div>
     <div id="formular">
         <p id="userinfo" style="text-align: center; margin-top: 10px;"></p>
     </div>
@@ -23,6 +23,12 @@
     <script>
         setupHome();
     </script>
+    </div>
+
+<div id="footer">
+        <hr style="margin: 10px; border-radius: 20px;">
+        <p style="margin-top: 2%;">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#" onclick="logout()">Log Out</a></p>
+</div>
 </body>
 
 </html>
