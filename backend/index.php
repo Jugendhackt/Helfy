@@ -1,6 +1,5 @@
 <?php 
 require("main.php");
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -20,6 +19,25 @@ if(!(isset($_GET['request']))){
 
 $request = $_GET['request'];
 
+if($request == "version"){
+	echo "Helfy backend v0.1";
+}
+
+
+if($request == "homeData"){
+    $u_username = ($_GET['username']);
+    $u_session = ($_GET['session']);
+    if(sessionDataCorrect($u_username, $u_session)){
+		$pmk = permissionControll($u_username);
+		if($pmk == "ok"){
+			echo json_encode(getHomeData($u_username));
+		} else {
+			echo $pmk;
+		}
+	} else {
+		echo "failed";
+	}
+}
 
 if($request == "registrateUser"){
     $u_username = ($_GET['username']);
@@ -36,22 +54,43 @@ if($request == "registrateUser"){
     }
 }
 
-if($request == "checkLoginData"){
+if($request == "existsUser"){
     $u_username = ($_GET['username']);
-    $u_password = ($_GET['password']);
-    if(loginDataCorrect($u_username, $u_password)){
-        echo "correct";
+    if(existsUser($u_username)){
+        echo "true";
+    } else {
+        echo "false";
+    }
+}
+
+if($request == "checkSessionData"){
+    $u_username = ($_GET['username']);
+    $u_session = ($_GET['session']);
+    if(sessionDataCorrect($u_username, $u_session)){
+		$pmk = permissionControll($u_username);
+		if($pmk == "ok"){
+			echo "correct";
+		} else {
+			echo $pmk;
+		}
     } else {
         echo "incorrect";
     }
 }
 
 if($request == "newSession"){
-    $u_username = ($_GET['username']);
-    $u_password = ($_GET['password']);
+    $u_username = $_GET['username'];
+    $u_password = $_GET['password'];
     if(loginDataCorrect($u_username, $u_password)){
-        echo login($u_username, $u_password);
-    }
+		$pmk = permissionControll($u_username);
+		if($pmk == "ok"){
+			echo login($u_username, $u_password);
+		} else {
+			echo $pmk;
+		}
+    } else {
+		echo "failed";
+	}
 }
 
 /*
@@ -136,11 +175,13 @@ if($request == "editRide"){
         echo "failed";
     }
 }
-
+*/
 
 if($request == "logout"){
-
+	$u_username = $_GET['username'];
+    $u_session = $_GET['session'];
+    echo logout($u_username, $u_session);
 }
-*/
+
 
 ?>
