@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy - Gruppe erstellen</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script language="javascript" type="text/javascript" src="js/session.js"></script> 
+    <script>var tnum = 1;</script>
+</head>
+
+<body>
+    <div class="container-float">
+        <h1 class="header">
+            Helfy - Gruppe erstellen
+        </h1>
+
+
+
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+
+<div id="formular">
+    <form id="teilnehmer">
+        <div class="form-row">
+            <label for="groupname">Gruppenname</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <input name="groupname" type="text" class="form-control" id="groupname" placeholder="Gruppenname">
+                </div>
+            </div>  
+        </div>
+        <br /><br />
+        <div class="form-row" id="teilnehmer1">
+            <div class="col-md-6 mb-3">
+                <label for="validationUsername1">Teilnehmer 1</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationUsername1" placeholder="Benutzername" onkeyup="usernameCorrection()" aria-describedby="inputGroupPrepend"  name="username" required>
+                    <p id="usernameret" style="padding: 10px; font-size: 13px;"></p>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div style="margin: auto;">
+        <img id="add" src="img/add.svg" style="width: 35px; float: left; margin: 5%;" onclick="insertInputField()"></img><img id="remove" src="img/remove.svg" style="width: 35px; display: none; float: right; margin: 5%;" onclick="removeLast()"></img>
+    </div>
+    <br><br><br><br>
+    <div style="padding-right: 33%;" id="ndesktop">
+        <button type="button" class="btn btn-danger" style="margin-left: 1%; display:  inline-block;" onclick="window.location.href = 'home.html'">Abbrechen</button>
+        <button type="button" class="btn btn-dark" style="float: right;" onclick="">Gruppe erstellen</button>
+    </div>
+
+    <div style="padding-right: 33%;" id="nmobile">
+        <button type="button" class="btn btn-danger" style="margin-left: 1%; display:  inline-block;" onclick="window.location.href = 'home.html'">Abbrechen</button>
+        <br />
+        <button type="button" class="btn btn-dark" onclick="">Gruppe erstellen</button>
+    </div>
+</div>
+</div>
+</body>
+<script>
+var tself = document.getElementById("validationUsername1");
+if(getCookie("username") != ""){
+    tself.value = getCookie("username");
+    tself.disabled = true;
+}
+
+function insertInputField(){
+    var tnf = document.getElementById("teilnehmer");
+    var idv = document.createElement("div");
+    var element = document.getElementById("remove");
+    element.style.display = "";
+    tnum++;
+    idv.setAttribute("class", "form-row");
+    idv.setAttribute("id", "teilnehmer" + tnum);
+    idv.innerHTML = '<div class="col-md-6 mb-3">' + 
+    '<label for="validationUsername' + tnum + '">Teilnehmer ' + tnum + '</label>' + 
+    '<div class="input-group">' +
+    '<div class="input-group-prepend">' +
+    '<span class="input-group-text" id="inputGroupPrepend">@</span>' +
+    '</div>' +
+    '<input type="text" class="form-control" id="validationUsername' + tnum + '" placeholder="Benutzername" onkeyup="usernameCorrection()" aria-describedby="inputGroupPrepend"  name="username" required>' +
+    '<p id="usernameret" style="padding: 10px; font-size: 13px;"></p>' +
+    '</div>' +
+    '</div>';
+    tnf.appendChild(idv);
+}
+
+function removeLast(){
+    var element = document.getElementById("teilnehmer" + tnum);
+    element.parentNode.removeChild(element);
+    tnum--;
+    if(tnum == 1){
+        element = document.getElementById("remove");
+        element.style.display = "none";
+    }
+}
+</script>
+
+
+</html>
