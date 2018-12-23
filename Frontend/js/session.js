@@ -75,7 +75,7 @@ async function loginAction() {
         setCookie("session", retcode, 7);
         setCookie("username", username, 7);
         window.location.href = "home.html";
-    } else if (retcode == "no_email_verify"){
+    } else if (retcode == "no_email_verify") {
         console.log("no email verify");
         document.getElementById("errorline").innerHTML = "Sie müssen erst Ihre E-Mail Adresse bestätigen.";
         document.getElementById("errorline").style.padding = "10px 0px;";
@@ -95,34 +95,38 @@ async function setupHome() {
         });
 
         sdata = await request.text();
-        if(sdata == "no_email_verify"){
+        if (sdata == "no_email_verify") {
             uinf = document.getElementById("userinfo");
             uinf.innerHTML = "Sie müssen Ihre E-Mail Adresse bestätigen, bevor Sie Helfy nutzen können!<br><br><button class='btn btn-primary' onclick='self.location.href=\"login.html\"'>zurück zum Login</button>";
             console.log("no email verify");
+        } else if(sdata == "failed"){
+            uinf = document.getElementById("userinfo");
+            uinf.innerHTML = "Falsche oder fehlende Nutzerdaten.<br>Bitte melden Sie sich erneut an!<br><br><button class='btn btn-primary' onclick='self.location.href=\"login.html\"'>zurück zum Login</button>";
+            console.log("invalid session");
         } else {
-        sdata = JSON.parse(sdata);
+            sdata = JSON.parse(sdata);
 
-        uinf = document.getElementById("userinfo");
-        uinf.innerHTML = "<b>" + sdata[1] + " " + sdata[2] + "</b><br><a class='user' href=''>@" + sdata[0] + "</a><br><br>" + sdata[4] + " " + sdata[3];
-        var navPage = document.createElement("div");
-        navPage.id = "formular";
-        navPage.style.textAlign = "center";
-        navPage.innerHTML = "<h5>Mitfahrgelegenheiten:" + 
-        "</h5><button class='btn btn-primary' onclick='self.location.href=\"mitfahrer.html\"'>In der Nähe suchen</button>" +
-        "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Bieten</button><br>" +
-        "<br><h5>Einkäufe:</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
-        "<button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Bieten</button>";
-        var ih = document.getElementById("insertHere")
-        ih.appendChild(navPage);
-        console.log("fetch success");
+            uinf = document.getElementById("userinfo");
+            uinf.innerHTML = "<b>" + sdata[1] + " " + sdata[2] + "</b><br><a class='user' href=''>@" + sdata[0] + "</a><br><br>" + sdata[4] + " " + sdata[3];
+            var navPage = document.createElement("div");
+            navPage.id = "formular";
+            navPage.style.textAlign = "center";
+            navPage.innerHTML = "<h5>Mitfahrgelegenheiten:" +
+                "</h5><button class='btn btn-primary' onclick='self.location.href=\"mitfahrer.html\"'>In der Nähe suchen</button>" +
+                "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Bieten</button><br>" +
+                "<br><h5>Einkäufe:</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
+                "<button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Bieten</button>";
+            var ih = document.getElementById("insertHere")
+            ih.appendChild(navPage);
+            console.log("fetch success");
 
-        var groups = document.createElement("div");
-        groups.id = "formular";
-        groups.style.textAlign = "center";
-        groups.innerHTML = "<h5>Gruppen:</h5>" +
-        "<button class='btn btn-primary' onclick='self.location.href=\"newgroup.html\"'>Neue Gruppe erstellen</button><br>"+
-        "";
-        ih.appendChild(groups);
+            var groups = document.createElement("div");
+            groups.id = "formular";
+            groups.style.textAlign = "center";
+            groups.innerHTML = "<h5>Gruppen:</h5>" +
+                "<button class='btn btn-primary' onclick='self.location.href=\"newgroup.html\"'>Neue Gruppe erstellen</button><br>" +
+                "";
+            ih.appendChild(groups);
         }
 
     } catch (e) {
@@ -136,9 +140,11 @@ async function setupHome() {
 }
 
 
-async function logout(){
+async function logout() {
     var l_username = getCookie("username");
     var l_session = getCookie("session");
+    setCookie("username", "", 0);
+    setCookie("password", "", 0);
     var fullurl = server_url + '/backend/index.php?request=logout&username=' + l_username + "&session=" + l_session;
     try {
         let request = await fetch(fullurl, {
