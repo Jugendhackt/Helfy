@@ -37,3 +37,8 @@ If the e-mail address of the account hasn't been verified it will return `no_ema
     index.php?request=homeData&username=username&password=password
 Used for login. Returns a sessionID (36 characters). If username and password are invalid it will return `failed`.
 
+#### newGroup
+    index.php?request=newGroup&username=username&session=sessionID&groupname=groupname&description=description&users=members
+Creates a group. Members of the group ar given in a list seperated by ",".
+Example: `max.mustermann,maxine.mustermann`
+Returns `success` if it worked or `failed` if sessionID and username are invalid.

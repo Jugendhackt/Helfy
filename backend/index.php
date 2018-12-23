@@ -177,6 +177,11 @@ if($request == "editRide"){
 }
 */
 
+if($request == "newGroup"){
+    echo newGroup($_GET['groupname'], $_GET['users'], $_GET['description'], $_GET['username'], $_GET['session']);
+}
+
+
 if($request == "logout"){
 	$u_username = $_GET['username'];
     $u_session = $_GET['session'];

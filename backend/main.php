@@ -219,6 +219,23 @@ function logout($u_username, $u_session){
 	}
 }
 
+
+function newGroup($u_groupname, $u_users, $u_description, $u_creator, $u_creator_session){
+	if(sessionDataCorrect($u_creator, $u_creator_session)){
+		global $mysqli;
+		$u_users = $mysqli->real_escape_string($u_users);
+		$u_description = $mysqli->real_escape_string($u_description);
+		$u_creator = $mysqli->real_escape_string($u_creator);
+		$u_groupname = $mysqli->real_escape_string($u_groupname);
+
+		$sql = "INSERT INTO `users` VALUES (NULL, '$u_groupname', '$u_users', '$u_creator', '', '$u_description')";
+		$update = $mysqli->query($sql);
+		return "success";
+	} else {
+		return "failed";
+	}
+}
+
 /*
 
 function addRide($type, $user_id, $start, $ziel, $description){
