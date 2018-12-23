@@ -245,3 +245,17 @@ a .user {
     margin-top: 0;
     display: inline-block;
 }
+
+#groupname {
+    width: 100%;
+}
+
+.form-control {
+    width: 100%;
+}
+
+#usernameret {
+    margin: 0;
+    padding: 0;
+    display: none;
+}
