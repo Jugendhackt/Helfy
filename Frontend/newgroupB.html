@@ -70,18 +70,18 @@
 </body>
 <script>
 var tself = document.getElementById("validationUsername1");
-if(getCookie("username") != ""){
-    tself.value = getCookie("username");
-    tself.disabled = true;
+if(getCookie("username") != ""){ // Falls ein Cookie mit dem Benutzername gesetzt ist
+    tself.value = getCookie("username"); // Setze Teilnehmer 1 auf den Benutzernamen
+    tself.disabled = true; // und deaktiviere das Feld (kann nicht mehr bearbeitet werden)
 }
 
 function insertInputField(){
-    var tnf = document.getElementById("teilnehmer");
-    var idv = document.createElement("div");
-    var element = document.getElementById("remove");
-    element.style.display = "";
+    var tnf = document.getElementById("teilnehmer"); // Formular in welches die Felder eingefügt werden sollen
+    var idv = document.createElement("div"); // Neues Feld (div)
+    var element = document.getElementById("remove"); // Der entfernen-button...
+    element.style.display = ""; // ...wird sichtbar gemacht
     tnum++;
-    idv.setAttribute("class", "form-row");
+    idv.setAttribute("class", "form-row"); // Attribute setzten etc
     idv.setAttribute("id", "teilnehmer" + tnum);
     idv.innerHTML = '<div class="col-md-6 mb-3">' + 
     '<label for="validationUsername' + tnum + '">Teilnehmer ' + tnum + '</label>' + 
@@ -93,16 +93,16 @@ function insertInputField(){
     '<p id="usernameret" style="padding: 10px; font-size: 13px;"></p>' +
     '</div>' +
     '</div>';
-    tnf.appendChild(idv);
+    tnf.appendChild(idv); // Dem Formular hinzufügen
 }
 
 function removeLast(){
-    var element = document.getElementById("teilnehmer" + tnum);
+    var element = document.getElementById("teilnehmer" + tnum); // Das div welches entfernt werden soll
     element.parentNode.removeChild(element);
     tnum--;
-    if(tnum == 1){
+    if(tnum == 1){ // Falls nur noch ein Teilnehmer-Feld da ist
         element = document.getElementById("remove");
-        element.style.display = "none";
+        element.style.display = "none"; // verstecke den remove button
     }
 }
 </script>
