@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script language="javascript" type="text/javascript" src="js/session.js"></script> 
+    <script language="javascript" type="text/javascript" src="js/groups.js"></script> 
     <script>var tnum = 1; var rnum = 1;</script>
 </head>
 
@@ -32,7 +33,16 @@
             <label for="groupname">Gruppenname</label>
             <div class="input-group" style="display: inline-block;">
                 <div class="input-group-prepend">
-                    <input name="groupname" type="text" class="form-control" id="groupname" placeholder="Gruppenname">
+                    <input name="groupname" type="text" class="form-control" id="groupname" placeholder="Gruppenname" required>
+                </div>
+            </div>  
+        </div>
+        <br>
+        <div class="form-row">
+            <label for="description">Beschreibung</label>
+            <div class="input-group" style="display: inline-block;">
+                <div class="input-group-prepend">
+                    <input name="description" type="text" class="form-control" id="description" placeholder="Beschreibung" required>
                 </div>
             </div>  
         </div>
@@ -43,7 +53,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                     </div>
-                    <input type="text" class="form-control" id="validationUsername1" placeholder="Benutzername" onkeyup="usernameCorrection()" aria-describedby="inputGroupPrepend"  name="username" required>
+                    <input type="text" class="form-control" id="validationUsername1" placeholder="Benutzername" aria-describedby="inputGroupPrepend"  name="username" required>
                     <img id="remove1" src="img/remove.svg" style="width: 5%; display: none; float: right; margin-left: 1%;" onclick="removeLast()"></img>
                     <p id="usernameret" style="padding: 10px; font-size: 13px;"></p>
                 </div>
@@ -53,16 +63,16 @@
     <div style="margin: auto;">
         <img id="add" src="img/add.svg" style="width: 35px; margin-left: 45%;" onclick="insertInputField()"></img><img id="remove" src="img/remove.svg" style="width: 35px; display: none; float: right; margin: 5%;" onclick="removeLast()"></img>
     </div>
-    <br><br><br>
+    <br><br><p id="errorline"></p><br>
     <div style="padding-right: 33%;" id="ndesktop">
         <button type="button" class="btn btn-danger" style="margin-left: 1%; display:  inline-block;" onclick="window.location.href = 'home.html'">Abbrechen</button>
-        <button type="button" class="btn btn-dark" style="float: right;" onclick="">Gruppe erstellen</button>
+        <button type="button" class="btn btn-dark" style="float: right;" onclick="newGroup(tnum)">Gruppe erstellen</button>
     </div>
 
     <div style="padding-right: 33%;" id="nmobile">
         <button type="button" class="btn btn-danger" style="margin-left: 1%; display:  inline-block;" onclick="window.location.href = 'home.html'">Abbrechen</button>
         <br />
-        <button type="button" class="btn btn-dark" onclick="">Gruppe erstellen</button>
+        <button type="button" class="btn btn-dark" onclick="newGroup(tnum)">Gruppe erstellen</button>
     </div>
 </div>
 </div>
@@ -93,7 +103,7 @@ function insertInputField(){
     '<div class="input-group-prepend">' +
     '<span class="input-group-text" id="inputGroupPrepend">@</span>' +
     '</div>' +
-    '<input type="text" class="form-control" id="validationUsername' + tnum + '" placeholder="Benutzername" onkeyup="usernameCorrection()" aria-describedby="inputGroupPrepend"  name="username" required>' +
+    '<input type="text" class="form-control" id="validationUsername' + tnum + '" placeholder="Benutzername" aria-describedby="inputGroupPrepend"  name="username" required>' +
     '<img id="remove' + rnum + '" src="img/remove.svg" style="width: 5%; display: none; float: right; margin-left: 1%;" onclick="removeLast()"></img>'
     '<p id="usernameret" style="padding: 10px; font-size: 13px;"></p>' +
     '</div>';
