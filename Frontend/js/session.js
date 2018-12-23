@@ -112,7 +112,8 @@ async function setupHome() {
         "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Bieten</button><br>" +
         "<br><h5>Einkäufe:</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
         "<button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Bieten</button>";
-        document.body.appendChild(navPage);
+        var ih = document.getElementById("insertHere")
+        ih.appendChild(navPage);
         console.log("fetch success");
 
         var groups = document.createElement("div");
@@ -121,7 +122,7 @@ async function setupHome() {
         groups.innerHTML = "<h5>Gruppen:</h5>" +
         "<button class='btn btn-primary' onclick='self.location.href=\"newgroup.html\"'>Neue Gruppe erstellen</button><br>"+
         "";
-        document.body.appendChild(groups);
+        ih.appendChild(groups);
         }
 
     } catch (e) {
