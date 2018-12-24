@@ -33,16 +33,28 @@
     var username = getCookie("username");
     document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;'>@ " + username + "</h3>";    
     }
+
+    function toLeftPsswd(){
+        document.getElementById("formular1").style.marginLeft = "10%";
+        document.getElementById("changepsswd").style.display = ""
+    }
+
+    function toRightPsswd(){
+        document.getElementById("changepsswd").style.display = "none";
+        document.getElementById("formular1").style.marginLeft = "30%";
+    }
     </script>
 
     <div class="container-float">
         <h1 class="header">Helfy - Einstellungen</h1>
 
         <br />
-        <div id="formular">
+        <div id="formular1" style="display: inline-block;">
         <div id="username"></div>
         <br />
-            <button type="button" class="btn btn-dark" style="width: 40%; margin-left: 5%;">Username &auml;ndern</button>
+        <hr>
+        <br />
+            <button type="button" class="btn btn-dark" style="width: 40%; margin-left: 5%;" onclick="toLeftPsswd()">Username &auml;ndern</button>
             <br />
             <hr>
             <br />
@@ -51,8 +63,35 @@
             <hr>
             <br />
             <button type="button" class="btn btn-dark" style="width: 40%; margin-left: 5%;">Email &auml;ndern</button>
+            <br /><br /><br /><br />
+
+
+        </div>
+        <div style="width: 40%; float: right; margin-right: 5%; margin-top: 5%;">
+        <div style="margin: 0; width: 100%; margin-top: 10px; padding: 12px; padding-top: 0; display: none;" class="formular" id="changepsswd">
+            <div style="width: 100%;">
+                <h5 style="text-align: center; display: inline-block; margin-top: 12px;"><b>Username &auml;ndern:</b></h5>
+                <a onclick="toRightPsswd()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
+                <input name="newusername" type="text" class="form-control" id="newusername" placeholder="Neuer Benutzername">
+                <button type="button" class="btn btn-green" onclick="toRightPsswd()">Username &auml;ndern</button>
+            </div>
         </div>
 
+        <div style="margin: 0; width: 100%; margin-top: 10px; padding: 12px; display: none;" id="formular">
+            <div style="width: 100%;">
+                <p>hallo</p>
+                <p>hallo</p>
+            </div>
+        </div>
+
+        <div style="margin: 0; width: 100%; margin-top: 10px; padding: 12px; display: none;" id="formular">
+            <div style="width: 100%;">
+                <p>hallo</p>
+                <p>hallo</p>
+            </div>
+        </div>
+
+        </div>
     </div>
 
 
