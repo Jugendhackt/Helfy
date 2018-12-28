@@ -35,13 +35,11 @@
     }
 
     function toLeftPsswd(){
-        document.getElementById("formular1").style.marginLeft = "10%";
         document.getElementById("changepsswd").style.display = ""
     }
 
     function toRightPsswd(){
         document.getElementById("changepsswd").style.display = "none";
-        document.getElementById("formular1").style.marginLeft = "30%";
     }
     </script>
 
@@ -49,31 +47,25 @@
         <h1 class="header">Helfy - Einstellungen</h1>
 
         <br />
-        <div id="formular1" style="display: inline-block;">
-        <div id="username"></div>
-        <br />
-        <hr>
-        <br />
-            <button type="button" class="btn btn-dark" style="width: 40%; margin-left: 5%;" onclick="toLeftPsswd()">Username &auml;ndern</button>
+        
+        <div id="formular1" class="formular">
+            <div id="username"></div>
             <br />
-            <hr>
-            <br />
-            <button type="button" class="btn btn-dark" style="width: 40%; margin-left: 5%;">Passwort &auml;ndern</button>
-            <br />
-            <hr>
-            <br />
-            <button type="button" class="btn btn-dark" style="width: 40%; margin-left: 5%;">Email &auml;ndern</button>
-            <br /><br /><br /><br />
-
-
+            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftPsswd()">Benutzername &auml;ndern</button>
+            <button type="button" class="btn btn-dark" style="margin: 10px;">Passwort &auml;ndern</button>
+            <button type="button" class="btn btn-dark" style="margin: 10px;">Email-Adresse &auml;ndern</button>
+            <form id="autoform"></form>
         </div>
-        <div style="width: 40%; float: right; margin-right: 5%; margin-top: 5%;">
-        <div style="margin: 0; width: 100%; margin-top: 10px; padding: 12px; padding-top: 0; display: none;" class="formular" id="changepsswd">
-            <div style="width: 100%;">
-                <h5 style="text-align: center; display: inline-block; margin-top: 12px;"><b>Username &auml;ndern:</b></h5>
-                <a onclick="toRightPsswd()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
-                <input name="newusername" type="text" class="form-control" id="newusername" placeholder="Neuer Benutzername">
-                <button type="button" class="btn btn-green" onclick="toRightPsswd()">Username &auml;ndern</button>
+
+        <div style="display: none;" class="formular" id="changepsswd">
+            <a onclick="toRightPsswd()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
+            <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                <h5 style="text-align: center;"><b>Benutzername &auml;ndern</b></h5><br>
+                <input name="username" type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Benutzername" value="">
+            </div>
+            <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                <button class="btn-success btn" onclick="toRightPsswd();">Speichern</button>
+                <button class="btn-outline-danger btn" onclick="toRightPsswd()">Abbrechen</button>
             </div>
         </div>
 
