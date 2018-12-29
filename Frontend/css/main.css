@@ -358,3 +358,14 @@ a .user {
 
 .btn-green{background-color:lightgreen;color: black;}
 .btn-green:hover{background-color: green;}
+
+.notifyBox{
+    padding-top: 20px;
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+}
+
+.user:hover {
+    text-decoration: none;
+}

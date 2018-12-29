@@ -15,7 +15,7 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <div id="me"><a href="home.html">Home</a></div>
                 <a href="einstellungen.html">Einstellungen</a>
-                <a href="notification.html">Nachrichten</a>
+                <a href="" id="here">Nachrichten</a>
                 <a href="gruppen.html">Gruppen</a>
                 <br />
               </div>
@@ -29,16 +29,16 @@
 
     <div class="container-float" id="insertHere">
         <h1 class="header">
-            Helfy - Home <button class="btn btn-dark" style="float: right;" id="logbtn" onclick="logout()">Logout</button>
+            Helfy
         </h1>
-        <div id="formular">
-            <p id="userinfo" style="text-align: center; margin-top: 10px;"></p>
+        <div id="notification" class="notifyBox">
         </div>
     </div>
     <script src="js/session.js"></script>
+    <script src="js/notification.js"></script>
     <script src="js/navigation.js"></script>
     <script>
-        setupHome();
+        getNotifications();
     </script>
 <div id="footer">
         <hr style="margin: 10px; border-radius: 20px;">
