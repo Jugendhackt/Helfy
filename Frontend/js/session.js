@@ -108,6 +108,20 @@ async function setupHome() {
 
             uinf = document.getElementById("userinfo");
             uinf.innerHTML = "<b>" + sdata[1] + " " + sdata[2] + "</b><br><a class='user' href=''>@" + sdata[0] + "</a><br><br>" + sdata[4] + " " + sdata[3];
+
+            if(sdata[6] != "0"){
+                uinf.innerHTML += "<br><br>";
+                var notif = document.createElement("div");
+                notif.setAttribute("class", "alert alert-info")
+                notif.style.textAlign = "center";
+                if(sdata[6] == "1"){
+                    notif.innerHTML = "Sie haben <a class='alert-link' href='notification.html'>1 neue Benachrichtigung</a>!";
+                } else {
+                    notif.innerHTML = "Sie haben <a class='alert-link' href='notification.html'>" + sdata[6] + " neue Benachrichtigungen</a>!";
+                }
+                document.getElementById("userinfo").appendChild(notif);
+            }
+
             var navPage = document.createElement("div");
             navPage.id = "formular";
             navPage.style.textAlign = "center";

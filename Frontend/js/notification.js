@@ -40,9 +40,10 @@ async function getNotifications() {
         });
 
         data = await request.text();
-        console.log(data);
         if(data != "failed"){
             ntfcn = JSON.parse(data);
+            notified = true;
+            document.getElementById("notification").innerHTML = "";
             for(i in ntfcn){
                 var nBox = document.getElementById("notification");
                 var noti = document.createElement("div");
@@ -50,11 +51,11 @@ async function getNotifications() {
                 noti.setAttribute("id", "alert" + i);
                 if(ntfcn[i][0] == "welcome"){
                     noti.setAttribute("class", "alert alert-success");
-        
                     noti.innerHTML = '<button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert(' + i + ', \'NULL\')"><span aria-hidden="true">&times;</span></button>' + 
                     '<h5 class="alert-heading">Willkommen bei <strong>Helfy</strong></h5>' +
                     'Sie haben sich erfolgreich registriert!';
                     nBox.appendChild(noti);
+                    notified = false;
                 }
                 if(ntfcn[i][0] == "joinGroup"){
                     noti.setAttribute("class", "alert alert-info");
@@ -62,7 +63,23 @@ async function getNotifications() {
                     '<p >Sie wurden von <a href="user.html?u=' + ntfcn[i][3] + '" class="user">@' + ntfcn[i][3] + '</a> eingeladen, der Gruppe <i>' + ntfcn[i][2] + '</i> beizutreten.</p>' +
                     'Diese Einladung <a href="#" class="alert-link" onclick="closeAlert(' + i + ', \'join\')">Annehmen</a> oder <a href="#" class="alert-link" onclick="closeAlert(' + i + ', \'reject\')">Ablehnen</a>.'
                     nBox.appendChild(noti);
+                    notified = false;
                 }
+                if(ntfcn[i][0] == "simple"){
+                    noti.setAttribute("class", "alert alert-" + ntfcn[i][1]);
+                    noti.innerHTML = '<button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert(' + i + ', \'NULL\')"><span aria-hidden="true">&times;</span></button>' + ntfcn[i][2];
+                    nBox.appendChild(noti);
+                    notified = false;
+                }
+            }
+            if(notified){
+                var nBox = document.getElementById("notification");
+                var noti = document.createElement("div");
+                noti.setAttribute("role", "alert");
+                noti.setAttribute("id", "alert" + i);
+                noti.setAttribute("class", "alert alert-dark");
+                noti.innerHTML = 'Keine Benachrichtigungen.';
+                nBox.appendChild(noti);
             }
         }
         console.log("fetch success");
@@ -99,4 +116,5 @@ async function closeAlert(id, code){
     noti.innerHTML = "Wird entfernt..."
     await closeNotification(id, code);
     nBox.removeChild(noti);
+    getNotifications();
 }
