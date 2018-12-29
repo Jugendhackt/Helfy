@@ -140,6 +140,32 @@ async function setupHome() {
 }
 
 
+async function usernameVorschlag() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var fullurl = server_url + '/backend/index.php?request=homeData&username=' + l_username + "&session=" + l_session;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        sdata = await request.text();
+        if (sdata == "no_email_verify") {
+            console.log("no email verify");
+        } else if(sdata == "failed"){
+            console.log("invalid session");
+        } else {
+            sdata = JSON.parse(sdata);
+            document.getElementById("usernameInp").value = sdata[1].toLowerCase() + "." + sdata[2].toLowerCase();
+        }
+
+    } catch (e) {
+        console.error('fetch error', e);
+        sdata = "fetch_error";
+    }
+}
+
+
 async function logout() {
     var l_username = getCookie("username");
     var l_session = getCookie("session");
