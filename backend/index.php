@@ -181,6 +181,14 @@ if($request == "newGroup"){
     echo newGroup($_GET['groupname'], $_GET['users'], $_GET['description'], $_GET['username'], $_GET['session']);
 }
 
+if($request == "getNotifications"){
+    echo getNotifications($_GET['username'], $_GET['session']);
+}
+
+if($request == "removeNotification"){
+    echo removeNotification($_GET['username'], $_GET['session'], $_GET['id'], $_GET['code']);
+}
+
 
 if($request == "logout"){
 	$u_username = $_GET['username'];

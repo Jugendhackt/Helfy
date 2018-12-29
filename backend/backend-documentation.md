@@ -18,7 +18,7 @@ Returns neccesarry data for the home-user-page encoded as JSON. Example output:
 
     ["m.m","Max","Mustermann","Musterort","11111"]
 
-It is ordered like this: `username, first name, last name, place, zip`
+It is ordered like this: `username, first name, last name, place, zip, settings, number of notifications`
 
 #### registrateUser
     index.php?request=registrateUser&username=username&password=password&email=email&vname=firstName&nname=lastName&ort=place&plz=zip
@@ -42,3 +42,19 @@ Used for login. Returns a sessionID (36 characters). If username and password ar
 Creates a group. Members of the group ar given in a list seperated by ",".
 Example: `max.mustermann,maxine.mustermann`
 Returns `success` if it worked or `failed` if sessionID and username are invalid.
+
+#### getNotifications
+    index.php?request=getNotifications&username=username&session=sessionID
+Returns all notifications for given user (JSON encoded).
+Example: `[["welcome"],["joinGroup","468d4442-b4d2-4ce5-a507-1d2ed7deab3e","Test","m.m","This is a description"],["simple", "info", "This is a test notification"]]`
+There are different possible notifications.
+##### welcome
+Used to display a welcome message when user registration succeed.
+##### joinGroup
+Invites an user to join a group. It contains the groupid, groupname, admin username and description.
+##### simple
+Used to display simple notifications. It contains the type of notification as well as the text it will display.
+
+#### removeNotification
+    index.php?request=getNotifications&username=username&session=sessionID&id=groupID&code=actionCode
+Removes notifications. In case of a `joinGroup` notification it will asign the user to the group if `join` is given as code.

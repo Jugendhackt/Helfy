@@ -108,7 +108,11 @@ function getHomeData($ldc_username){
     $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
-    return [$res['username'], $res['vname'], $res['nname'], explode("=", explode(";", $res['settings'])[0])[1], explode("=", explode(";", $res['settings'])[1])[1]];
+    $notif = sizeof(explode(";", $res['notifications']));
+    if($res['notifications'] == ""){
+		$notif = 0;
+	}
+    return [$res['username'], $res['vname'], $res['nname'], explode("=", explode(";", $res['settings'])[0])[1], explode("=", explode(";", $res['settings'])[1])[1], explode(";", $res['settings']), $notif];
 }
 
 function login($ldc_username, $ldc_password){
@@ -179,7 +183,7 @@ function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_
 	$rg_nachname = $mysqli->real_escape_string($rg_nachname);
     $rg_ort = $mysqli->real_escape_string($rg_ort);
     $rg_plz = $mysqli->real_escape_string($rg_plz);
-    $rg_settings = "ORT=".$rg_ort.";PLZ=".$rg_plz;
+    $rg_settings = "ORT=".$rg_ort.";PLZ=".$rg_plz.";GROUPS=";
 
     $sql = "SELECT * FROM `users` WHERE `username` = '$rg_username'";
     $result = $mysqli->query($sql);
@@ -187,7 +191,7 @@ function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_
     $rg_password_crypt = password_hash($rg_password,PASSWORD_DEFAULT);
     $hash = guidv4(random_bytes(16));
     if($res == "" && $rg_username != "" && $rg_password != "" && $rg_email != "" && $rg_vorname != "" && $rg_nachname != ""){
-        $sql = "INSERT INTO `users` VALUES (NULL, '$rg_username', '$rg_password_crypt', '$rg_vorname', '$rg_nachname', '$rg_email', '$rg_settings', 0, '$hash')";
+        $sql = "INSERT INTO `users` VALUES (NULL, '$rg_username', '$rg_password_crypt', '$rg_vorname', '$rg_nachname', '$rg_email', '$rg_settings', 'welcome', 0, '$hash')";
         $insert = $mysqli->query($sql);
         return true;
     } else {
@@ -219,6 +223,67 @@ function logout($u_username, $u_session){
 	}
 }
 
+function newGroupHash(){
+	global $mysqli;
+	$hash = guidv4(random_bytes(16));
+	$sql = "SELECT * FROM `groups` WHERE `hash` = '$hash'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    while($res != ""){
+		$hash = guidv4(random_bytes(16));
+		$sql = "SELECT * FROM `groups` WHERE `hash` = '$hash'";
+		$result = $mysqli->query($sql);
+		$res = $result->fetch_assoc();
+	}
+	return $hash;
+}
+
+function newNotification($u_username, $u_notification){
+	global $mysqli;
+	$u_username = $mysqli->real_escape_string($u_username);
+	$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    if($res['notifications'] != ""){
+		$setout = $res['notifications'].";".$u_notification;
+	} else {
+		$setout = $u_notification;
+	}
+	$sql = "UPDATE `users` SET `notifications` = '$setout' WHERE `username` = '$u_username'";
+	$update = $mysqli->query($sql);
+}
+
+function addGroupToUser($u_username, $u_groupHash){
+	global $mysqli;
+	$u_username = $mysqli->real_escape_string($u_username);
+	$u_groupHash = $mysqli->real_escape_string($u_groupHash);
+
+    $sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    
+    $sql = "SELECT * FROM `groups` WHERE `hash` = '$u_groupHash'";
+    $result = $mysqli->query($sql);
+    $ros = $result->fetch_assoc();
+    
+    $settings = explode(";", $res['settings']);
+    if($settings[2] != "GROUPS="){
+		$setout = str_replace($settings[2], $settings[2].",".$ros['id'], $res['settings']);
+    } else {
+		$setout = str_replace($settings[2], $settings[2].$ros['id'], $res['settings']);
+	}
+	$sql = "UPDATE `users` SET `settings` = '$setout' WHERE `username` = '$u_username'";
+	$update = $mysqli->query($sql);
+}
+
+function getGroupByHash($hash){
+	global $mysqli;
+	$hash = $mysqli->real_escape_string($hash);
+	$sql = "SELECT * FROM `groups` WHERE `hash` = '$hash'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    return $res;
+}
 
 function newGroup($u_groupname, $u_users, $u_description, $u_creator, $u_creator_session){
 	if(sessionDataCorrect($u_creator, $u_creator_session)){
@@ -227,9 +292,79 @@ function newGroup($u_groupname, $u_users, $u_description, $u_creator, $u_creator
 		$u_description = $mysqli->real_escape_string($u_description);
 		$u_creator = $mysqli->real_escape_string($u_creator);
 		$u_groupname = $mysqli->real_escape_string($u_groupname);
-
-		$sql = "INSERT INTO `users` VALUES (NULL, '$u_groupname', '$u_users', '$u_creator', '', '$u_description')";
+		$ranhash = newGroupHash();
+		$sql = "INSERT INTO `groups` VALUES (NULL, '$u_groupname', '$u_users', '$u_creator', '', '$u_description', '$ranhash')";
 		$update = $mysqli->query($sql);
+		addGroupToUser($u_creator, $ranhash);
+		$users = explode(",", $u_users);
+		for($i = 0; $i < sizeof($users); $i++){
+			if($users[$i] != $u_creator){
+				newNotification($users[$i], "joinGroup:".getGroupByHash($ranhash)['id']);
+			}
+		}
+		return $ranhash;
+	} else {
+		return "failed";
+	}
+}
+
+function getGroupById($groupID){
+	global $mysqli;
+	$groupID = $mysqli->real_escape_string($groupID);
+	$sql = "SELECT * FROM `groups` WHERE `id` = '$groupID'";
+    $result = $mysqli->query($sql);
+    $res = $result->fetch_assoc();
+    return $res;
+}
+
+function getNotifications($u_username, $u_session){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $mysqli;
+		$u_username = $mysqli->real_escape_string($u_username);
+		$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
+		$result = $mysqli->query($sql);
+		$res = $result->fetch_assoc();
+		$ntfct = explode(";", $res['notifications']);
+		$length = sizeof($ntfct);
+		for($i = 0; $i < $length; $i++){
+			$ntfct[$i] = explode(":", $ntfct[$i]);
+			if($ntfct[$i][0] == "joinGroup"){
+				$group = getGroupById($ntfct[$i][1]);
+				$ntfct[$i] = [$ntfct[$i][0], $group['hash'], $group['name'], $group['admin'], $group['description']];
+			}
+		}
+		return json_encode($ntfct);
+	} else {
+		return "failed";
+	}
+}
+
+function removeNotification($u_username, $u_session, $id, $code){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $mysqli;
+		$u_username = $mysqli->real_escape_string($u_username);
+		$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
+		$result = $mysqli->query($sql);
+		$res = $result->fetch_assoc();
+		$ntfct = explode(";", $res['notifications']);
+		
+		if(explode(":", $ntfct[$id])[0] == "joinGroup"){
+			if($code == "join"){
+				addGroupToUser($u_username, getGroupById(explode(":", $ntfct[$id])[1])['hash']);
+			}
+		}
+		
+		$setout = str_replace("REM0VED", "", str_replace(";REM0VED", "", str_replace("REM0VED;", "", str_replace($ntfct[$id], "REM0VED", $res['notifications']))));
+		$sql = "UPDATE `users` SET `notifications` = '$setout' WHERE `username` = '$u_username'";
+		$update = $mysqli->query($sql);
+		
+		if(explode(":", $ntfct[$id])[0] == "joinGroup"){
+			if($code == "join"){
+				newNotification($u_username, "simple:success:Sie sind der Gruppe <i>".getGroupById(explode(":", $ntfct[$id])[1])['name']."</i> beigetreten.");
+			} else {
+				newNotification($u_username, "simple:warning:Sie haben die Einladung zur Gruppe <i>".getGroupById(explode(":", $ntfct[$id])[1])['name']."</i> abgelehnt.");
+			}
+		}
 		return "success";
 	} else {
 		return "failed";
