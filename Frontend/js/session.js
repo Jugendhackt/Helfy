@@ -1,9 +1,18 @@
 /*
 Session management
 */
+var server_url = "";
 
-var server_url = "https://example.url.com";
-
+var rawFile = new XMLHttpRequest();
+rawFile.open("GET", "server.txt", false);
+rawFile.onreadystatechange = function (){
+    if(rawFile.readyState === 4){
+        if(rawFile.status === 200 || rawFile.status == 0){
+                server_url = rawFile.responseText;
+        }
+    }
+}
+rawFile.send(null);
 
 var data = "";
 
@@ -141,6 +150,7 @@ async function setupHome() {
                 "<button class='btn btn-primary' onclick='self.location.href=\"newgroup.html\"'>Neue Gruppe erstellen</button><br>" +
                 "";
             ih.appendChild(groups);
+            document.getElementById("notifiBadge").setAttribute("data-badge", "\xa0" + sdata[6] + "\xa0")
         }
 
     } catch (e) {

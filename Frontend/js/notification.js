@@ -2,7 +2,18 @@
 Display and interact with notifications
 */
 
-var server_url = "https://example.url.com";
+var server_url = "";
+
+var rawFile = new XMLHttpRequest();
+rawFile.open("GET", "server.txt", false);
+rawFile.onreadystatechange = function (){
+    if(rawFile.readyState === 4){
+        if(rawFile.status === 200 || rawFile.status == 0){
+                server_url = rawFile.responseText;
+        }
+    }
+}
+rawFile.send(null);
 
 
 function setCookie(cname, cvalue, exdays) {
@@ -42,6 +53,7 @@ async function getNotifications() {
         data = await request.text();
         if(data != "failed"){
             ntfcn = JSON.parse(data);
+            console.log(data);
             notified = true;
             document.getElementById("notification").innerHTML = "";
             for(i in ntfcn){
