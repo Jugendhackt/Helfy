@@ -78,3 +78,47 @@ async function newGroup(tnum) {
         document.getElementById("errorline").style.color = "red";        
     }
 }
+
+async function getGroups(){
+    var fullurl = server_url + '/backend/index.php?request=getGroups&username=' + getCookie("username") + "&session=" + getCookie("session");
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.json();
+        var div = document.getElementById("notification");
+        if(data == "failed"){
+            var noti = document.createElement("div");
+            noti.setAttribute("role", "alert");
+            noti.setAttribute("class", "alert alert-warning");
+            noti.innerHTML = 'Falsche Sitzungsdaten, bitte melden Sie sich erneut an.';
+            div.appendChild(noti)
+        } else {
+            for(i in data){
+                var noti = document.createElement("div");
+                noti.setAttribute("role", "alert");
+                noti.setAttribute("id", "alert" + i);
+                noti.setAttribute("class", "alert alert-dark");
+                noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='' class='user'>@" + data[i][1].replace(",", "</a> <a href='' class='user'>@") + "</a>";
+                div.appendChild(noti)
+            }
+            if(data.length == 0){
+                var noti = document.createElement("div");
+                noti.setAttribute("role", "alert");
+                noti.setAttribute("id", "alert");
+                noti.setAttribute("class", "alert alert-dark");
+                noti.innerHTML = 'Sie sind noch kein Teilnehmer einer Gruppe.<br>Erstellen Sie eine <a href="newgroup.html" class="alert-link">neue Gruppe</a> oder nehmen Sie eine Einladung an.';
+                div.appendChild(noti)
+            }
+        }
+
+        console.log(data);
+        console.log("fetch success");
+
+    } catch (e) {
+        console.error('fetch error', e);
+        data = "fetch_error";
+    }
+}
