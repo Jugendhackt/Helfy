@@ -16,7 +16,7 @@ Returns current version of backend e.g. `Helfy backend v0.1`.
     index.php?request=homeData&username=username&session=sessionid
 Returns neccesarry data for the home-user-page encoded as JSON. Example output:
 
-    ["m.m","Max","Mustermann","Musterort","11111"]
+    ["m.m","Max","Mustermann","Musterort","11111", "", "2"]
 
 It is ordered like this: `username, first name, last name, place, zip, settings, number of notifications`
 
@@ -58,3 +58,7 @@ Used to display simple notifications. It contains the type of notification as we
 #### removeNotification
     index.php?request=getNotifications&username=username&session=sessionID&id=groupID&code=actionCode
 Removes notifications. In case of a `joinGroup` notification it will asign the user to the group if `join` is given as code.
+
+#### getGroups
+    index.php?request=getNotifications&username=username&session=sessionID
+Returns all groups that the user joined (JSON encoded). Returns `failed` if sessionID or username is incorrect.

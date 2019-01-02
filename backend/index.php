@@ -189,6 +189,10 @@ if($request == "removeNotification"){
     echo removeNotification($_GET['username'], $_GET['session'], $_GET['id'], $_GET['code']);
 }
 
+if($request == "getGroups"){
+    echo json_encode(getGroups($_GET['username'], $_GET['session']));
+}
+
 
 if($request == "logout"){
 	$u_username = $_GET['username'];

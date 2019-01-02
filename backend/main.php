@@ -108,7 +108,7 @@ function getHomeData($ldc_username){
     $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
-    $notif = sizeof(explode(";", $res['notifications']));
+    $notif = sizeof(explode("$", $res['notifications']));
     if($res['notifications'] == ""){
 		$notif = 0;
 	}
@@ -245,7 +245,7 @@ function newNotification($u_username, $u_notification){
     $result = $mysqli->query($sql);
     $res = $result->fetch_assoc();
     if($res['notifications'] != ""){
-		$setout = $res['notifications'].";".$u_notification;
+		$setout = $res['notifications']."$".$u_notification;
 	} else {
 		$setout = $u_notification;
 	}
@@ -324,7 +324,7 @@ function getNotifications($u_username, $u_session){
 		$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
 		$result = $mysqli->query($sql);
 		$res = $result->fetch_assoc();
-		$ntfct = explode(";", $res['notifications']);
+		$ntfct = explode("$", $res['notifications']);
 		$length = sizeof($ntfct);
 		for($i = 0; $i < $length; $i++){
 			$ntfct[$i] = explode(":", $ntfct[$i]);
@@ -346,7 +346,7 @@ function removeNotification($u_username, $u_session, $id, $code){
 		$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
 		$result = $mysqli->query($sql);
 		$res = $result->fetch_assoc();
-		$ntfct = explode(";", $res['notifications']);
+		$ntfct = explode("$", $res['notifications']);
 		
 		if(explode(":", $ntfct[$id])[0] == "joinGroup"){
 			if($code == "join"){
@@ -354,7 +354,7 @@ function removeNotification($u_username, $u_session, $id, $code){
 			}
 		}
 		
-		$setout = str_replace("REM0VED", "", str_replace(";REM0VED", "", str_replace("REM0VED;", "", str_replace($ntfct[$id], "REM0VED", $res['notifications']))));
+		$setout = str_replace("REM0VED", "", str_replace("\$REM0VED", "", str_replace("REM0VED$", "", str_replace($ntfct[$id], "REM0VED", $res['notifications']))));
 		$sql = "UPDATE `users` SET `notifications` = '$setout' WHERE `username` = '$u_username'";
 		$update = $mysqli->query($sql);
 		
@@ -366,6 +366,32 @@ function removeNotification($u_username, $u_session, $id, $code){
 			}
 		}
 		return "success";
+	} else {
+		return "failed";
+	}
+}
+
+
+function getGroups($u_username, $u_session){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $mysqli;
+		$ux_username = $mysqli->real_escape_string($u_username);
+		$sql = "SELECT * FROM `users` WHERE `username` = '$ux_username'";
+		$result = $mysqli->query($sql);
+		$res = $result->fetch_assoc();
+		$groups = explode(",", str_replace("GROUPS=", "", explode(";", $res['settings'])[2]));
+		$out = [];
+		if($groups == ""){
+		} else {
+			for($i = 0; $i < sizeof($groups); $i++){
+				$group = getGroupById($groups[$i]);
+				$usersGroup = explode(",", $group['users']);
+				if(in_array($u_username, $usersGroup)){
+					array_push($out, [$group['name'], $group['users'], $group['admin'], $group['description'], $group['hash']]);
+				}
+			}
+		}
+		return $out;
 	} else {
 		return "failed";
 	}
