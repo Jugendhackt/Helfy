@@ -101,7 +101,8 @@ async function getGroups(){
                 noti.setAttribute("role", "alert");
                 noti.setAttribute("id", "alert" + i);
                 noti.setAttribute("class", "alert alert-dark");
-                noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='' class='user'>@" + data[i][1].replace(",", "</a> <a href='' class='user'>@") + "</a>";
+                noti.style.paddingBottom = "0";
+                noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='' class='user'>@" + data[i][1].replace(",", "</a> <a href='' class='user'>@") + "</a><p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;'>Gruppe verlassen</p>";
                 div.appendChild(noti)
             }
             if(data.length == 0){
