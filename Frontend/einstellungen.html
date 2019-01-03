@@ -35,12 +35,40 @@
     document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;'>@ " + username + "</h3>";    
     }
 
+    function toLeftUsername(){
+        document.getElementById("changeusername").style.display = "";
+        document.getElementById("changepsswd").style.display = "none";
+        document.getElementById("changeemail").style.display = "none";
+    }
+
+    function toRightUsername(){
+        document.getElementById("changeusername").style.display = "none";
+        document.getElementById("changepsswd").style.display = "none";
+        document.getElementById("changeemail").style.display = "none";
+    }
+
     function toLeftPsswd(){
         document.getElementById("changepsswd").style.display = "";
+        document.getElementById("changeusername").style.display = "none";
+        document.getElementById("changeemail").style.display = "none";
     }
 
     function toRightPsswd(){
+        document.getElementById("changeusername").style.display = "none";
         document.getElementById("changepsswd").style.display = "none";
+        document.getElementById("changeemail").style.display = "none";
+    }
+
+    function toLeftEmail(){
+        document.getElementById("changeemail").style.display = "";
+        document.getElementById("changeusername").style.display = "none";
+        document.getElementById("changepsswd").style.display = "none";
+    }
+
+    function toRightEmail(){
+        document.getElementById("changeusername").style.display = "none";
+        document.getElementById("changepsswd").style.display = "none";
+        document.getElementById("changeemail").style.display = "none";
     }
 
     function vorschlag(){
@@ -56,41 +84,50 @@
         <div id="formular1" class="formular">
             <div id="username"></div>
             <br />
-            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftPsswd()">Benutzername &auml;ndern</button>
-            <button type="button" class="btn btn-dark" style="margin: 10px;">Passwort &auml;ndern</button>
-            <button type="button" class="btn btn-dark" style="margin: 10px;">Email-Adresse &auml;ndern</button>
+            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftUsername()">Benutzername &auml;ndern</button>
+            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftPsswd()">Passwort &auml;ndern</button>
+            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftEmail()">Email-Adresse &auml;ndern</button>
             <form id="autoform"></form>
         </div>
 
-        <div style="display: none;" class="formular" id="changepsswd">
-            <a onclick="toRightPsswd()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
+        <div style="display: none; margin-bottom: 5%;" class="formular" id="changeusername">
+            <a onclick="toRightUsername()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
             <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                 <h5 style="text-align: center;"><b>Benutzername &auml;ndern</b></h5><br>
-                <input name="username" type="text" class="form-control" id="usernameInp" aria-describedby="emailHelp" placeholder="Neuer Benutzername" value="">
+                <input name="username" type="text" class="form-control" id="usernameInp" placeholder="Neuer Benutzername" value="">
             </div>
             <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                <button class="btn-success btn" onclick="toRightPsswd();">Speichern</button>
+                <button class="btn-success btn" onclick="toRightUsername();">Speichern</button>
                 <button class="btn-outline-info btn" onclick="vorschlag()">Vorschlag</button>
             </div>
         </div>
 
-        <div style="margin: 0; width: 100%; margin-top: 10px; padding: 12px; display: none;" id="formular">
-            <div style="width: 100%;">
-                <p>hallo</p>
-                <p>hallo</p>
+        <div style="display: none; margin-bottom: 5%;" class="formular" id="changepsswd">
+                <a onclick="toRightPsswd()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
+                <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                    <h5 style="text-align: center;"><b>Passwort &auml;ndern</b></h5><br>
+                    <input name="oldpsswd" type="text" class="form-control" id="oldpsswd" placeholder="Altes Passwort" value="">
+                    <input name="changepsswd1" type="text" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value="">
+                    <input name="changepsswd2" type="text" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
+                </div>
+                <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                    <button class="btn-success btn" onclick="toRightPsswd();" style="display: block; margin: 0 auto;">Speichern</button>
+                </div>
             </div>
-        </div>
 
-        <div style="margin: 0; width: 100%; margin-top: 10px; padding: 12px; display: none;" id="formular">
-            <div style="width: 100%;">
-                <p>hallo</p>
-                <p>hallo</p>
-            </div>
-        </div>
+            <div style="display: none; margin-bottom: 5%;" class="formular" id="changeemail">
+                    <a onclick="toRightEmail()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
+                    <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                        <h5 style="text-align: center;"><b>Email-Adresse &auml;ndern</b></h5><br>
+                        <input name="changeemail" type="text" class="form-control" id="changeemail" placeholder="Neue Email-Adresse" value="">
+                    </div>
+                    <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                        <button class="btn-success btn" onclick="toRightEmail();" style="display: block; margin: 0 auto;">Speichern</button>
+                    </div>
+                </div>
 
         </div>
     </div>
-
 
     <div id="footer">
             <hr style="margin: 10px; border-radius: 20px;">
