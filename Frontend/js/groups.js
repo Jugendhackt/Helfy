@@ -102,7 +102,7 @@ async function getGroups(){
                 noti.setAttribute("id", "alert" + i);
                 noti.setAttribute("class", "alert alert-dark");
                 noti.style.paddingBottom = "0";
-                noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='' class='user'>@" + data[i][1].replace(",", "</a> <a href='' class='user'>@") + "</a><p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;'>Gruppe verlassen</p>";
+                noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='' class='user'>@" + data[i][1].replace(",", "</a> <a href='' class='user'>@") + "</a><p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;' onclick='leaveGroup(\"" + data[i][4] + "\")'>Gruppe verlassen</p>";
                 div.appendChild(noti)
             }
             if(data.length == 0){
@@ -122,4 +122,8 @@ async function getGroups(){
         console.error('fetch error', e);
         data = "fetch_error";
     }
+}
+
+function leaveGroup(groupHash){
+    //code here
 }
