@@ -16,7 +16,7 @@ Returns current version of backend e.g. `Helfy backend v0.1`.
     index.php?request=homeData&username=username&session=sessionid
 Returns neccesarry data for the home-user-page encoded as JSON. Example output:
 
-    ["m.m","Max","Mustermann","Musterort","11111", "", "2"]
+    ["m.m","Max","Mustermann","Musterort","22222",["ORT=Musterort","PLZ=22222"],0]
 
 It is ordered like this: `username, first name, last name, place, zip, settings, number of notifications`
 
