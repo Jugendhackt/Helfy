@@ -397,6 +397,49 @@ function getGroups($u_username, $u_session){
 	}
 }
 
+function leaveGroup($u_username, $u_session, $u_groupHash){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $mysqli;
+		$group = getGroupByHash($u_groupHash);
+		$usersGroup = explode(",", $group['users']);
+		$usersOut = "";
+		if(in_array($u_username, $usersGroup)){
+			if($group['users'] != $u_username){
+				$usersOut = str_replace(",".$u_username, "", str_replace($u_username.",", "", $group['users']));
+			}
+			$u_groupHash = $mysqli->real_escape_string($u_groupHash);
+			$ux_username = $u_username;
+			$u_username = $mysqli->real_escape_string($u_username);
+			$sql = "UPDATE `groups` SET `users` = '$usersOut' WHERE `hash` = '$u_groupHash'";
+			$update = $mysqli->query($sql);
+			
+			$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
+			$result = $mysqli->query($sql);
+			$res = $result->fetch_assoc();
+			$uhome = getHomeData($u_username)[5][2];
+			$userGroups = str_replace($group['id'], "", str_replace($group['id'].",", "", str_replace(",".$group['id'], "", $uhome)));
+			$settings = str_replace($uhome, $userGroups, $res['settings']);
+			$sql = "UPDATE `users` SET `settings` = '$settings' WHERE `username` = '$u_username'";
+			$update = $mysqli->query($sql);
+			
+			if($group['admin'] == $ux_username){
+				if($group['users'] != ""){
+					$newAdmin = explode(",", $group['users'])[0];
+					$sql = "UPDATE `groups` SET `admin` = '$newAdmin' WHERE `hash` = '$u_groupHash'";
+					$update = $mysqli->query($sql);
+				}
+			}
+			newNotification($u_username, "simple:warning:Sie haben die Gruppe <i>".$group['name']."</i> verlassen.");
+			return "success";
+		} else {
+			return "failed_not_member";
+		}
+	} else {
+		return "failed";
+	}
+}
+
+
 /*
 
 function addRide($type, $user_id, $start, $ziel, $description){

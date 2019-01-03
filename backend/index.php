@@ -23,7 +23,6 @@ if($request == "version"){
 	echo "Helfy backend v0.1";
 }
 
-
 if($request == "homeData"){
     $u_username = ($_GET['username']);
     $u_session = ($_GET['session']);
@@ -191,6 +190,10 @@ if($request == "removeNotification"){
 
 if($request == "getGroups"){
     echo json_encode(getGroups($_GET['username'], $_GET['session']));
+}
+
+if($request == "leaveGroup"){
+    echo leaveGroup($_GET['username'], $_GET['session'], $_GET['groupHash']);
 }
 
 

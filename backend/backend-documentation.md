@@ -62,3 +62,7 @@ Removes notifications. In case of a `joinGroup` notification it will asign the u
 #### getGroups
     index.php?request=getNotifications&username=username&session=sessionID
 Returns all groups that the user joined (JSON encoded). Returns `failed` if sessionID or username is incorrect.
+
+#### leaveGroup
+    index.php?request=getNotifications&username=username&session=sessionID&groupHash=c1849032-c8da-4f2d-aea4-4cc576ca9d81
+Removes user from group. Returns `success` if everything went fine. Returns `failed` if sessionID or username is incorrect. Returns `failed_not_member` if user is not member of the group to leave.
