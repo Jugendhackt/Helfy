@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
-    <title>Helfy - Home</title>
+    <title>Helfy - Eigene Fahrten</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <script src="js/session.js"></script>
+    <script src="js/navigation.js"></script>
 </head>
 
 <body>        
@@ -16,8 +18,8 @@
                 <div id="me"><a href="home.html">Home</a></div>
                 <a href="einstellungen.html">Einstellungen</a>
                 <a href="notification.html">Nachrichten</a>
-                <a href="#" id="here" style="color: white;">Gruppen</a>
-                <a href="rides.html">Eigene Fahrten</a>
+                <a href="gruppen.html">Gruppen</a>
+                <a href="rides.html" style="color: white;">Eigene Fahrten</a>
                 <br />
               </div>
 
@@ -30,17 +32,9 @@
 
     <div class="container-float" id="insertHere">
         <h1 class="header">
-            Helfy
+            Helfy - Eigene Fahrten
         </h1>
-        <div id="notification" class="notifyBox">
-        </div>
     </div>
-    <script src="js/session.js"></script>
-    <script src="js/groups.js"></script>
-    <script src="js/navigation.js"></script>
-    <script>
-        getGroups();
-    </script>
 <div id="footer">
         <hr style="margin: 10px; border-radius: 20px;">
         <p style="margin-top: 2%;">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#" onclick="logout()">Log Out</a></p>
