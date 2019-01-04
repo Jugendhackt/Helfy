@@ -204,10 +204,8 @@ function existsUser($rg_username){
 	global $pdo;
 	$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
 	$statement->execute(array($rg_username));
-	$res = $statement->fetchAll()[0];
-    return $res['username'];
-    
-    return ($res != "");
+	$res = $statement->fetchAll();
+    return ($statement->rowCount() != 0);
 }
 
 function logout($u_username, $u_session){
@@ -478,7 +476,7 @@ function changeEmail($u_username, $u_session, $u_email){
 	if(sessionDataCorrect($u_username, $u_session)){
 		global $pdo;
 		$data = [
-			'email' => password_hash($u_password_new,PASSWORD_DEFAULT),
+			'email' => $u_email,
 			'username' => $u_username,
 			'session' => guidv4(random_bytes(16)),
 		];
@@ -488,6 +486,31 @@ function changeEmail($u_username, $u_session, $u_email){
 		$statement->execute($data);
 		
 		return "success";
+	} else {
+		return "failed";
+	}
+}
+
+function changeUsername($u_username, $u_session, $u_newUsername){
+	if(sessionDataCorrect($u_username, $u_session)){
+		if(existsUser($u_newUsername) == false){
+			global $pdo;
+			$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+			$statement->execute(array($u_username));
+			$res = $statement->fetchAll()[0];
+			$data = [
+				'id' => $res['id'],
+				'username' => $u_newUsername,
+			];
+			$sql = "UPDATE `users` SET `username` = :username WHERE `id` = :id";
+			
+			$statement = $pdo->prepare($sql);
+			$statement->execute($data);
+			
+			return "success";
+		} else {
+			return "username_already_taken";
+		}
 	} else {
 		return "failed";
 	}

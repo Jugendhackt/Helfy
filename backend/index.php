@@ -115,8 +115,6 @@ if($request == "addRide"){
     //    echo "failed";
     //}
 }
-*/
-
 
 if($request == "nearbyRides"){
     //$u_username = ($_GET['username']);
@@ -155,7 +153,7 @@ if($request == "nearbyRides"){
     //}
 }
 
-/*
+
 if($request == "editRide"){
 	$u_username = ($_GET['username']);
     $u_session_id = ($_GET['session_id']);
@@ -202,6 +200,10 @@ if($request == "changePassword"){
 
 if($request == "changeEmail"){
     echo changeEmail($_GET['username'], $_GET['session'], $_GET['email']);
+}
+
+if($request == "changeUsername"){
+    echo changeUsername($_GET['username'], $_GET['session'], $_GET['newUsername']);
 }
 
 
