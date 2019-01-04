@@ -99,7 +99,7 @@ async function getGroups(){
             for(i in data){
                 var noti = document.createElement("div");
                 noti.setAttribute("role", "alert");
-                noti.setAttribute("id", "alert" + i);
+                noti.setAttribute("id", "alert" + data[i][4]);
                 noti.setAttribute("class", "alert alert-dark");
                 noti.style.paddingBottom = "0";
                 noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='' class='user'>@" + data[i][1].replace(",", "</a> <a href='' class='user'>@") + "</a><p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;' onclick='leaveGroup(\"" + data[i][4] + "\")'>Gruppe verlassen</p>";
@@ -124,6 +124,23 @@ async function getGroups(){
     }
 }
 
-function leaveGroup(groupHash){
-    //code here
+async function leaveGroup(groupHash){
+    var username = getCookie("username");
+    var session = getCookie("session");
+
+    var fullurl = server_url + 'index.php?request=getNotifications&username=' + username + '&session=' + session + '&groupHash=' + groupHash;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        console.log("fetch success");
+
+    } catch (e) {
+        console.error('fetch error', e);
+        data = "fetch_error";
+    }
+
+    document.getElementById("alert" + groupHash).style.display = "none";
 }
