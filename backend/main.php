@@ -147,21 +147,19 @@ function idByUsername($username){
 }
 
 
-function verifyEmail($username, $code, $type){
-	$ret = false;
-	if($type == "true"){
-		global $mysqli;
-		$username = $mysqli->real_escape_string($username);
-		$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-		$result = $mysqli->query($sql);
-		$res = $result->fetch_assoc();
-		if($code == $res['session']){
-			$sql = "UPDATE `users` SET `session` = '', `verify-email` = 1 WHERE `username` = '$username'";
-			$update = $mysqli->query($sql);
-			$ret = true;
-		}
+function verifyEmail($username, $code){
+	global $mysqli;
+	$username = $mysqli->real_escape_string($username);
+	$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
+	$result = $mysqli->query($sql);
+	$res = $result->fetch_assoc();
+	if($code == $res['session']){
+		$sql = "UPDATE `users` SET `session` = '', `verify-email` = 1 WHERE `username` = '$username'";
+		$update = $mysqli->query($sql);
+		return "success";
+	} else {
+		return "failed";
 	}
-	return $ret;
 }
 
 
@@ -434,6 +432,38 @@ function leaveGroup($u_username, $u_session, $u_groupHash){
 		} else {
 			return "failed_not_member";
 		}
+	} else {
+		return "failed";
+	}
+}
+
+
+function changePassword($u_username, $u_session, $u_password, $u_password_new){
+	if(sessionDataCorrect($u_username, $u_session)){
+		if(loginDataCorrect($u_username, $u_password)){
+			global $mysqli;
+			$u_username = $mysqli->real_escape_string($u_username);
+			$crypt_password_new = password_hash($u_password_new,PASSWORD_DEFAULT);
+			$sql = "UPDATE `users` SET `password` = '$crypt_password_new' WHERE `username` = '$u_username'";
+			$update = $mysqli->query($sql);
+			return "success";
+		} else {
+			return "failed_passwd";
+		}
+	} else {
+		return "failed";
+	}
+}
+
+function changeEmail($u_username, $u_session, $u_email){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $mysqli;
+		$u_username = $mysqli->real_escape_string($u_username);
+		$u_email = $mysqli->real_escape_string($u_email);
+		$ransession = guidv4(random_bytes(16));
+		$sql = "UPDATE `users` SET `email` = '$u_email', `verify-email` = '0', `session` = '$ransession' WHERE `username` = '$u_username'";
+		$update = $mysqli->query($sql);
+		return "success";
 	} else {
 		return "failed";
 	}

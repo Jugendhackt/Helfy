@@ -196,6 +196,14 @@ if($request == "leaveGroup"){
     echo leaveGroup($_GET['username'], $_GET['session'], $_GET['groupHash']);
 }
 
+if($request == "changePassword"){
+    echo changePassword($_GET['username'], $_GET['session'], $_GET['password'], $_GET['passwordNew']);
+}
+
+if($request == "changeEmail"){
+    echo changeEmail($_GET['username'], $_GET['session'], $_GET['email']);
+}
+
 
 if($request == "logout"){
 	$u_username = $_GET['username'];

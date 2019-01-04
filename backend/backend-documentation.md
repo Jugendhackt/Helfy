@@ -66,3 +66,11 @@ Returns all groups that the user joined (JSON encoded). Returns `failed` if sess
 #### leaveGroup
     index.php?request=getNotifications&username=username&session=sessionID&groupHash=c1849032-c8da-4f2d-aea4-4cc576ca9d81
 Removes user from group. Returns `success` if everything went fine. Returns `failed` if sessionID or username is incorrect. Returns `failed_not_member` if user is not member of the group to leave.
+
+#### changeEmail
+    index.php?request=changeEmail&username=username&session=sessionID&email=me@example.com
+Changes the email adress. The email adress has to be verified before a new login is possible. Returns `success` or `failed`.
+
+#### changePassword
+    index.php?request=changeEmail&username=username&session=sessionID&password=asdf&passwordNew=ghjk
+Changes the password. Returns `success`, `failed` (sessionID or password incorrect) or `failed_passwd` (wrong old password).
