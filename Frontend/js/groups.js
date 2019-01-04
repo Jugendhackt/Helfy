@@ -128,7 +128,7 @@ async function leaveGroup(groupHash){
     var username = getCookie("username");
     var session = getCookie("session");
 
-    var fullurl = server_url + 'index.php?request=getNotifications&username=' + username + '&session=' + session + '&groupHash=' + groupHash;
+    var fullurl = server_url + 'index.php?request=leaveGroup&username=' + username + '&session=' + session + '&groupHash=' + groupHash;
     try {
         let request = await fetch(fullurl, {
             method: "GET",

@@ -28,14 +28,19 @@
                     <input name="password" type="password" class="form-control" id="password" placeholder="Passwort">
                 </div>
                 <p id="errorline" style="color: red; font-size: 13px; text-align: center;"></p>
-                <button type="button" class="btn btn-dark" style="margin-left: 40%;" onclick="loginAction()">Anmelden!</button>
+                <button type="button" class="btn btn-dark" style="display: block; margin: 0 auto;" onclick="loginAction()">Anmelden!</button>
                 <input type="hidden" name="request" value="login"></input>
             </form>
 
             <br />
 
-            <div>
-                <p id="list">Noch nicht angemeldet? Jetzt <a href="registration.html">registrieren</a>!</p>
+            <div id="ny-mobile">
+                <p style="margin-bottom: 1%; text-align: center;">Noch nicht angemeldet?</p>
+                <p id="list" style="text-align: center;">Jetzt <a href="registration.html">registrieren</a>!</p>
+            </div>
+            
+            <div id="ny">
+                <p id="list" style="margin-bottom: 1%; text-align: center;">Noch nicht angemeldet? Jetzt <a href="registration.html">registrieren</a>!</p>
             </div>
 
         </div>

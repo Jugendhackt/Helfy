@@ -135,6 +135,7 @@ html, body {
     margin: 10px;
     box-shadow: 4px 4px 2px -2px gray;
     padding: 10px;
+    margin-right: 5%;
 }
 
 .formular {
@@ -142,6 +143,7 @@ html, body {
     margin: 10px;
     box-shadow: 4px 4px 2px -2px gray;
     padding: 10px;
+    margin-right: 5%;
 }
 
 #formular1 {
@@ -149,6 +151,7 @@ html, body {
     margin: 10px;
     box-shadow: 4px 4px 2px -2px gray;
     padding: 10px;
+    margin-right: 5%;
 }
 
 #formular2 {
@@ -205,6 +208,10 @@ html, body {
     #nmobile {
         display: none;
     }
+
+    #ny-mobile{
+        display: none;
+    }
   }
 
   @media (max-width: 450px) {
@@ -214,6 +221,10 @@ html, body {
       }
 
       #ndesktop {
+          display: none;
+      }
+
+      #ny{
           display: none;
       }
   }
