@@ -29,12 +29,12 @@ Registrates user and returns `success` or `failed`.
 Checks wether username already exists and returns `true` in this case, otherwise it returns `false`.
 
 #### checkSessionData
-    index.php?request=homeData&username=username&session=sessionid
+    index.php?request=checkSessionData&username=username&session=sessionid
 Returns `correct` in case of a valid sessionID . If it is not valid it will return `incorrect`.  
 If the e-mail address of the account hasn't been verified it will return `no_email_verify`.
 
 #### newSession
-    index.php?request=homeData&username=username&password=password
+    index.php?request=newSession&username=username&password=password
 Used for login. Returns a sessionID (36 characters). If username and password are invalid it will return `failed`.
 
 #### newGroup
@@ -56,15 +56,15 @@ Invites an user to join a group. It contains the groupid, groupname, admin usern
 Used to display simple notifications. It contains the type of notification as well as the text it will display.
 
 #### removeNotification
-    index.php?request=getNotifications&username=username&session=sessionID&id=groupID&code=actionCode
+    index.php?request=removeNotification&username=username&session=sessionID&id=groupID&code=actionCode
 Removes notifications. In case of a `joinGroup` notification it will asign the user to the group if `join` is given as code.
 
 #### getGroups
-    index.php?request=getNotifications&username=username&session=sessionID
+    index.php?request=getGroups&username=username&session=sessionID
 Returns all groups that the user joined (JSON encoded). Returns `failed` if sessionID or username is incorrect.
 
 #### leaveGroup
-    index.php?request=getNotifications&username=username&session=sessionID&groupHash=c1849032-c8da-4f2d-aea4-4cc576ca9d81
+    index.php?request=leaveGroup&username=username&session=sessionID&groupHash=c1849032-c8da-4f2d-aea4-4cc576ca9d81
 Removes user from group. Returns `success` if everything went fine. Returns `failed` if sessionID or username is incorrect. Returns `failed_not_member` if user is not member of the group to leave.
 
 #### changeEmail
@@ -72,5 +72,5 @@ Removes user from group. Returns `success` if everything went fine. Returns `fai
 Changes the email adress. The email adress has to be verified before a new login is possible. Returns `success` or `failed`.
 
 #### changePassword
-    index.php?request=changeEmail&username=username&session=sessionID&password=asdf&passwordNew=ghjk
+    index.php?request=changePassword&username=username&session=sessionID&password=asdf&passwordNew=ghjk
 Changes the password. Returns `success`, `failed` (sessionID or password incorrect) or `failed_passwd` (wrong old password).
