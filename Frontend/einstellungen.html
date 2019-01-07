@@ -32,7 +32,7 @@
     <script type="text/javascript">
     function username() {
     var username = getCookie("username");
-    document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;'>@ " + username + "</h3>";    
+    document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;' id='h3username'>@" + username + "</h3>";    
     }
 
     function toLeftUsername(){
@@ -45,6 +45,7 @@
         document.getElementById("changeusername").style.display = "none";
         document.getElementById("changepsswd").style.display = "none";
         document.getElementById("changeemail").style.display = "none";
+        changeUsername();
     }
 
     function toLeftPsswd(){

@@ -16,7 +16,7 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+    along with Helfy.  If not, see <http://www.gnu.org/licenses/>.
 
     Diese Datei ist Teil von Helfy.
 
@@ -218,6 +218,33 @@ async function usernameVorschlag() {
         } else {
             sdata = JSON.parse(sdata);
             document.getElementById("usernameInp").value = sdata[1].toLowerCase() + "." + sdata[2].toLowerCase();
+        }
+
+    } catch (e) {
+        console.error('fetch error', e);
+        sdata = "fetch_error";
+    }
+}
+
+
+async function changeUsername() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var newUsername = document.getElementById("usernameInp").value
+    var fullurl = server_url + '/backend/index.php?request=changeUsername&username=' + l_username + "&session=" + l_session + "&newUsername=" + newUsername;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        sdata = await request.text();
+        if (sdata == "username_already_taken") {
+            console.log("username_already_taken");
+        } else if(sdata == "failed"){
+            console.log("invalid session");
+        } else {
+            document.getElementById("h3username").innerHTML = "@" + newUsername;
+            setCookie("username", newUsername, 7);
         }
 
     } catch (e) {
