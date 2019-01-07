@@ -253,6 +253,37 @@ async function changeUsername() {
     }
 }
 
+async function changePassword() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var newPassword1 = document.getElementById("changepsswd1").value;
+    var newPassword2 = document.getElementById("changepsswd2").value;
+    var password = document.getElementById("oldpsswd").value;
+    if(newPassword1 == newPassword2){
+        var fullurl = server_url + '/backend/index.php?request=changePassword&username=' + l_username + "&session=" + l_session + "&passwordNew=" + newPassword1 + "&password=" + password;
+        try {
+            let request = await fetch(fullurl, {
+                method: "GET",
+                dataType: "application/x-www-form-urlencoded",
+            });
+            sdata = await request.text();
+            console.log(sdata);
+            if (sdata == "failed_passwd") {
+                console.log("failed (wrong password)");
+                document.getElementById("oldpsswd").setAttribute("style", "border-color: red;");
+            } else if(sdata == "failed"){
+                console.log("invalid session");
+            } else {
+                console.log("success");
+            }
+
+        } catch (e) {
+            console.error('fetch error', e);
+            sdata = "fetch_error";
+        }
+    }
+}
+
 
 async function logout() {
     var l_username = getCookie("username");
