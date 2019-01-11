@@ -284,6 +284,29 @@ async function changePassword() {
     }
 }
 
+async function changeEmail() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var email = document.getElementById("changeemailInp").value;
+    var fullurl = server_url + '/backend/index.php?request=changeEmail&username=' + l_username + "&session=" + l_session + "&email=" + email;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        sdata = await request.text();
+        console.log(sdata);
+        if(sdata == "failed"){
+            console.log("invalid session");
+        } else {
+            console.log("success");
+        }
+
+    } catch (e) {
+        console.error('fetch error', e);
+        sdata = "fetch_error";
+    }
+}
 
 async function logout() {
     var l_username = getCookie("username");

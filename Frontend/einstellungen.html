@@ -119,10 +119,11 @@
                     <a onclick="toRightEmail()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
                     <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                         <h5 style="text-align: center;"><b>Email-Adresse &auml;ndern</b></h5><br>
-                        <input name="changeemail" type="text" class="form-control" id="changeemail" placeholder="Neue Email-Adresse" value="">
+                        <input name="changeemail" type="text" class="form-control" id="changeemailInp" placeholder="Neue Email-Adresse" value="">
                     </div>
+                    <br><p style="color: red; padding: 0px 10px;">Nachdem Sie ihre E-Mail Adresse geändert haben, werden Sie automatisch abgemeldet. Wir werden Ihnen dann einen Link senden, mit welchem Sie ihre E-Mail Adresse bestätigen müssen, bevor Sie ihren Account wieder nutzen können.</p>
                     <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                        <button class="btn-success btn" onclick="toRightEmail();" style="display: block; margin: 0 auto;">Speichern</button>
+                        <button class="btn-success btn" onclick="changeEmail();" style="display: block; margin: 0 auto;">Speichern</button>
                     </div>
                 </div>
 
