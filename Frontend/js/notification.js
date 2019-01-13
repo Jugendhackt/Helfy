@@ -125,6 +125,14 @@ async function getNotifications() {
                 noti.innerHTML = 'Keine Benachrichtigungen.';
                 nBox.appendChild(noti);
             }
+        } else {
+            var nBox = document.getElementById("notification");
+            var noti = document.createElement("div");
+            noti.setAttribute("class", "formular");
+            noti.innerHTML = "Falsche oder fehlende Nutzerdaten.<br>Bitte melden Sie sich erneut an!<br><br><button class='btn btn-primary' onclick='self.location.href=\"login.html\"'>zurück zum Login</button>";
+            noti.style.textAlign = "center";
+            nBox.appendChild(noti);
+            nBox.setAttribute("class", "");
         }
         console.log("fetch success");
 
