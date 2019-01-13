@@ -110,6 +110,7 @@
                     <input name="changepsswd1" type="password" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value=""><div style="padding: 4px;"></div>
                     <input name="changepsswd2" type="password" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
                 </div>
+                <p id="pwdFeedback" style="color: green; text-align: center; padding-top: 10px; display: none;"></p>
                 <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                     <button class="btn-success btn" onclick="changePassword();" style="display: block; margin: 0 auto;">Speichern</button>
                 </div>
@@ -137,6 +138,11 @@
 
     <script src="js/session.js"></script>
     <script src="js/navigation.js"></script>
+    <script>
+    if(getCookie("username") == ""){
+        settingsInvalidSession();
+    }
+    </script>
 </body>
 
 </html>

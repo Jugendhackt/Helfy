@@ -75,7 +75,10 @@ function getCookie(cname) {
     return "";
 }
 
-
+function settingsInvalidSession(){
+    document.getElementById("formular1").innerHTML = "Falsche oder fehlende Nutzerdaten.<br>Bitte melden Sie sich erneut an!<br><br><button class='btn btn-primary' onclick='self.location.href=\"login.html\"'>zurück zum Login</button>";
+    document.getElementById("formular1").style.textAlign = "center";
+}
 
 async function login(l_username, l_password) {
     var fullurl = server_url + '/backend/index.php?request=newSession&username=' + l_username + "&password=" + l_password;
@@ -215,6 +218,9 @@ async function usernameVorschlag() {
             console.log("no email verify");
         } else if(sdata == "failed"){
             console.log("invalid session");
+            settingsInvalidSession();
+            toRightUsername()
+
         } else {
             sdata = JSON.parse(sdata);
             document.getElementById("usernameInp").value = sdata[1].toLowerCase() + "." + sdata[2].toLowerCase();
@@ -242,6 +248,8 @@ async function changeUsername() {
             console.log("username_already_taken");
         } else if(sdata == "failed"){
             console.log("invalid session");
+            settingsInvalidSession();
+            toRightUsername()
         } else {
             document.getElementById("h3username").innerHTML = "@" + newUsername;
             setCookie("username", newUsername, 7);
@@ -273,7 +281,12 @@ async function changePassword() {
                 document.getElementById("oldpsswd").setAttribute("style", "border-color: red;");
             } else if(sdata == "failed"){
                 console.log("invalid session");
+                settingsInvalidSession();
+                toRightPsswd()
             } else {
+                document.getElementById("oldpsswd").setAttribute("style", "");
+                document.getElementById("pwdFeedback").innerHTML = "Erfolgreich!";
+                document.getElementById("pwdFeedback").style.display = "";
                 console.log("success");
             }
 
@@ -298,8 +311,11 @@ async function changeEmail() {
         console.log(sdata);
         if(sdata == "failed"){
             console.log("invalid session");
+            settingsInvalidSession();
+            toRightEmail()
         } else {
             console.log("success");
+            logout();
         }
 
     } catch (e) {
