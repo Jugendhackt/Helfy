@@ -8,11 +8,31 @@
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <script language="javascript" type="text/javascript" src="js/session.js"></script> 
+    <script src="js/session.js"></script> 
+    <script src="js/navigation.js"></script>
 </head>
-<body>
+<body onload="alreadyRegistrated(); menu();">
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div id="me"><a href="home.html">Home</a></div>
+        <a href="einstellungen.html">Einstellungen</a>
+        <a href="notification.html" class="badge1" data-badge="" id="notifiBadge">Nachrichten</a>
+        <a href="gruppen.html">Gruppen</a>
+        <a href="rides.html">Eigene Fahrten</a>
+        <br />
+      </div>
+
+      <div>
+
+            <div style="float: left; height:50px; width: 50px;" id="menu">
+            <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+            </div>
+    </div>
+
   <div class="container-float">
           <h1 class="header">Helfy - Registration</h1>
+    <div id="maincontent">
     <p id="simpleoutput"></p>
     <div id="formular">
       <form class="needs-validation" id="registform" novalidate>
@@ -170,6 +190,12 @@
         
       </script>
       <br />
+    </div>
+    </div>
+    <div id="alreadyregistrated" style="display: none">
+      <br /><br />
+      <p style="text-align: center; color: red;">Bitte melden Sie sich ab bevor sie einen neuen Account anlegen.</p>
+      <p style="text-align: center;"><a href="javascript:history.back()" style="color: darkblue;">Zurück</a></p>
     </div>
   </div>
 

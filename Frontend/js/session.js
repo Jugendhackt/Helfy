@@ -366,3 +366,25 @@ function checkTime(){
         document.getElementById("wrongdate").style.display = "";
     }
 }
+
+function menu(){
+    var username = getCookie("username");
+    if (username == ""){
+        document.getElementById("menu").style.display = "none";
+    }
+}
+
+function alreadyLoggedIn(){
+    var username = getCookie("username");
+    if (username != ""){
+        self.location.href="home.html";
+    }
+}
+
+function alreadyRegistrated(){
+    var username = getCookie("username");
+    if (username != ""){
+        document.getElementById("maincontent").style.display = "none";
+        document.getElementById("alreadyregistrated").style.display = "";
+    }
+}
