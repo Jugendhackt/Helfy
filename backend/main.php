@@ -1,4 +1,40 @@
 <?php
+/*
+	main.php
+
+	Copyright 2019 Jakob Stolze <https://github.com/jaybeejs>
+
+ 	This file is part of Helfy - https://github.com/Jugendhackt/Helfy
+
+    Helfy is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Helfy is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Helfy.  If not, see <http://www.gnu.org/licenses/>.
+
+    Diese Datei ist Teil von Helfy.
+
+    Helfy ist Freie Software: Sie können es unter den Bedingungen
+    der GNU General Public License, wie von der Free Software Foundation,
+    Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+    veröffentlichten Version, weiter verteilen und/oder modifizieren.
+
+    Helfy wird in der Hoffnung, dass es nützlich sein wird, aber
+    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License für weitere Details.
+
+    Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
+*/
+
 require("passwords.php");
 header("Access-Control-Allow-Origin: *");
 
@@ -6,7 +42,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$mysqli = new mysqli($sql_server, $sql_username, $sql_password, $sql_database);
+$pdo = new PDO('mysql:host='.$sql_server.';dbname='.$sql_database, $sql_username, $sql_password);
 
 
 function guidv4($data)
@@ -30,11 +66,10 @@ function guidv4($data)
 //echo getCoordinates("ulm");
 
 function permissionControll($ldc_username){
-	global $mysqli;
-    $ldc_username = $mysqli->real_escape_string($ldc_username);
-    $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($ldc_username));
+	$res = $statement->fetchAll()[0];
     if($res['verify-email'] == "1"){
 		return "ok";
 	} else {
@@ -66,12 +101,11 @@ function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 
 
 function sendEMail($mode, $empfaenger){
-	global $mysqli;
+	global $pdo;
 	if($mode == "regist"){
-		$empfaenger = $mysqli->real_escape_string($empfaenger);
-		$sql = "SELECT * FROM `users` WHERE `username` = '$empfaenger'";
-		$result = $mysqli->query($sql);
-		$res = $result->fetch_assoc();
+		$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+		$statement->execute(array($empfaenger));
+		$res = $statement->fetchAll()[0];
 		$vname = $res['vname'];
 		$nname = $res['nname'];
 		$username = $res['username'];
@@ -85,29 +119,29 @@ function sendEMail($mode, $empfaenger){
 
 
 function loginDataCorrect($ldc_username, $ldc_password){
-    global $mysqli;
-    $ldc_username = $mysqli->real_escape_string($ldc_username);
-    $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+    global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($ldc_username));
+	$res = $statement->fetchAll()[0];
+
     return (password_verify($ldc_password, $res['password']) && $ldc_password != "" && $ldc_username != '');
 }
 
 function sessionDataCorrect($ldc_username, $ldc_session){
-    global $mysqli;
-    $ldc_username = $mysqli->real_escape_string($ldc_username);
-    $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+    global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($ldc_username));
+	$res = $statement->fetchAll()[0];
+	
     return ($res['session'] == $ldc_session && $res != "" && $ldc_session != "");
 }
 
 function getHomeData($ldc_username){
-	global $mysqli;
-	$ldc_username = $mysqli->real_escape_string($ldc_username);
-    $sql = "SELECT * FROM `users` WHERE `username` = '$ldc_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($ldc_username));
+	$res = $statement->fetchAll()[0];
+	
     $notif = sizeof(explode("$", $res['notifications']));
     if($res['notifications'] == ""){
 		$notif = 0;
@@ -116,12 +150,16 @@ function getHomeData($ldc_username){
 }
 
 function login($ldc_username, $ldc_password){
-	global $mysqli;
+	global $pdo;
     if(loginDataCorrect($ldc_username, $ldc_password)){
-		$ldc_username = $mysqli->real_escape_string($ldc_username);
-        $ransession = guidv4(random_bytes(16));
-        $sql = "UPDATE `users` SET `session` = '$ransession' WHERE `username` = '$ldc_username'";
-        $update = $mysqli->query($sql);
+		$ransession = guidv4(random_bytes(16));
+		$data = [
+			'username' => $ldc_username,
+			'session' => $ransession,
+		];
+        $sql = "UPDATE `users` SET `session` = :session WHERE `username` = :username";
+        $stmt = $pdo->prepare($sql);
+		$stmt->execute($data);
         return $ransession;
     } else {
 		return "failed";
@@ -138,24 +176,23 @@ function sessionCheck($username){
 }
 */
 function idByUsername($username){
-    global $mysqli;
-    $username = $mysqli->real_escape_string($username);
-    $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+    global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($username));
+	$res = $statement->fetchAll()[0];
     return res['id'];
 }
 
 
 function verifyEmail($username, $code){
-	global $mysqli;
-	$username = $mysqli->real_escape_string($username);
-	$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-	$result = $mysqli->query($sql);
-	$res = $result->fetch_assoc();
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($username));
+	$res = $statement->fetchAll()[0];
 	if($code == $res['session']){
-		$sql = "UPDATE `users` SET `session` = '', `verify-email` = 1 WHERE `username` = '$username'";
-		$update = $mysqli->query($sql);
+		$sql = "UPDATE `users` SET `session` = '', `verify-email` = 1 WHERE `username` = :username";
+		$statement->prepare($sql);
+		$statement->execute(array($username));
 		return "success";
 	} else {
 		return "failed";
@@ -164,33 +201,35 @@ function verifyEmail($username, $code){
 
 
 function idToName($u_id){
-	global $mysqli;
-	$u_id = $mysqli->real_escape_string($u_id);
-    $sql = "SELECT * FROM `users` WHERE `id` = '$u_id'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+	global $pdo;
+	$statement = $pdo->prepare("SELECT * FROM `users` WHERE `id` = ?");
+	$statement->execute(array($u_id));
+	$res = $statement->fetchAll()[0];
     return $res['username'];
 }
 
 
 function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_nachname, $rg_ort, $rg_plz){
-	global $mysqli;
-	$rg_username = $mysqli->real_escape_string($rg_username);
-	$rg_email = $mysqli->real_escape_string($rg_email);
-	$rg_vorname = $mysqli->real_escape_string($rg_vorname);
-	$rg_nachname = $mysqli->real_escape_string($rg_nachname);
-    $rg_ort = $mysqli->real_escape_string($rg_ort);
-    $rg_plz = $mysqli->real_escape_string($rg_plz);
-    $rg_settings = "ORT=".$rg_ort.";PLZ=".$rg_plz.";GROUPS=";
-
-    $sql = "SELECT * FROM `users` WHERE `username` = '$rg_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+    global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($rg_username));
+	$res = $statement->fetchAll()[0];
     $rg_password_crypt = password_hash($rg_password,PASSWORD_DEFAULT);
     $hash = guidv4(random_bytes(16));
     if($res == "" && $rg_username != "" && $rg_password != "" && $rg_email != "" && $rg_vorname != "" && $rg_nachname != ""){
-        $sql = "INSERT INTO `users` VALUES (NULL, '$rg_username', '$rg_password_crypt', '$rg_vorname', '$rg_nachname', '$rg_email', '$rg_settings', 'welcome', 0, '$hash')";
-        $insert = $mysqli->query($sql);
+		$data = [
+			'username' => $rg_username,
+			'email' => $rg_email,
+			'vname' => $rg_vorname,
+			'nname' => $rg_nachname,
+			'settings' => "ORT=".$rg_ort.";PLZ=".$rg_plz.";GROUPS=",
+			'hash' => $hash,
+			'password' => $rg_password_crypt,
+		];
+
+        $sql = "INSERT INTO `users` VALUES (NULL, :username, :password, :vname, :nname, :email, :settings, 'welcome', 0, :hash)";
+        $stmt= $pdo->prepare($sql);
+		$stmt->execute($data);
         return true;
     } else {
         return false;
@@ -198,23 +237,18 @@ function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_
 }
 
 function existsUser($rg_username){
-	global $mysqli;
-	$rg_username = $mysqli->real_escape_string($rg_username);
-
-    $sql = "SELECT * FROM `users` WHERE `username` = '$rg_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
-    
-    return ($res != "");
+	global $pdo;
+	$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($rg_username));
+	$res = $statement->fetchAll();
+    return ($statement->rowCount() != 0);
 }
 
 function logout($u_username, $u_session){
 	if(sessionDataCorrect($u_username, $u_session)){
-		global $mysqli;
-		$u_username = $mysqli->real_escape_string($u_username);
-
-		$sql = "UPDATE `users` SET `session` = '' WHERE `username` = '$u_username'";
-		$update = $mysqli->query($sql);
+		global $pdo;
+		$statement = $pdo->prepare("UPDATE `users` SET `session` = '' WHERE `username` = ?");
+		$statement->execute(array($u_username));
 		return "success";
 	} else {
 		return "failed";
@@ -222,47 +256,39 @@ function logout($u_username, $u_session){
 }
 
 function newGroupHash(){
-	global $mysqli;
 	$hash = guidv4(random_bytes(16));
-	$sql = "SELECT * FROM `groups` WHERE `hash` = '$hash'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
-    while($res != ""){
-		$hash = guidv4(random_bytes(16));
-		$sql = "SELECT * FROM `groups` WHERE `hash` = '$hash'";
-		$result = $mysqli->query($sql);
-		$res = $result->fetch_assoc();
-	}
 	return $hash;
 }
 
 function newNotification($u_username, $u_notification){
-	global $mysqli;
-	$u_username = $mysqli->real_escape_string($u_username);
-	$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($u_username));
+	$res = $statement->fetchAll()[0];
     if($res['notifications'] != ""){
 		$setout = $res['notifications']."$".$u_notification;
 	} else {
 		$setout = $u_notification;
 	}
-	$sql = "UPDATE `users` SET `notifications` = '$setout' WHERE `username` = '$u_username'";
-	$update = $mysqli->query($sql);
+	$sql = "UPDATE `users` SET `notifications` = :setout WHERE `username` = :username";
+	$data = [
+		'username' => $u_username,
+		'setout' => $setout,
+	];
+	$statement = $pdo->prepare($sql);
+	$statement->execute($data);
+	
 }
 
 function addGroupToUser($u_username, $u_groupHash){
-	global $mysqli;
-	$u_username = $mysqli->real_escape_string($u_username);
-	$u_groupHash = $mysqli->real_escape_string($u_groupHash);
-
-    $sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($u_username));
+	$res = $statement->fetchAll()[0];
     
-    $sql = "SELECT * FROM `groups` WHERE `hash` = '$u_groupHash'";
-    $result = $mysqli->query($sql);
-    $ros = $result->fetch_assoc();
+    $statement = $pdo->prepare("SELECT * FROM `groups` WHERE `hash` = ?");
+	$statement->execute(array($u_groupHash));
+	$ros = $statement->fetchAll()[0];
     
     $settings = explode(";", $res['settings']);
     if($settings[2] != "GROUPS="){
@@ -270,29 +296,39 @@ function addGroupToUser($u_username, $u_groupHash){
     } else {
 		$setout = str_replace($settings[2], $settings[2].$ros['id'], $res['settings']);
 	}
-	$sql = "UPDATE `users` SET `settings` = '$setout' WHERE `username` = '$u_username'";
-	$update = $mysqli->query($sql);
+	$sql = "UPDATE `users` SET `settings` = :setout WHERE `username` = :username";
+	$data = [
+		'username' => $u_username,
+		'setout' => $setout,
+	];
+	$statement = $pdo->prepare($sql);
+	$statement->execute($data);
 }
 
 function getGroupByHash($hash){
-	global $mysqli;
-	$hash = $mysqli->real_escape_string($hash);
-	$sql = "SELECT * FROM `groups` WHERE `hash` = '$hash'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `groups` WHERE `hash` = ?");
+	$statement->execute(array($hash));
+	$res = $statement->fetchAll()[0];
     return $res;
 }
 
 function newGroup($u_groupname, $u_users, $u_description, $u_creator, $u_creator_session){
 	if(sessionDataCorrect($u_creator, $u_creator_session)){
-		global $mysqli;
-		$u_users = $mysqli->real_escape_string($u_users);
-		$u_description = $mysqli->real_escape_string($u_description);
-		$u_creator = $mysqli->real_escape_string($u_creator);
-		$u_groupname = $mysqli->real_escape_string($u_groupname);
+		global $pdo;
 		$ranhash = newGroupHash();
-		$sql = "INSERT INTO `groups` VALUES (NULL, '$u_groupname', '$u_users', '$u_creator', '', '$u_description', '$ranhash')";
-		$update = $mysqli->query($sql);
+		$sql = "INSERT INTO `groups` VALUES (NULL, :groupname, :users, :admin, '', :description, :hash)";
+		
+		$data = [
+			'groupname' => $u_groupname,
+			'users' => $u_users,
+			'admin' => $u_creator,
+			'description' => $u_description,
+			'hash' => $ranhash,
+		];
+		$statement = $pdo->prepare($sql);
+		$statement->execute($data);
+		
 		addGroupToUser($u_creator, $ranhash);
 		$users = explode(",", $u_users);
 		for($i = 0; $i < sizeof($users); $i++){
@@ -307,21 +343,19 @@ function newGroup($u_groupname, $u_users, $u_description, $u_creator, $u_creator
 }
 
 function getGroupById($groupID){
-	global $mysqli;
-	$groupID = $mysqli->real_escape_string($groupID);
-	$sql = "SELECT * FROM `groups` WHERE `id` = '$groupID'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `groups` WHERE `id` = ?");
+	$statement->execute(array($groupID));
+	$res = $statement->fetchAll()[0];
     return $res;
 }
 
 function getNotifications($u_username, $u_session){
 	if(sessionDataCorrect($u_username, $u_session)){
-		global $mysqli;
-		$u_username = $mysqli->real_escape_string($u_username);
-		$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
-		$result = $mysqli->query($sql);
-		$res = $result->fetch_assoc();
+		global $pdo;
+		$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+		$statement->execute(array($u_username));
+		$res = $statement->fetchAll()[0];
 		$ntfct = explode("$", $res['notifications']);
 		$length = sizeof($ntfct);
 		for($i = 0; $i < $length; $i++){
@@ -339,11 +373,10 @@ function getNotifications($u_username, $u_session){
 
 function removeNotification($u_username, $u_session, $id, $code){
 	if(sessionDataCorrect($u_username, $u_session)){
-		global $mysqli;
-		$u_username = $mysqli->real_escape_string($u_username);
-		$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
-		$result = $mysqli->query($sql);
-		$res = $result->fetch_assoc();
+		global $pdo;
+		$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+		$statement->execute(array($u_username));
+		$res = $statement->fetchAll()[0];
 		$ntfct = explode("$", $res['notifications']);
 		
 		if(explode(":", $ntfct[$id])[0] == "joinGroup"){
@@ -353,8 +386,13 @@ function removeNotification($u_username, $u_session, $id, $code){
 		}
 		
 		$setout = str_replace("REM0VED", "", str_replace("\$REM0VED", "", str_replace("REM0VED$", "", str_replace($ntfct[$id], "REM0VED", $res['notifications']))));
-		$sql = "UPDATE `users` SET `notifications` = '$setout' WHERE `username` = '$u_username'";
-		$update = $mysqli->query($sql);
+		$sql = "UPDATE `users` SET `notifications` = :setout WHERE `username` = :username";
+		$data = [
+			'username' => $u_username,
+			'setout' => $setout,
+		];
+		$statement = $pdo->prepare($sql);
+		$statement->execute($data);
 		
 		if(explode(":", $ntfct[$id])[0] == "joinGroup"){
 			if($code == "join"){
@@ -372,14 +410,13 @@ function removeNotification($u_username, $u_session, $id, $code){
 
 function getGroups($u_username, $u_session){
 	if(sessionDataCorrect($u_username, $u_session)){
-		global $mysqli;
-		$ux_username = $mysqli->real_escape_string($u_username);
-		$sql = "SELECT * FROM `users` WHERE `username` = '$ux_username'";
-		$result = $mysqli->query($sql);
-		$res = $result->fetch_assoc();
+		global $pdo;
+		$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+		$statement->execute(array($u_username));
+		$res = $statement->fetchAll()[0];
 		$groups = explode(",", str_replace("GROUPS=", "", explode(";", $res['settings'])[2]));
 		$out = [];
-		if($groups == ""){
+		if($groups[0] == ""){
 		} else {
 			for($i = 0; $i < sizeof($groups); $i++){
 				$group = getGroupById($groups[$i]);
@@ -397,7 +434,7 @@ function getGroups($u_username, $u_session){
 
 function leaveGroup($u_username, $u_session, $u_groupHash){
 	if(sessionDataCorrect($u_username, $u_session)){
-		global $mysqli;
+		global $pdo;
 		$group = getGroupByHash($u_groupHash);
 		$usersGroup = explode(",", $group['users']);
 		$usersOut = "";
@@ -405,29 +442,40 @@ function leaveGroup($u_username, $u_session, $u_groupHash){
 			if($group['users'] != $u_username){
 				$usersOut = str_replace(",".$u_username, "", str_replace($u_username.",", "", $group['users']));
 			}
-			$u_groupHash = $mysqli->real_escape_string($u_groupHash);
-			$ux_username = $u_username;
-			$u_username = $mysqli->real_escape_string($u_username);
-			$sql = "UPDATE `groups` SET `users` = '$usersOut' WHERE `hash` = '$u_groupHash'";
-			$update = $mysqli->query($sql);
+			$sql = "UPDATE `groups` SET `users` = :users WHERE `hash` = :hash";
+			$data = [
+				'users' => $usersOut,
+				'hash' => $u_groupHash,
+			];
+			$statement = $pdo->prepare($sql);
+			$statement->execute($data);
 			
-			$sql = "SELECT * FROM `users` WHERE `username` = '$u_username'";
-			$result = $mysqli->query($sql);
-			$res = $result->fetch_assoc();
+			$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+			$statement->execute(array($u_username));
+			$res = $statement->fetchAll()[0];
+			
 			$uhome = getHomeData($u_username)[5][2];
 			$userGroups = str_replace($group['id'], "", str_replace($group['id'].",", "", str_replace(",".$group['id'], "", $uhome)));
-			$settings = str_replace($uhome, $userGroups, $res['settings']);
-			$sql = "UPDATE `users` SET `settings` = '$settings' WHERE `username` = '$u_username'";
-			$update = $mysqli->query($sql);
+			$data = [
+				'settings' => str_replace($uhome, $userGroups, $res['settings']),
+				'username' => $u_username,
+			];
+			$sql = "UPDATE `users` SET `settings` = :settings WHERE `username` = :username";
+			$statement = $pdo->prepare($sql);
+			$statement->execute($data);
 			
-			if($group['admin'] == $ux_username){
+			if($group['admin'] == $u_username){
 				if($group['users'] != ""){
-					$newAdmin = explode(",", $group['users'])[0];
-					$sql = "UPDATE `groups` SET `admin` = '$newAdmin' WHERE `hash` = '$u_groupHash'";
-					$update = $mysqli->query($sql);
+					$data = [
+						'hash' => $u_groupHash,
+						'admin' => explode(",", $group['users'])[0],
+					];
+					$sql = "UPDATE `groups` SET `admin` = :admin WHERE `hash` = :hash";
+					$statement = $pdo->prepare($sql);
+					$statement->execute($data);
 				}
 			}
-			newNotification($u_username, "simple:warning:Sie haben die Gruppe <i>".$group['name']."</i> verlassen.");
+			newNotification($u_username, "simple:danger:Sie haben die Gruppe <i>".$group['name']."</i> verlassen.");
 			return "success";
 		} else {
 			return "failed_not_member";
@@ -441,11 +489,16 @@ function leaveGroup($u_username, $u_session, $u_groupHash){
 function changePassword($u_username, $u_session, $u_password, $u_password_new){
 	if(sessionDataCorrect($u_username, $u_session)){
 		if(loginDataCorrect($u_username, $u_password)){
-			global $mysqli;
-			$u_username = $mysqli->real_escape_string($u_username);
-			$crypt_password_new = password_hash($u_password_new,PASSWORD_DEFAULT);
-			$sql = "UPDATE `users` SET `password` = '$crypt_password_new' WHERE `username` = '$u_username'";
-			$update = $mysqli->query($sql);
+			global $pdo;
+			$data = [
+				'password' => password_hash($u_password_new,PASSWORD_DEFAULT),
+				'username' => $u_username,
+			];
+			$sql = "UPDATE `users` SET `password` = :password WHERE `username` = :username";
+			
+			$statement = $pdo->prepare($sql);
+			$statement->execute($data);
+			
 			return "success";
 		} else {
 			return "failed_passwd";
@@ -457,13 +510,43 @@ function changePassword($u_username, $u_session, $u_password, $u_password_new){
 
 function changeEmail($u_username, $u_session, $u_email){
 	if(sessionDataCorrect($u_username, $u_session)){
-		global $mysqli;
-		$u_username = $mysqli->real_escape_string($u_username);
-		$u_email = $mysqli->real_escape_string($u_email);
-		$ransession = guidv4(random_bytes(16));
-		$sql = "UPDATE `users` SET `email` = '$u_email', `verify-email` = '0', `session` = '$ransession' WHERE `username` = '$u_username'";
-		$update = $mysqli->query($sql);
+		global $pdo;
+		$data = [
+			'email' => $u_email,
+			'username' => $u_username,
+			'session' => guidv4(random_bytes(16)),
+		];
+		$sql = "UPDATE `users` SET `email` = :email, `verify-email` = '0', `session` = :session WHERE `username` = :username";
+		
+		$statement = $pdo->prepare($sql);
+		$statement->execute($data);
+		
 		return "success";
+	} else {
+		return "failed";
+	}
+}
+
+function changeUsername($u_username, $u_session, $u_newUsername){
+	if(sessionDataCorrect($u_username, $u_session)){
+		if(existsUser($u_newUsername) == false){
+			global $pdo;
+			$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+			$statement->execute(array($u_username));
+			$res = $statement->fetchAll()[0];
+			$data = [
+				'id' => $res['id'],
+				'username' => $u_newUsername,
+			];
+			$sql = "UPDATE `users` SET `username` = :username WHERE `id` = :id";
+			
+			$statement = $pdo->prepare($sql);
+			$statement->execute($data);
+			
+			return "success";
+		} else {
+			return "username_already_taken";
+		}
 	} else {
 		return "failed";
 	}

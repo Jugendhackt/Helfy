@@ -74,3 +74,7 @@ Changes the email adress. The email adress has to be verified before a new login
 #### changePassword
     index.php?request=changePassword&username=username&session=sessionID&password=asdf&passwordNew=ghjk
 Changes the password. Returns `success`, `failed` (sessionID or password incorrect) or `failed_passwd` (wrong old password).
+
+#### changeUsername
+    index.php?request=changeUsername&username=username&session=sessionID&newUsername=nameuser
+Changes the username and returns `success`, `username_already_taken` or `failed`.

@@ -1,6 +1,41 @@
 /*
-Session management
+	session.js - session management of frontend
+
+	Copyright 2019 Achim Stumpp, Jakob Stolze
+
+ 	This file is part of Helfy - https://github.com/Jugendhackt/Helfy
+
+    Helfy is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Helfy is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Helfy.  If not, see <http://www.gnu.org/licenses/>.
+
+    Diese Datei ist Teil von Helfy.
+
+    Helfy ist Freie Software: Sie können es unter den Bedingungen
+    der GNU General Public License, wie von der Free Software Foundation,
+    Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+    veröffentlichten Version, weiter verteilen und/oder modifizieren.
+
+    Helfy wird in der Hoffnung, dass es nützlich sein wird, aber
+    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License für weitere Details.
+
+    Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
+
+
+
 var server_url = "";
 
 var rawFile = new XMLHttpRequest();
@@ -40,7 +75,10 @@ function getCookie(cname) {
     return "";
 }
 
-
+function settingsInvalidSession(){
+    document.getElementById("formular1").innerHTML = "Falsche oder fehlende Nutzerdaten.<br>Bitte melden Sie sich erneut an!<br><br><button class='btn btn-primary' onclick='self.location.href=\"login.html\"'>zurück zum Login</button>";
+    document.getElementById("formular1").style.textAlign = "center";
+}
 
 async function login(l_username, l_password) {
     var fullurl = server_url + '/backend/index.php?request=newSession&username=' + l_username + "&password=" + l_password;
@@ -180,6 +218,9 @@ async function usernameVorschlag() {
             console.log("no email verify");
         } else if(sdata == "failed"){
             console.log("invalid session");
+            settingsInvalidSession();
+            toRightUsername()
+
         } else {
             sdata = JSON.parse(sdata);
             document.getElementById("usernameInp").value = sdata[1].toLowerCase() + "." + sdata[2].toLowerCase();
@@ -191,6 +232,97 @@ async function usernameVorschlag() {
     }
 }
 
+
+async function changeUsername() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var newUsername = document.getElementById("usernameInp").value
+    var fullurl = server_url + '/backend/index.php?request=changeUsername&username=' + l_username + "&session=" + l_session + "&newUsername=" + newUsername;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        sdata = await request.text();
+        if (sdata == "username_already_taken") {
+            console.log("username_already_taken");
+        } else if(sdata == "failed"){
+            console.log("invalid session");
+            settingsInvalidSession();
+            toRightUsername()
+        } else {
+            document.getElementById("h3username").innerHTML = "@" + newUsername;
+            setCookie("username", newUsername, 7);
+        }
+
+    } catch (e) {
+        console.error('fetch error', e);
+        sdata = "fetch_error";
+    }
+}
+
+async function changePassword() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var newPassword1 = document.getElementById("changepsswd1").value;
+    var newPassword2 = document.getElementById("changepsswd2").value;
+    var password = document.getElementById("oldpsswd").value;
+    if(newPassword1 == newPassword2){
+        var fullurl = server_url + '/backend/index.php?request=changePassword&username=' + l_username + "&session=" + l_session + "&passwordNew=" + newPassword1 + "&password=" + password;
+        try {
+            let request = await fetch(fullurl, {
+                method: "GET",
+                dataType: "application/x-www-form-urlencoded",
+            });
+            sdata = await request.text();
+            console.log(sdata);
+            if (sdata == "failed_passwd") {
+                console.log("failed (wrong password)");
+                document.getElementById("oldpsswd").setAttribute("style", "border-color: red;");
+            } else if(sdata == "failed"){
+                console.log("invalid session");
+                settingsInvalidSession();
+                toRightPsswd()
+            } else {
+                document.getElementById("oldpsswd").setAttribute("style", "");
+                document.getElementById("pwdFeedback").innerHTML = "Erfolgreich!";
+                document.getElementById("pwdFeedback").style.display = "";
+                console.log("success");
+            }
+
+        } catch (e) {
+            console.error('fetch error', e);
+            sdata = "fetch_error";
+        }
+    }
+}
+
+async function changeEmail() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var email = document.getElementById("changeemailInp").value;
+    var fullurl = server_url + '/backend/index.php?request=changeEmail&username=' + l_username + "&session=" + l_session + "&email=" + email;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        sdata = await request.text();
+        console.log(sdata);
+        if(sdata == "failed"){
+            console.log("invalid session");
+            settingsInvalidSession();
+            toRightEmail()
+        } else {
+            console.log("success");
+            logout();
+        }
+
+    } catch (e) {
+        console.error('fetch error', e);
+        sdata = "fetch_error";
+    }
+}
 
 async function logout() {
     var l_username = getCookie("username");

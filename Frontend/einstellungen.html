@@ -28,11 +28,10 @@
                     </div>
             </div>
 
-
     <script type="text/javascript">
     function username() {
     var username = getCookie("username");
-    document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;'>@ " + username + "</h3>";    
+    document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;' id='h3username'>@" + username + "</h3>";    
     }
 
     function toLeftUsername(){
@@ -45,6 +44,7 @@
         document.getElementById("changeusername").style.display = "none";
         document.getElementById("changepsswd").style.display = "none";
         document.getElementById("changeemail").style.display = "none";
+
     }
 
     function toLeftPsswd(){
@@ -97,7 +97,7 @@
                 <input name="username" type="text" class="form-control" id="usernameInp" placeholder="Neuer Benutzername" value="">
             </div>
             <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                <button class="btn-success btn" onclick="toRightUsername();">Speichern</button>
+                <button class="btn-success btn" onclick="changeUsername();">Speichern</button>
                 <button class="btn-outline-info btn" onclick="vorschlag()">Vorschlag</button>
             </div>
         </div>
@@ -106,12 +106,13 @@
                 <a onclick="toRightPsswd()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
                 <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                     <h5 style="text-align: center;"><b>Passwort &auml;ndern</b></h5><br>
-                    <input name="oldpsswd" type="text" class="form-control" id="oldpsswd" placeholder="Altes Passwort" value="">
-                    <input name="changepsswd1" type="text" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value="">
-                    <input name="changepsswd2" type="text" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
+                    <input name="oldpsswd" type="password" class="form-control" id="oldpsswd" placeholder="Altes Passwort" value=""><div style="padding: 4px;"></div>
+                    <input name="changepsswd1" type="password" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value=""><div style="padding: 4px;"></div>
+                    <input name="changepsswd2" type="password" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
                 </div>
+                <p id="pwdFeedback" style="color: green; text-align: center; padding-top: 10px; display: none;"></p>
                 <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                    <button class="btn-success btn" onclick="toRightPsswd();" style="display: block; margin: 0 auto;">Speichern</button>
+                    <button class="btn-success btn" onclick="changePassword();" style="display: block; margin: 0 auto;">Speichern</button>
                 </div>
             </div>
 
@@ -119,10 +120,11 @@
                     <a onclick="toRightEmail()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
                     <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                         <h5 style="text-align: center;"><b>Email-Adresse &auml;ndern</b></h5><br>
-                        <input name="changeemail" type="text" class="form-control" id="changeemail" placeholder="Neue Email-Adresse" value="">
+                        <input name="changeemail" type="text" class="form-control" id="changeemailInp" placeholder="Neue Email-Adresse" value="">
                     </div>
+                    <br><p style="color: red; padding: 0px 10px;">Nachdem Sie ihre E-Mail Adresse geändert haben, werden Sie automatisch abgemeldet. Wir werden Ihnen dann einen Link senden, mit welchem Sie ihre E-Mail Adresse bestätigen müssen, bevor Sie ihren Account wieder nutzen können.</p>
                     <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                        <button class="btn-success btn" onclick="toRightEmail();" style="display: block; margin: 0 auto;">Speichern</button>
+                        <button class="btn-success btn" onclick="changeEmail();" style="display: block; margin: 0 auto;">Speichern</button>
                     </div>
                 </div>
 
@@ -136,6 +138,11 @@
 
     <script src="js/session.js"></script>
     <script src="js/navigation.js"></script>
+    <script>
+    if(getCookie("username") == ""){
+        settingsInvalidSession();
+    }
+    </script>
 </body>
 
 </html>

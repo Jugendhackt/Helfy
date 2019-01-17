@@ -1,9 +1,51 @@
 /*
-Registration
+	registrateUser.js
+
+	Copyright 2019 Achim Stumpp, Jakob Stolze
+
+ 	This file is part of Helfy - https://github.com/Jugendhackt/Helfy
+
+    Helfy is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Helfy is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Helfy.  If not, see <http://www.gnu.org/licenses/>.
+
+    Diese Datei ist Teil von Helfy.
+
+    Helfy ist Freie Software: Sie können es unter den Bedingungen
+    der GNU General Public License, wie von der Free Software Foundation,
+    Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
+    veröffentlichten Version, weiter verteilen und/oder modifizieren.
+
+    Helfy wird in der Hoffnung, dass es nützlich sein wird, aber
+    OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
+    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License für weitere Details.
+
+    Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+    Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
 
-var server_url = "https://example.url.com";
+var server_url = "";
 
+var rawFile = new XMLHttpRequest();
+rawFile.open("GET", "server.txt", false);
+rawFile.onreadystatechange = function (){
+    if(rawFile.readyState === 4){
+        if(rawFile.status === 200 || rawFile.status == 0){
+                server_url = rawFile.responseText;
+        }
+    }
+}
+rawFile.send(null);
 
 async function existsUser() {
     var fullurl = server_url + '/backend/index.php?request=existsUser&username' + username;
