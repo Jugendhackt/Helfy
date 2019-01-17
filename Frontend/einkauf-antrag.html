@@ -11,10 +11,9 @@
     <script language="javascript" type="text/javascript" src="js/session.js"></script> 
 </head>
 
-<body>
+<body onload="TimeRemove();">
     <div class="container-float">
             <h1 class="header">Helfy - Antrag</h1>
-
         <br />
 
         <div id="maincontent">
@@ -22,16 +21,16 @@
             <form style="width: 100%;">
                 <div class="form-group">
                     <span class="location">
-                        <li style="list-style-type: none;">Von:</li>
+                        <li style="list-style-type: none;">Beschreibung der Tätigkeit:</li>
                         <div id="search-box1">
-                            <img src="img/pos-icon.png" onClick="getPos('startPlace');" />
+                            <img style="visibility: hidden" src="img/pos-icon.png" onClick="getPos('endPlace');" />
                             <input id="startPlace" style="width: 90%;" name="start" type="text" placeholder="Von welchem Ort"
                                 onfocus="cont=this.value;this.value=''" />
                         </div>
                     </span>
                     <br />
                     <span class="location">
-                        <li style="list-style-type: none;">Nach:</li>
+                        <li style="list-style-type: none;">Ort:</li>
                         <div id="search-box2">
                             <img src="img/pos-icon.png" onClick="getPos('endPlace');" />
                             <input style="width: 90%;" id="endPlace" name="ende" type="text" placeholder="Zu welchem Ort"
@@ -49,8 +48,8 @@
                     </div>
                 </div>
                 <div style="text-align: center;">
-                        <button id="einstellen" class="btn btn-dark" type="submit" onclick="checkTime()">Eintrag
-                                einstellen!</button>
+                    <button id="einstellen" class="btn btn-dark" type="submit" onclick="checkTime()">Eintrag
+                        einstellen!</button>
                 </div>
             </form>
         </div>
@@ -58,13 +57,12 @@
         <br />
 
     </div>
-
     <div id="wrongdate" style="display: none;">
-            <br />
-            <p style="text-align: center; color: red;">Bitte geben sie ein Datum ein, welches in der Zukunft liegt.</p>
-            <p style="text-align: center; color: blue; cursor: pointer;"><a onclick="document.getElementById('maincontent').style.display = ''; document.getElementById('wrongdate').style.display = 'none'">zurück zum Formular</a></p>
-        </div>
-        </div>
+        <br />
+        <p style="text-align: center; color: red;">Bitte geben sie ein Datum ein, welches in der Zukunft liegt.</p>
+        <p style="text-align: center; color: blue; cursor: pointer;"><a onclick="document.getElementById('maincontent').style.display = ''; document.getElementById('wrongdate').style.display = 'none'">zurück zum Formular</a></p>
+    </div>
+    </div>
 
     <div id="footer">
         <hr style="margin: 10px; border-radius: 20px;">

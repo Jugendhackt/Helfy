@@ -140,7 +140,7 @@ async function setupHome() {
                 "</h5><button class='btn btn-primary' onclick='self.location.href=\"mitfahrer.html\"'>In der Nähe suchen</button>" +
                 "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Bieten</button><br>" +
                 "<br><h5>Einkäufe:</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
-                "<button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Bieten</button>";
+                "<button class='btn btn-primary' onclick='self.location.href=\"einkauf-antrag.html\"'>Bieten</button>";
             var ih = document.getElementById("insertHere")
             ih.appendChild(navPage);
             console.log("fetch success");
@@ -211,5 +211,26 @@ async function logout() {
     } catch (e) {
         console.error('fetch error', e);
         data = "fetch_error";
+    }
+}
+
+function checkTime(){
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    var currenttime = day + "." + month + "." + year + "," + hour + ":" + minutes;
+    var getdate = document.querySelector("#date").value;
+
+    if (month == 0){
+        month = 12;
+    }
+
+    if (getdate <= currenttime){
+        alert("geht");
+        document.getElementById("maincontent").style.display = "none";
+        document.getElementById("wrongdate").style.display = "";
     }
 }
