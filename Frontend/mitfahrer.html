@@ -6,16 +6,35 @@
     <title>Helfy - Mitfahrer</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <script language="javascript" type="text/javascript" src="js/session.js"></script> 
+    <script src="js/session.js"></script>
+    <script src="js/navigation.js"></script> 
     <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no" />
 </head>
 
-<body>
+<body onload="menu();">
     <div class="container-float">
         <div class="row">
-            <h1 class="header">
+            <div class="header" style="padding:0; padding-left: 15px;">
+                <div id="mySidenav" class="sidenav" style="text-align:left;">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <div id="me"><a href="home.html">Home</a></div>
+                        <a href="einstellungen.html">Einstellungen</a>
+                        <a href="notification.html">Nachrichten</a>
+                        <a href="gruppen.html">Gruppen</a>
+                        <a href="rides.html">Eigene Fahrten</a>
+                        <br />
+                      </div>
+        
+                      <div>
+        
+                            <div style="float: left; height:50px; width: 50px;" id="menu">
+                            <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+                            </div>
+                    </div>
+            <h1 style="margin: 15px;">
                 Helfy - Mitfahren
             </h1>
+            </div>
         </div>
         <div class="row" style="margin-top: 1%; margin-bottom: 1%;">
             <div id="desktop" style="width: 100%;">

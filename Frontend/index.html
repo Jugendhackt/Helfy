@@ -9,13 +9,30 @@
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="js/session.js"></script> 
+    <script src="js/navigation.js"></script>
 </head>
 
-<body>
+<body onload="menu()">
     <div class="container-float">
         <div class="row" id="row">
-            <h1 style="display: inline-block;">Helfy</h1>
-            <a class="btn btn-dark" href="login.html" role="button" style="float: right; margin-top: 0; margin-right: 0;">Log In</a>
+                <div id="mySidenav" class="sidenav" style="text-align: left;">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <div id="me"><a href="home.html">Home</a></div>
+                        <a href="einstellungen.html">Einstellungen</a>
+                        <a href="notification.html">Nachrichten</a>
+                        <a href="gruppen.html">Gruppen</a>
+                        <a href="rides.html">Eigene Fahrten</a>
+                        <br />
+                      </div>
+        
+                      <div>
+        
+                            <div style="float: left; height:50px; width: 50px;" id="menu">
+                            <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+                            </div>
+                    </div>
+            <h1 style="display: inline-block; margin: 15px;">Helfy</h1>
+            <a class="btn btn-dark" href="login.html" role="button" style="float: right; margin-top: 0; margin-right: 0; margin:15px;">Log In</a>
         </div>
         <br />
         <div class="row">
