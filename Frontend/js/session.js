@@ -367,11 +367,35 @@ function checkTime(){
     }
 }
 
+async function hideIfSessionInvalid() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var fullurl = server_url + '/backend/index.php?request=checkSessionData&username=' + l_username + "&session=" + l_session;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.text();
+        if(data != "correct"){
+            document.getElementById("menu").style.display = "none";
+        }
+        console.log("fetch success");
+
+    } catch (e) {
+        console.error('fetch error', e);
+        document.getElementById("menu").style.display = "none";
+    }
+}
+
+
 function menu(){
     var username = getCookie("username");
     if (username == ""){
         document.getElementById("menu").style.display = "none";
     }
+    hideIfSessionInvalid();
 }
 
 function alreadyLoggedIn(){
