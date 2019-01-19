@@ -361,7 +361,6 @@ function checkTime(){
     }
 
     if (getdate <= currenttime){
-        alert("geht");
         document.getElementById("maincontent").style.display = "none";
         document.getElementById("wrongdate").style.display = "";
     }
