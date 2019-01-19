@@ -40,6 +40,10 @@ function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     var username = getCookie("username");
     document.getElementById("me").innerHTML = "<a href='home.html' style='color: blue;'>@ " + username + "</a>";
+    if(getCookie("notification") != "0"){
+        document.getElementById("notifyBadge").innerHTML = getCookie("notification");
+    }
+
 }
 
 /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */

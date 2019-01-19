@@ -169,7 +169,7 @@ async function setupHome() {
                 }
                 document.getElementById("userinfo").appendChild(notif);
             } else {
-                document.getElementById("notifiBadge").setAttribute("class", "");
+                document.getElementById("notifyBadge").setAttribute("style", "display: none;");
             }
 
             var navPage = document.createElement("div");
@@ -191,7 +191,7 @@ async function setupHome() {
                 "<button class='btn btn-primary' onclick='self.location.href=\"newgroup.html\"'>Neue Gruppe erstellen</button><br>" +
                 "";
             ih.appendChild(groups);
-            document.getElementById("notifiBadge").setAttribute("data-badge", "\xa0" + sdata[6] + "\xa0");
+            document.getElementById("notifyBadge").innerHTML = sdata[6];
         }
 
     } catch (e) {
