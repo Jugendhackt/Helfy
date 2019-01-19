@@ -157,6 +157,7 @@ async function setupHome() {
             uinf.innerHTML = "<b>" + sdata[1] + " " + sdata[2] + "</b><br><a class='user' href=''>@" + sdata[0] + "</a><br><br>" + sdata[4] + " " + sdata[3];
 
             if(sdata[6] != "0"){
+                setCookie("notification", sdata[6], 7);
                 uinf.innerHTML += "<br><br>";
                 var notif = document.createElement("div");
                 notif.setAttribute("class", "alert alert-info")

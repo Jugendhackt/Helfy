@@ -105,7 +105,7 @@ async function getNotifications() {
                     noti.setAttribute("class", "alert alert-info");
                     noti.innerHTML = '<h5 class="alert-heading">Einladung zu <i>' + ntfcn[i][2] + '</i></h5>' +
                     '<p >Sie wurden von <a href="user.html?u=' + ntfcn[i][3] + '" class="user">@' + ntfcn[i][3] + '</a> eingeladen, der Gruppe <i>' + ntfcn[i][2] + '</i> beizutreten.</p>' +
-                    'Diese Einladung <a href="#" class="alert-link" onclick="closeAlert(' + i + ', \'join\')">Annehmen</a> oder <a href="#" class="alert-link" onclick="closeAlert(' + i + ', \'reject\')">Ablehnen</a>.'
+                    'Diese Einladung <a href="#" class="alert-link" onclick="plus();closeAlert(' + i + ', \'join\')">Annehmen</a> oder <a href="#" class="alert-link" onclick="plus();closeAlert(' + i + ', \'reject\')">Ablehnen</a>.'
                     nBox.appendChild(noti);
                     notified = false;
                 }
@@ -163,10 +163,25 @@ async function closeNotification(id, code) {
 }
 
 async function closeAlert(id, code){
+    var notifi = getCookie("notification");
+    if (notifi != 0){
+        var newnotifi = notifi -1;
+    }
+    else{
+        var newnotifi = 0;
+    }
+    setCookie("notification", newnotifi, 7);
+
     var nBox = document.getElementById("notification");
     var noti = document.getElementById("alert" + id);
     noti.innerHTML = "Wird entfernt..."
     await closeNotification(id, code);
     nBox.removeChild(noti);
     getNotifications();
+}
+
+function plus(){
+    var newnotifi2 = getCookie("notification");
+    var newnotifi3 = parseInt(newnotifi2) + 1;
+    setCookie("notification", newnotifi3, 7);
 }
