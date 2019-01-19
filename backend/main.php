@@ -277,7 +277,6 @@ function newNotification($u_username, $u_notification){
 	];
 	$statement = $pdo->prepare($sql);
 	$statement->execute($data);
-	
 }
 
 function addGroupToUser($u_username, $u_groupHash){
@@ -384,8 +383,19 @@ function removeNotification($u_username, $u_session, $id, $code){
 				addGroupToUser($u_username, getGroupById(explode(":", $ntfct[$id])[1])['hash']);
 			}
 		}
+		$thiis = $ntfct[$id];
 		
-		$setout = str_replace("REM0VED", "", str_replace("\$REM0VED", "", str_replace("REM0VED$", "", str_replace($ntfct[$id], "REM0VED", $res['notifications']))));
+		unset($ntfct[$id]);
+		$setout = "$";
+		foreach($ntfct as $value){
+			$setout = $setout."$".$value;
+		}
+		$setout = str_replace("$$", "", $setout);
+		
+		if($setout == "$"){
+			$setout = "";
+		}
+		
 		$sql = "UPDATE `users` SET `notifications` = :setout WHERE `username` = :username";
 		$data = [
 			'username' => $u_username,
@@ -394,11 +404,11 @@ function removeNotification($u_username, $u_session, $id, $code){
 		$statement = $pdo->prepare($sql);
 		$statement->execute($data);
 		
-		if(explode(":", $ntfct[$id])[0] == "joinGroup"){
+		if(explode(":", $thiis)[0] == "joinGroup"){
 			if($code == "join"){
-				newNotification($u_username, "simple:success:Sie sind der Gruppe <i>".getGroupById(explode(":", $ntfct[$id])[1])['name']."</i> beigetreten.");
+				newNotification($u_username, "simple:success:Sie sind der Gruppe <i>".getGroupById(explode(":", $thiis)[1])['name']."</i> beigetreten.");
 			} else {
-				newNotification($u_username, "simple:warning:Sie haben die Einladung zur Gruppe <i>".getGroupById(explode(":", $ntfct[$id])[1])['name']."</i> abgelehnt.");
+				newNotification($u_username, "simple:warning:Sie haben die Einladung zur Gruppe <i>".getGroupById(explode(":", $thiis)[1])['name']."</i> abgelehnt.");
 			}
 		}
 		return "success";
