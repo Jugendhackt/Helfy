@@ -86,13 +86,13 @@
     <br><br><p id="errorline"></p><br>
     <div style="padding-right: 33%;" id="ndesktop">
         <button type="button" class="btn btn-danger" style="margin-left: 1%; display:  inline-block;" onclick="window.location.href = 'home.html'">Abbrechen</button>
-        <button type="button" class="btn btn-dark" style="float: right;" onclick="newGroup(tnum)">Gruppe erstellen</button>
+        <button type="button" class="btn btn-dark" style="float: right; display: none;" id="addgroup" onclick="newGroup(tnum)">Gruppe erstellen</button>
     </div>
 
     <div style="width: 100%; height: 90px;" id="nmobile">
         <button type="button" class="btn btn-danger" style="margin-left: 1%; margin-top: 9.5%; float: left;" onclick="window.location.href = 'home.html'">Abbrechen</button>
         <br />
-        <button type="button" class="btn btn-dark" style="float: right;" onclick="newGroup(tnum)">Gruppe erstellen</button>
+        <button type="button" class="btn btn-dark" style="float: right; display: none;" id="addgroup" onclick="newGroup(tnum)">Gruppe erstellen</button>
     </div>
 </div>
 </div>
@@ -132,6 +132,8 @@ function insertInputField(){
     element.style.display = ""; // ...wird sichtbar gemacht
     var hide = rnum - 1;
     document.getElementById("remove" + hide).style.display = "none"; //vorheriger hide button wird versteckt
+
+    document.getElementById("addgroup").style.display = "";
 }
 
 function removeLast(){
@@ -143,6 +145,7 @@ function removeLast(){
     if(tnum == 1){ // Falls nur noch ein Teilnehmer-Feld da ist
         element = document.getElementById("remove1");
         element.style.display = "none"; // verstecke den remove button
+        document.getElementById("addgroup").style.display = "none";
     }
 }
 </script>
