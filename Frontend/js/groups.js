@@ -77,14 +77,20 @@ function getCookie(cname) {
 
 async function newGroup(tnum) {
     var runon = false;
+    var sameusername = false;
     var name = document.getElementById("groupname").value;
     var users = getCookie("username");
     var description = document.getElementById("description").value;
+    
     runon = (name != "" && description != "");
     for(i = 2; i <= tnum; i++){
         users = users + "," + document.getElementById("validationUsername" + i).value;
         if(document.getElementById("validationUsername" + i).value == ""){
             runon = false;
+        }
+
+        if(document.getElementById("validationUsername" + i).value == getCookie("username")){
+        sameusername = true;
         }
     }
     if(runon){
@@ -109,6 +115,19 @@ async function newGroup(tnum) {
         document.getElementById("errorline").innerHTML = "Füllen Sie alle Felder aus!";
         document.getElementById("errorline").style.color = "red";        
     }
+
+    if (sameusername){
+        document.getElementById("errorline").innerHTML = "Sie können sich nicht selbst zu einer Gruppe hinzufügen!";
+        document.getElementById("errorline").style.color = "red";
+    }
+
+    
+
+setTimeout(function (){
+
+    self.location.href = "home.html";
+  
+  }, 500);
 }
 
 function replaceAll(str, find, replace) {
