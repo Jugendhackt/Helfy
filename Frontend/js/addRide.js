@@ -16,7 +16,7 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+    along with Helfy.  If not, see <http://www.gnu.org/licenses/>.
 
     Diese Datei ist Teil von Helfy.
 
@@ -33,6 +33,19 @@
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
+
+var server_url = "";
+
+var rawFile = new XMLHttpRequest();
+rawFile.open("GET", "server.txt", false);
+rawFile.onreadystatechange = function (){
+    if(rawFile.readyState === 4){
+        if(rawFile.status === 200 || rawFile.status == 0){
+                server_url = rawFile.responseText;
+        }
+    }
+}
+rawFile.send(null);
 
 
 function getPos(id) { // Wird ausgeführt bei Klick auf GPS

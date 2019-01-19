@@ -16,7 +16,7 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+    along with Helfy.  If not, see <http://www.gnu.org/licenses/>.
 
     Diese Datei ist Teil von Helfy.
 
@@ -33,6 +33,21 @@
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
+
+var server_url = "";
+
+var rawFile = new XMLHttpRequest();
+rawFile.open("GET", "server.txt", false);
+rawFile.onreadystatechange = function (){
+    if(rawFile.readyState === 4){
+        if(rawFile.status === 200 || rawFile.status == 0){
+                server_url = rawFile.responseText;
+        }
+    }
+}
+rawFile.send(null);
+
+
 
  var lat = 0;
  var lon = 0;
@@ -81,7 +96,7 @@ Load Page
 
 async function showRoutes() {
     try {
-        const request = await fetch('http://192.168.10.60/helfy/backend/index.php?request=nearbyRides&lat=' + lat + '&lon=' + lon, {
+        const request = await fetch('/backend/index.php?request=nearbyRides&lat=' + lat + '&lon=' + lon, {
             method: "GET",
             dataType: "application/x-www-form-urlencoded",
         });
