@@ -67,26 +67,77 @@ function convert(input) { // Konvertiert input von getPos in String um
 }
 
 function readInput() { // Wird ausgeführt durch Form searchbar
-    let inputElement = document.getElementById("searchbar");
-    let inputContent = inputElement.value;
+    inputElement = document.getElementById("searchbar");
+    inputContent = inputElement.value;
+    if(inputContent == ""){
+        inputElement = document.getElementById("searchbar2");
+        inputContent = inputElement.value;
+    }
+    console.log(inputContent);
     checkPos(inputContent);
 }
 
+function showOSM(lat, lon, scale){
+    latb = (parseFloat(lat) + scale).toString();
+    lonb = (parseFloat(lon) + scale).toString();
+    lat = (parseFloat(lat) - scale).toString();
+    lon = (parseFloat(lon) - scale).toString();
+    mosm = document.getElementById("mapOSM");
+    mosm.innerHTML = '<iframe style="width: 100%; height: 200px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' + lat + '%2C' + lon + '%2C' + latb + '%2C' + lonb + '&amp;layer=mapnik" style="border: 1px solid black"></iframe>'
+}
+
+
 async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis aus und gibts in input ein
     try {
-        const request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&q=' + search);
-        const data = await request.json();
+        dtype = true;
+        request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&city=' + search);
+        data = await request.json();    
+
+        if(data.length == 0){
+            request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&q=' + search);
+            data = await request.json();
+            dtype = false;
+        }
 
         lat = data[0]["lat"];
         lon = data[0]["lon"];
 
-        let inputElement = document.getElementById("searchbar");
-        inputElement.value = data[0]["display_name"];
+        console.log(data[0]["display_name"]);
+        if(document.getElementById("searchbar").value != ""){
+            inputElement = document.getElementById("searchbar");
+        } else {
+            inputElement = document.getElementById("searchbar2");
+        }
+        lk = data[0]["display_name"].split(", ")[3];
+        if(!(lk.includes("Landkreis"))){
+            lk = data[0]["display_name"].split(", ")[2];
+        }
+        ort = data[0]["display_name"].split(", ")[0];
+        if("1234567890".includes(ort[0])){
+            ort = data[0]["display_name"].split(", ")[1] + " " + data[0]["display_name"].split(", ")[0];
+            lk = data[0]["display_name"].split(", ")[2];
+            if(lk.includes(ort)){
+                lk = data[0]["display_name"].split(", ")[3];
+            }
+        } else {
+            lk = data[0]["display_name"].split(", ")[1];
+            if(lk.includes(ort)){
+                lk = data[0]["display_name"].split(", ")[2];
+            }
+        }
+        document.getElementById("loc").innerHTML = data[0]['display_name'];
+        inputElement.value = ort + ", " + lk;
         
     } catch (e) {
         
         console.error('fetch error', e);
     }
+    if(dtype){
+        showOSM(lon, lat, 0.003);
+    } else {
+        showOSM(lon, lat, 0.0005);
+    }
+    document.getElementById("loc").scrollIntoView();
     showRoutes();
 }
 
