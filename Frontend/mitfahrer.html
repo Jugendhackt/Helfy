@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="css/main.css" />
     <script src="js/session.js"></script>
     <script src="js/navigation.js"></script> 
+    <script src="js/script.js"></script>
+    <script src="js/groups.js"></script>
     <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no" />
 </head>
 
-<body onload="menu(); footer();">
+<body onload="menu(); footer(); addGroups(); addGroupsm();">
     <div class="container-float">
         <div class="row">
             <div class="header" style="padding:0; padding-left: 15px;">
@@ -43,12 +45,7 @@
                 <input id="searchbar" class="form-control" type="text" onfocus="cont=this.value;this.value=''"/>
                 <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
                 <form id="auswahl">
-                        <select size="1" name="auswahl" style="width: 100%;">
-                          <option selected value="0">-- Suchergebnisse einschränken --</option>
-                          <option value="1">In ganzer Umgebung suchen</option>
-                          <option value="2">Nachbarschaft</option>
-                          <option value="3">Schule</option>
-                          <option value="4">Verwandschaft</option>
+                        <select size="1" name="auswahl" id="gruppenauswahl" style="width: 100%;">
                         </select>
                 </form>
             </form>
@@ -59,13 +56,8 @@
                         <input id="searchbar" class="form-control" type="text" onfocus="cont=this.value;this.value=''"/>
                         <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
                         <br />
-                        <form id="auswahl">
-                                <select size="1" name="auswahl" style="width: 150%;">
-                                  <option selected value="0">-- Suchergebnisse einschränken --</option>
-                                  <option value="1">In ganzer Umgebung suchen</option>
-                                  <option value="2">Nachbarschaft</option>
-                                  <option value="3">Schule</option>
-                                  <option value="4">Verwandschaft</option>
+                        <form id="auswahlm">
+                                <select size="1" name="auswahlm" id="gruppenauswahlm" style="width: 150%;">
                                 </select>
                         </form>
                     </form>
@@ -128,7 +120,6 @@
         <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
     </div>
 
-    <script src="js/script.js"></script>
 </body>
 
 </html>

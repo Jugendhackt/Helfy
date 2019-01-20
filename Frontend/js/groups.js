@@ -199,3 +199,105 @@ async function leaveGroup(groupHash){
 
     document.getElementById("alert" + groupHash).style.display = "none";
 }
+
+async function addGroups(){
+    var fullurl = server_url + '/backend/index.php?request=getGroups&username=' + getCookie("username") + "&session=" + getCookie("session");
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.json();
+        var auswahl = document.getElementById("gruppenauswahl");
+
+        if(data == "failed"){
+            document.getElementById("einschraenken").style.display = "none";
+            var newauswahl = document.createElement("option");
+                newauswahl.setAttribute("value", "failed");
+                newauswahl.setAttribute("selected", "selected");
+                newauswahl.innerHTML = "Falsche Sitzungsdaten!";
+                auswahl.appendChild(newauswahl);
+        } else {
+
+            var newnauswahl = document.createElement("option");
+                newnauswahl.setAttribute("value", "0");
+                newnauswahl.setAttribute("id", "einschraenken");
+                newnauswahl.innerHTML = "-- Suchergebnisse einschränken --";
+                auswahl.appendChild(newnauswahl);
+
+            for(i in data){
+                var newauswahl = document.createElement("option");
+                newauswahl.setAttribute("value", "group" + data[i][4]);
+                newauswahl.innerHTML = data[i][0];
+                auswahl.appendChild(newauswahl);
+            }
+            if(data.length == 0){
+                document.getElementById("einschraenken").style.display = "none";
+                var newauswahl = document.createElement("option");
+                newauswahl.setAttribute("value", "nomember");
+                newauswahl.setAttribute("selected", "selected");
+                newauswahl.innerHTML = "Sie sind noch kein Teilnehmer einer Gruppe!";
+                auswahl.appendChild(newauswahl);
+            }
+        }
+
+        console.log(data);
+        console.log("fetch success");
+
+    } catch (e) {
+        console.error('fetch error', e);
+        data = "fetch_error";
+    }
+}
+
+async function addGroupsm(){
+    var fullurl = server_url + '/backend/index.php?request=getGroups&username=' + getCookie("username") + "&session=" + getCookie("session");
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.json();
+        var auswahlm = document.getElementById("gruppenauswahlm");
+
+        if(data == "failed"){
+            document.getElementById("einschraenkenm").style.display = "none";
+            var newauswahlm = document.createElement("option");
+                newauswahlm.setAttribute("value", "failed");
+                newauswahlm.setAttribute("selected", "selected");
+                newauswahlm.innerHTML = "Falsche Sitzungsdaten!";
+                auswahlm.appendChild(newauswahlm);
+        } else {
+
+            var newnauswahlm = document.createElement("option");
+                newnauswahlm.setAttribute("value", "0");
+                newnauswahlm.setAttribute("id", "einschraenken");
+                newnauswahlm.innerHTML = "-- Suchergebnisse einschränken --";
+                auswahlm.appendChild(newnauswahlm);
+
+            for(i in data){
+                var newauswahlm = document.createElement("option");
+                newauswahlm.setAttribute("value", "group" + data[i][4]);
+                newauswahlm.innerHTML = data[i][0];
+                auswahlm.appendChild(newauswahlm);
+            }
+            if(data.length == 0){
+                document.getElementById("einschraenkenm").style.display = "none";
+                var newauswahlm = document.createElement("option");
+                newauswahlm.setAttribute("value", "nomember");
+                newauswahlm.setAttribute("selected", "selected");
+                newauswahlm.innerHTML = "Sie sind noch kein Teilnehmer einer Gruppe!";
+                auswahlm.appendChild(newauswahlm);
+            }
+        }
+
+        console.log(data);
+        console.log("fetch success");
+
+    } catch (e) {
+        console.error('fetch error', e);
+        data = "fetch_error";
+    }
+}
