@@ -53,7 +53,7 @@
             <div id="mobile" style="width: 60%;">
                     <form id="search-box" style="max-width: 400px; float: left;" action="#" onsubmit="readInput()">
                         <img src="img/pos-icon.png" onClick="getPos();" />
-                        <input id="searchbar" class="form-control" type="text" onfocus="cont=this.value;this.value=''"/>
+                        <input id="searchbar2" class="form-control" type="text" onfocus="cont=this.value;this.value=''"/>
                         <button class="btn" type="submit"><img src="img/checkmark-icon.png" /></button>
                         <br />
                         <form id="auswahlm">
@@ -67,6 +67,8 @@
             Bitte gebe oben deinen Standort ein<br>
             <a href="antrag.html">Neue Fahrt erstellen</a>
         </p>
+        <div id="loc" style="width: 100%; text-align: center; font-size: 10px; color: grey; padding: 10px;"></div>
+        <div id="mapOSM"></div>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-sm-12 col-md-8 fahrten">
@@ -74,7 +76,7 @@
                 <hr />
                 <div id="gesuche">
                     
-<!--                    <article>
+                    <article>
                         <span id="frage"><b>Von:</b></span>
                         <span>C</span><br />
                         <span id="frage"><b>Nach:</b></span>
@@ -85,7 +87,7 @@
                         <span>Mustermensch</span>
                         <button class="btn btn-dark btn-sm" style="float: right; margin-right: 10px;">Diese Fahrt anbieten</button>
                         <hr />
-                    </article>  -->
+                    </article>  
                 </div>
             </div>
         </div>
@@ -114,7 +116,7 @@
 
     <div id="footer">
         <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
-        <p style="margin-top: 2%;">
+        <p style="margin-top: 15px; margin-bottom: 7px;">
         <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="about.html">Über uns</a> | <a href="impressum.html">Impressum</a>
         </p>
         <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
