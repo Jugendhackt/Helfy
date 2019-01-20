@@ -103,8 +103,11 @@ async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis
         lon = data[0]["lon"];
 
         console.log(data[0]["display_name"]);
-
-        let inputElement = document.getElementById("searchbar");
+        if(document.getElementById("searchbar").value != ""){
+            inputElement = document.getElementById("searchbar");
+        } else {
+            inputElement = document.getElementById("searchbar2");
+        }
         lk = data[0]["display_name"].split(", ")[3];
         if(!(lk.includes("Landkreis"))){
             lk = data[0]["display_name"].split(", ")[2];
