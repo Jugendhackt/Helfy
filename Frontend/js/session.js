@@ -412,3 +412,10 @@ function alreadyRegistrated(){
         document.getElementById("alreadyregistrated").style.display = "";
     }
 }
+
+function footer(){
+    var thisdate = new Date;
+    var thisyear = thisdate.getFullYear();
+
+    document.getElementById("thisyear").innerHTML = thisyear;
+}

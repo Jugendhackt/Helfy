@@ -12,7 +12,7 @@
     <script src="js/navigation.js"></script>
 </head>
 
-<body onload="menu()">
+<body onload="menu(); footer();">
 
         <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -84,8 +84,11 @@
     </div>
 
     <div id="footer">
-        <hr style="margin: 10px; border-radius: 20px;">
-        <p style="margin-top: 2%;">by Tobias, Achim, Jakob | <a href="login.html">Log In</a> | <a href="#" onclick="logout()">Log Out</a></p>
+        <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+        <p style="margin-top: 2%;">
+        <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="about.html">Über uns</a> | <a href="impressum.html">Impressum</a>
+        </p>
+        <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
     </div>
 
     <script src="js/addRide.js"></script>
