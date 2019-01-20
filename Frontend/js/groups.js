@@ -240,6 +240,15 @@ async function addGroups(){
                 newauswahl.innerHTML = "Sie sind noch kein Teilnehmer einer Gruppe!";
                 auswahl.appendChild(newauswahl);
             }
+
+            if(getCookie("username") == ""){
+                document.getElementById("einschraenken").style.display = "none";
+                var newauswahl = document.createElement("option");
+                newauswahl.setAttribute("value", "nologin");
+                newauswahl.setAttribute("selected", "selected");
+                newauswahl.innerHTML = "Bitte melden sie sich an!";
+                auswahl.appendChild(newauswahl);
+            }
         }
 
         console.log(data);
@@ -289,6 +298,15 @@ async function addGroupsm(){
                 newauswahlm.setAttribute("value", "nomember");
                 newauswahlm.setAttribute("selected", "selected");
                 newauswahlm.innerHTML = "Sie sind noch kein Teilnehmer einer Gruppe!";
+                auswahlm.appendChild(newauswahlm);
+            }
+
+            if(getCookie("username") == ""){
+                document.getElementById("einschraenkenm").style.display = "none";
+                var newauswahlm = document.createElement("option");
+                newauswahlm.setAttribute("value", "nologin");
+                newauswahlm.setAttribute("selected", "selected");
+                newauswahlm.innerHTML = "Bitte melden sie sich an!";
                 auswahlm.appendChild(newauswahlm);
             }
         }
