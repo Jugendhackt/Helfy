@@ -160,14 +160,6 @@ async function getGroups(){
                 noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='#' class='user'>@" + replaceAll(data[i][1], ",", "</a> <a href='#' class='user'>@") + "</a><p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;' onclick='leaveGroup(\"" + data[i][4] + "\")'>Gruppe verlassen</p>";
                 div.appendChild(noti)
             }
-            if(data.length == 0){
-                var noti = document.createElement("div");
-                noti.setAttribute("role", "alert");
-                noti.setAttribute("id", "alert");
-                noti.setAttribute("class", "alert alert-dark");
-                noti.innerHTML = 'Sie sind noch kein Teilnehmer einer Gruppe.<br>Erstellen Sie eine <a href="newgroup.html" class="alert-link">neue Gruppe</a> oder nehmen Sie eine Einladung an.';
-                div.appendChild(noti)
-            }
         }
 
         console.log(data);
@@ -238,15 +230,6 @@ async function addGroups(){
                 newauswahl.setAttribute("value", "nomember");
                 newauswahl.setAttribute("selected", "selected");
                 newauswahl.innerHTML = "Sie sind noch kein Teilnehmer einer Gruppe!";
-                auswahl.appendChild(newauswahl);
-            }
-
-            if(getCookie("username") == ""){
-                document.getElementById("einschraenken").style.display = "none";
-                var newauswahl = document.createElement("option");
-                newauswahl.setAttribute("value", "nologin");
-                newauswahl.setAttribute("selected", "selected");
-                newauswahl.innerHTML = "Bitte melden sie sich an!";
                 auswahl.appendChild(newauswahl);
             }
         }
