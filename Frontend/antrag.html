@@ -41,34 +41,38 @@
 
             <div id="fahrt" class="tabcontent">
                 <div style="width: 100%; max-width: 300px; margin: auto; padding-top: 20px;">
-                    <input type="text" class="form-control" placeholder="Von" style="width: 100%; margin: 5px 0px;">
-                    <input type="text" class="form-control" placeholder="Nach" style="width: 100%; margin: 5px 0px;">
+                    <input type="text" class="form-control" placeholder="Von" style="width: 100%; margin: 5px 0px;" id="von">
+                    <input type="text" class="form-control" placeholder="Nach" style="width: 100%; margin: 5px 0px;" id="nach">
                     <div id="desktop">
                         <div class="row">
-                            <input type="date" class="form-control" placeholder="Nach" style="width:45%; margin-left: 15px;">
-                            <input type="time" class="form-control" placeholder="Nach" style="width: 45%; margin-left: 5px;">
+                            <input id="datePick" type="date" class="form-control" placeholder="Nach" style="width:45%; margin-left: 15px;">
+                            <input id="timePick" type="time" class="form-control" placeholder="Nach" style="width: 45%; margin-left: 5px;">
                         </div>
                     </div>
                     <div id="mobile">
-                        <input type="date" class="form-control" placeholder="Nach" style="width:100%; margin: 5px 0px;">
-                        <input type="time" class="form-control" placeholder="Nach" style="width: 100%; margin: 5px 0px;">
+                        <input id="datePickM" type="date" class="form-control" placeholder="Nach" style="width:100%; margin: 5px 0px;">
+                        <input id="timePickM" type="time" class="form-control" placeholder="Nach" style="width: 100%; margin: 5px 0px;">
                     </div>
-                    <select style="width: 100%; padding: 5px; margin-top: 5px;" class="form-control">
+                    <select style="width: 100%; padding: 5px; margin-top: 5px;" class="form-control" id="selectPublic">
                         <option value="alle">Öffentlich</option>
                         <option value="gruppen">Nur in meinen Gruppen</option>
                     </select>
                     <br>
-                    <button type="button" class="btn btn-primary">Anbieten</button>
-                    <button type="button" class="btn btn-secondary">Suchen</button>
+                    <button type="button" class="btn btn-primary" id="btnWeiter" onclick="fahrtWeiter();">Weiter</button>
+                    <br>
+                    <div id="previewFahrt"></div>
+                    <button type="button" class="btn btn-primary" id="btnAnbieten" style="display: none;" onclick="fahrtAnbieten();">Anbieten</button>
+                    <button type="button" class="btn btn-secondary" style="display: none;">Suchen</button>
+                    <div id="var1" style="display: none;"></div><div id="var2" style="display: none;"></div>
                 </div>
             </div>
                 
             <div id="einkauf" class="tabcontent">
-                    <p style="margin-top: 20px;">Einkäufe bald verfügbar.</p>
+                <p style="margin-top: 20px;">Einkäufe bald verfügbar.</p>
             </div>
 
             <div id="jobs" class="tabcontent">
-                    <p style="margin-top: 20px;">Jobs bald verfügbar.</p>
+                <p style="margin-top: 20px;">Jobs bald verfügbar.</p>
             </div>
 
             <div id="sonstiges" class="tabcontent">

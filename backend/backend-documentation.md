@@ -87,4 +87,4 @@ Use `userInput;lat;lon` e.g. `Berlin HBF;52.5249451;13.3696614`
 ##### addr (addressee)
 Can be set to `all` (offer will be public) or `groups` (only group members can see your offer).
 ##### time
-Date and time of your ride e.g. `21.01.2019 16:30`
+Date and time of your ride e.g. `2019-01-21 16:30`

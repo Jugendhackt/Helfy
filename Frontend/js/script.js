@@ -38,10 +38,10 @@ var server_url = "";
 
 var rawFile = new XMLHttpRequest();
 rawFile.open("GET", "server.txt", false);
-rawFile.onreadystatechange = function (){
-    if(rawFile.readyState === 4){
-        if(rawFile.status === 200 || rawFile.status == 0){
-                server_url = rawFile.responseText;
+rawFile.onreadystatechange = function () {
+    if (rawFile.readyState === 4) {
+        if (rawFile.status === 200 || rawFile.status == 0) {
+            server_url = rawFile.responseText;
         }
     }
 }
@@ -49,8 +49,8 @@ rawFile.send(null);
 
 
 
- var lat = 0;
- var lon = 0;
+var lat = 0;
+var lon = 0;
 
 
 
@@ -69,7 +69,7 @@ function convert(input) { // Konvertiert input von getPos in String um
 function readInput() { // Wird ausgeführt durch Form searchbar
     inputElement = document.getElementById("searchbar");
     inputContent = inputElement.value;
-    if(inputContent == ""){
+    if (inputContent == "") {
         inputElement = document.getElementById("searchbar2");
         inputContent = inputElement.value;
     }
@@ -77,11 +77,12 @@ function readInput() { // Wird ausgeführt durch Form searchbar
     checkPos(inputContent);
 }
 
-function showOSM(lat, lon, scale){
-    latb = (parseFloat(lat) + scale).toString();
-    lonb = (parseFloat(lon) + scale).toString();
-    lat = (parseFloat(lat) - scale).toString();
-    lon = (parseFloat(lon) - scale).toString();
+function showOSM(lon, lonb, lat, latb) {
+    scale = 0.0003;
+    lonb = (parseFloat(lonb) - scale).toString();
+    latb = (parseFloat(latb) - scale).toString();
+    lon = (parseFloat(lon) + scale).toString();
+    lat = (parseFloat(lat) + scale).toString();
     mosm = document.getElementById("mapOSM");
     mosm.innerHTML = '<iframe style="width: 100%; height: 200px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=' + lat + '%2C' + lon + '%2C' + latb + '%2C' + lonb + '&amp;layer=mapnik" style="border: 1px solid black"></iframe>'
 }
@@ -91,9 +92,9 @@ async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis
     try {
         dtype = true;
         request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&city=' + search);
-        data = await request.json();    
+        data = await request.json();
 
-        if(data.length == 0){
+        if (data.length == 0) {
             request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&q=' + search);
             data = await request.json();
             dtype = false;
@@ -103,40 +104,36 @@ async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis
         lon = data[0]["lon"];
 
         console.log(data[0]["display_name"]);
-        if(document.getElementById("searchbar").value != ""){
+        if (document.getElementById("searchbar").value != "") {
             inputElement = document.getElementById("searchbar");
         } else {
             inputElement = document.getElementById("searchbar2");
         }
         lk = data[0]["display_name"].split(", ")[3];
-        if(!(lk.includes("Landkreis"))){
+        if (!(lk.includes("Landkreis"))) {
             lk = data[0]["display_name"].split(", ")[2];
         }
         ort = data[0]["display_name"].split(", ")[0];
-        if("1234567890".includes(ort[0])){
+        if ("1234567890".includes(ort[0])) {
             ort = data[0]["display_name"].split(", ")[1] + " " + data[0]["display_name"].split(", ")[0];
             lk = data[0]["display_name"].split(", ")[2];
-            if(lk.includes(ort)){
+            if (lk.includes(ort)) {
                 lk = data[0]["display_name"].split(", ")[3];
             }
         } else {
             lk = data[0]["display_name"].split(", ")[1];
-            if(lk.includes(ort)){
+            if (lk.includes(ort)) {
                 lk = data[0]["display_name"].split(", ")[2];
             }
         }
         document.getElementById("loc").innerHTML = data[0]['display_name'];
         inputElement.value = ort + ", " + lk;
-        
+
     } catch (e) {
-        
+
         console.error('fetch error', e);
     }
-    if(dtype){
-        showOSM(lon, lat, 0.003);
-    } else {
-        showOSM(lon, lat, 0.0005);
-    }
+    showOSM(data[0]["boundingbox"][0], data[0]["boundingbox"][1], data[0]["boundingbox"][2], data[0]["boundingbox"][3])
     document.getElementById("loc").scrollIntoView();
     showRoutes();
 }
@@ -160,13 +157,13 @@ async function showRoutes() {
         // get element content as string
         console.log(el.innerHTML);
         // kommentar
-        
+
         el.innerHTML = '';
         elb.innerHTML = '';
 
-        for(x in data){
+        for (x in data) {
             currentRoute = data[x];
-            if(currentRoute["type"] == "1"){
+            if (currentRoute["type"] == "1") {
                 el.innerHTML += "<article style='margin-left: 0px;'><span id='frage'><b>Von: </b></span><span>" + currentRoute["start_klar"] + "</span><br /><span id='frage'><b>Nach: </b></span><span> " + currentRoute["ziel_klar"] + " </span><br /><span id='frage'><b>Fahrer: </b></span><span>" + currentRoute["fahrer_name"] + "</span><br><span id='frage'><b>Mitfahrer: </b></span><span><button class='btn btn-dark'>Mitfahren!</button></span><hr /></article>";
             } else {
                 elb.innerHTML += "<article style='margin-left: 0px;'><span id='frage'><b>Von: </b></span><span>" + currentRoute["start_klar"] + "</span><br /><span id='frage'><b>Nach: </b></span><span> " + currentRoute["ziel_klar"] + " </span><br /><span id='frage'><b>Fahrer: </b></span><span><button class='btn btn-dark'>Anbieten!</button></span><br><span id='frage'><b>Mitfahrer: </b></span><span>" + currentRoute["mitfahrer_name"] + "</span><hr /></article>";
@@ -175,10 +172,10 @@ async function showRoutes() {
 
         // append to the element's content
         el.innerHTML += "";
-        
-        
+
+
     } catch (e) {
         console.error('fetch error', e);
     }
-    
+
 }

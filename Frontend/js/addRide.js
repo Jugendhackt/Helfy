@@ -86,3 +86,88 @@ async function sendOSM(search) {
         console.error('fetch error', e);
     }
 }
+
+async function fahrtWeiter(){
+    document.getElementById("btnWeiter").style.display = "none";
+    search = document.getElementById("von").value;
+    searchb = document.getElementById("nach").value;
+    try {
+        const request = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&q=' + search, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        data = await request.json();
+
+        const requestb = await fetch('https://nominatim.openstreetmap.org/search/?format=json&limit=1&q=' + searchb, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        sdata = await requestb.json();
+
+        preview = "<b>Wollen Sie wirklich diese Fahrt anbieten?</b><br><br>";
+        if(data[0]['display_name'].split(",")[0].length > 3){
+            preview += "Von: " + data[0]['display_name'].split(",")[0] + ", " + data[0]['display_name'].split(",")[1];
+        } else {
+            preview += "Von: " + data[0]['display_name'].split(",")[1] + " " + data[0]['display_name'].split(",")[0] + ", " + data[0]['display_name'].split(",")[2];
+        }
+        preview += "<br>";
+        if(sdata[0]['display_name'].split(",")[0].length > 3){
+            preview += "Nach: " + sdata[0]['display_name'].split(",")[0] + ", " + sdata[0]['display_name'].split(",")[1];
+        } else {
+            preview += "Nach: " + sdata[0]['display_name'].split(",")[1] + " " + sdata[0]['display_name'].split(",")[0] + ", " + sdata[0]['display_name'].split(",")[2];
+        }
+
+        document.getElementById("var1").innerHTML = search + ";" + data[0]['lat'] + ";" + data[0]['lon'];
+        document.getElementById("var2").innerHTML = searchb + ";" + sdata[0]['lat'] + ";" + sdata[0]['lon'];
+
+        document.getElementById("btnAnbieten").style.display = "";
+        document.getElementById("previewFahrt").innerHTML = preview + "<br><br>";
+
+    } catch (e) {
+        console.error('fetch error', e);
+        document.getElementById("btnWeiter").style.display = "";
+        document.getElementById("btnWeiter").innerHTML = "Erneut versuchen";
+    }
+}
+
+
+async function fahrtAnbieten(){
+    von = document.getElementById("var2").innerHTML;
+    nach = document.getElementById("var1").innerHTML;
+    if(document.getElementById("selectPublic").selectedIndex == 0){
+        addr = "all";
+    } else {
+        addr = "groups";
+    }
+    if(datime = document.getElementById("datePick").value != ""){
+        datime = document.getElementById("datePick").value + " ";
+        datime += document.getElementById("timePick").value;
+    } else {
+        datime = document.getElementById("datePickM").value + " ";
+        datime += document.getElementById("timePickM").value;
+        console.log(document.getElementById("mobile").style);
+    }
+    console.log(datime);
+    var fullurl = server_url + '/backend/index.php?request=offerRide&username=' + getCookie("username") + "&session=" + getCookie("session") + "&addr=" + addr + "&from=" + von + "&to=" + nach + "&time=" + datime;
+    try {
+        const request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        data = await request.text();
+        if(data == "success"){
+            document.getElementById("btnAnbieten").style.display = "none";
+            document.getElementById("previewFahrt").innerHTML = "<b>Erfolgreich!</b>"
+        } else {
+            document.getElementById("previewFahrt").innerHTML = "<b>Fehlgeschlagen!</b>"
+        }
+        console.log(data);
+
+    } catch (e) {
+        console.error('fetch error', e);
+        document.getElementById("btnWeiter").style.display = "";
+        document.getElementById("btnAnbieten").style.display = "none";
+        document.getElementById("previewFahrt").innerHTML = "<b>Fehlgeschlagen!</b>"
+        document.getElementById("btnWeiter").innerHTML = "Erneut versuchen";
+    }
+}
