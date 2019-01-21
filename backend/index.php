@@ -2,7 +2,7 @@
 /*
 	index.php
 
-	Copyright 2019 Jakob Stolze <https://github.com/jaybeejs>
+	Copyright 2018-2019 Jakob Stolze <https://github.com/jaybeejs>
 
  	This file is part of Helfy - https://github.com/Jugendhackt/Helfy
 
@@ -34,7 +34,6 @@
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
-
 
 require("main.php");
 ini_set('display_errors', 1);
@@ -130,29 +129,6 @@ if($request == "newSession"){
 }
 
 /*
-if($request == "addRide"){
-    $u_username = ($_GET['username']);
-    //$u_session_id = ($_GET['session_id']);
-    //if(sessionCheck($u_username, $u_session_id)){
-        $u_type = ($_GET['type']);
-        $u_start = ($_GET['start']);
-        $u_ziel = ($_GET['ziel']);
-        $u_description = ($_GET['description']);
-        if($u_type == "true"){
-            $fahrer_id = idByUsername($u_username);
-            $mitfahrer_id = "";
-        } else {
-            $fahrer_id = "";
-            $mitfahrer_id = idByUsername($u_username);
-        }
-        $sql = "INSERT INTO `mitfahren` VALUES (NULL, '$u_type', '$mitfahrer_id', '$fahrer_id', '$u_start', '$u_ziel', '$u_description', CURRENT_TIMESTAMP)";
-        $insert = $mysqli->query($sql);
-        echo "success";
-    //} else {
-    //    echo "failed";
-    //}
-}
-
 if($request == "nearbyRides"){
     //$u_username = ($_GET['username']);
     //$u_session_id = ($_GET['session_id']);
@@ -241,6 +217,10 @@ if($request == "changeEmail"){
 
 if($request == "changeUsername"){
     echo changeUsername($_GET['username'], $_GET['session'], $_GET['newUsername']);
+}
+
+if($request == "offerRide"){
+    echo addBulletin("offerRide", $_GET['username'], $_GET['session'], $_GET['from'], $_GET['to'], $_GET['addr'], $_GET['time']);
 }
 
 

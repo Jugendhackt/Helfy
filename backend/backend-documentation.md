@@ -78,3 +78,13 @@ Changes the password. Returns `success`, `failed` (sessionID or password incorre
 #### changeUsername
     index.php?request=changeUsername&username=username&session=sessionID&newUsername=nameuser
 Changes the username and returns `success`, `username_already_taken` or `failed`.
+
+#### offerRide
+    index.php?request=offerRide&username=username&session=sessionID&from=fromLocation&to=toLocation&addr=addressee&time=timeOfRide
+Returns `success` or `failed`.
+##### fromLocation and toLocation
+Use `userInput;lat;lon` e.g. `Berlin HBF;52.5249451;13.3696614`
+##### addr (addressee)
+Can be set to `all` (offer will be public) or `groups` (only group members can see your offer).
+##### time
+Date and time of your ride e.g. `21.01.2019 16:30`

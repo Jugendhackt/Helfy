@@ -2,7 +2,7 @@
 /*
 	main.php
 
-	Copyright 2019 Jakob Stolze <https://github.com/jaybeejs>
+	Copyright 2018-2019 Jakob Stolze <https://github.com/jaybeejs>
 
  	This file is part of Helfy - https://github.com/Jugendhackt/Helfy
 
@@ -260,6 +260,11 @@ function newGroupHash(){
 	return $hash;
 }
 
+function newHash(){
+	$hash = guidv4(random_bytes(16));
+	return $hash;
+}
+
 function newNotification($u_username, $u_notification){
 	global $pdo;
     $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
@@ -345,6 +350,14 @@ function getGroupById($groupID){
 	global $pdo;
     $statement = $pdo->prepare("SELECT * FROM `groups` WHERE `id` = ?");
 	$statement->execute(array($groupID));
+	$res = $statement->fetchAll()[0];
+    return $res;
+}
+
+function getUserByUsername($u_username){
+	global $pdo;
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($u_username));
 	$res = $statement->fetchAll()[0];
     return $res;
 }
@@ -562,6 +575,36 @@ function changeUsername($u_username, $u_session, $u_newUsername){
 	}
 }
 
+function addBulletin($type, $u_username, $u_session, $location, $additional, $addressee, $time){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $pdo;
+		if($type == "offerRide"){
+			if($addressee == "all"){
+				$groups = "all";
+			} else {
+				$user = getUserByUsername($u_username);
+				$groups = str_replace("GROUPS=", "", explode(";", $user['settings'])[2]);
+			}
+			$sql = "INSERT INTO `bulletinBoard` VALUES (NULL, :username, '', :type, '', :addressee, :von, :nach, :time, :hash)";
+			$data = [
+				'username' => $u_username,
+				'type' => $type,
+				'von' => $location,
+				'nach' => $additional,
+				'time' => $time,
+				'addressee' => $groups,
+				'hash' => newHash(),
+			];
+			$statement = $pdo->prepare($sql);
+			$statement->execute($data);
+			return "success";
+		} else {
+			return "unknown_bulletin_type";
+		}
+	} else {
+		return "failed";
+	}
+}
 
 /*
 
