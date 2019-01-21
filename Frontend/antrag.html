@@ -7,6 +7,7 @@
     <title>Helfy - Antrag</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap/js/bootstrap.js" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="js/session.js"></script> 
     <script src="js/navigation.js"></script>
@@ -14,87 +15,102 @@
 
 <body onload="menu(); footer();">
 
-        <div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <div id="me"><a href="home.html">Home</a></div>
-                <a href="einstellungen.html">Einstellungen</a>
-                <a href="notification.html">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
-                <a href="gruppen.html">Gruppen</a>
-                <a href="rides.html">Eigene Fahrten</a>
-                <br />
-              </div>
-
-              <div>
-
-                    <div style="float: left; height:50px; width: 50px;" id="menu">
-                    <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
-                    </div>
-            </div>
-
-    <div class="container-float">
-            <h1 class="header">Helfy - Antrag</h1>
-
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div id="me"><a href="home.html">Home</a></div>
+        <a href="einstellungen.html">Einstellungen</a>
+        <a href="notification.html">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
+        <a href="gruppen.html">Gruppen</a>
+        <a href="rides.html">Eigene Fahrten</a>
         <br />
-
-        <div id="maincontent">
-        <div id="formular" class="row">
-            <form style="width: 100%;">
-                <div class="form-group">
-                    <span class="location">
-                        <li style="list-style-type: none;">Von:</li>
-                        <div id="search-box1">
-                            <img src="img/pos-icon.png" onClick="getPos('startPlace');" />
-                            <input id="startPlace" style="width: 90%;" name="start" type="text" placeholder="Von welchem Ort"
-                                onfocus="cont=this.value;this.value=''" />
-                        </div>
-                    </span>
-                    <br />
-                    <span class="location">
-                        <li style="list-style-type: none;">Nach:</li>
-                        <div id="search-box2">
-                            <img src="img/pos-icon.png" onClick="getPos('endPlace');" />
-                            <input style="width: 90%;" id="endPlace" name="ende" type="text" placeholder="Zu welchem Ort"
-                                onfocus="cont=this.value;this.value=''" />
-                        </div>
-                    </span>
-                    <br />
-                </div>
-                <div class="form-group">
-                    <li style="list-style-type: none;">Wann:</li>
-                    <div id="search-box3">
-                        <img style="visibility: hidden" src="img/pos-icon.png" onClick="getPos('endPlace');" />
-                        <input style="width: 90%;" maxlength="16" name="datetime" type="text" id="date" placeholder="tt.mm.jjjj, --:--"
-                            onfocus="cont=this.value;this.value=''" /><br />
-                    </div>
-                </div>
-                <div style="text-align: center;">
-                        <button id="einstellen" class="btn btn-dark" type="submit" onclick="checkTime()">Eintrag
-                                einstellen!</button>
-                </div>
-            </form>
-        </div>
-
-        <br />
-
     </div>
 
-    <div id="wrongdate" style="display: none;">
-            <br />
-            <p style="text-align: center; color: red;">Bitte geben sie ein Datum ein, welches in der Zukunft liegt.</p>
-            <p style="text-align: center; color: blue; cursor: pointer;"><a onclick="document.getElementById('maincontent').style.display = ''; document.getElementById('wrongdate').style.display = 'none'">zurück zum Formular</a></p>
+    <div>
+        <div style="float: left; height:50px; width: 50px;" id="menu">
+            <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
         </div>
-        </div>
+    </div>
 
-        <div id="footer">
-            <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
-            <p style="margin-top: 2%;">
-            <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="about.html">Über uns</a> | <a href="impressum.html">Impressum</a>
-            </p>
-            <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
-        </div>
+    <div class="container-float">
+        <h1 class="header">Helfy - Antrag</h1>
+        <div style="width: 100%; max-width: 500px; margin: auto;">
+            <button class="tablink" onclick="openCity('fahrt', this)" id="defaultOpen">Fahrt</button>
+            <button class="tablink" onclick="openCity('einkauf', this)">Einkauf</button>
+            <button class="tablink" onclick="openCity('jobs', this)">Jobs</button>
+            <button class="tablink" onclick="openCity('sonstiges', this)">...</button>
 
-    <script src="js/addRide.js"></script>
+            <div id="fahrt" class="tabcontent">
+                <div style="width: 100%; max-width: 300px; margin: auto; padding-top: 20px;">
+                    <input type="text" class="form-control" placeholder="Von" style="width: 100%; margin: 5px 0px;">
+                    <input type="text" class="form-control" placeholder="Nach" style="width: 100%; margin: 5px 0px;">
+                    <div id="desktop">
+                        <div class="row">
+                            <input type="date" class="form-control" placeholder="Nach" style="width:45%; margin-left: 15px;">
+                            <input type="time" class="form-control" placeholder="Nach" style="width: 45%; margin-left: 5px;">
+                        </div>
+                    </div>
+                    <div id="mobile">
+                        <input type="date" class="form-control" placeholder="Nach" style="width:100%; margin: 5px 0px;">
+                        <input type="time" class="form-control" placeholder="Nach" style="width: 100%; margin: 5px 0px;">
+                    </div>
+                    <select style="width: 100%; padding: 5px; margin-top: 5px;" class="form-control">
+                        <option value="alle">Öffentlich</option>
+                        <option value="gruppen">Nur in meinen Gruppen</option>
+                    </select>
+                    <br>
+                    <button type="button" class="btn btn-primary">Anbieten</button>
+                    <button type="button" class="btn btn-secondary">Suchen</button>
+                </div>
+            </div>
+                
+            <div id="einkauf" class="tabcontent">
+                    <p style="margin-top: 20px;">Einkäufe bald verfügbar.</p>
+            </div>
+
+            <div id="jobs" class="tabcontent">
+                    <p style="margin-top: 20px;">Jobs bald verfügbar.</p>
+            </div>
+
+            <div id="sonstiges" class="tabcontent">
+                <p style="margin-top: 20px;">Weiter Funktionen bald verfügbar.</p>
+            </div>
+            
+
+        </div>
+    
+    <script>
+        function openCity(cityName, elmnt) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Remove the background color of all tablinks/buttons
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+                tablinks[i].style.color = "white";
+            }
+
+            // Show the specific tab content
+            document.getElementById(cityName).style.display = "block";
+
+            elmnt.style.backgroundColor = "rgb(200, 200, 200)";
+            elmnt.style.color = "black";
+        }
+
+        document.getElementById("defaultOpen").click();
+    </script>
+    <script src="js/addRide.js"></script> 
 </div>
+<div id="footer">
+        <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+        <p style="margin-top: 15px; margin-bottom: 7px;">
+        <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="about.html">Über uns</a> | <a href="impressum.html">Impressum</a>
+        </p>
+        <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+    </div>
 </body>
 
 </html>

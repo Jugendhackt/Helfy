@@ -396,3 +396,32 @@ a .user {
     box-shadow:0 0 1px #333;
     margin-left: 10px;
 }
+
+/* Style the tab buttons */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tablink:hover {
+    background-color: #777;
+  }
+  
+  /* Set default styles for tab content */
+  .tabcontent {
+    color: black;
+    background: rgb(200, 200, 200);
+    display: none;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
+    min-height: 300px;
+  }
