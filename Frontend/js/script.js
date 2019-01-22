@@ -126,6 +126,7 @@ async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis
                 lk = data[0]["display_name"].split(", ")[2];
             }
         }
+        document.getElementById("var3").innerHTML = lat + ";" + lon;
         document.getElementById("loc").innerHTML = data[0]['display_name'];
         inputElement.value = ort + ", " + lk;
 
@@ -134,7 +135,7 @@ async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis
         console.error('fetch error', e);
     }
     showOSM(data[0]["boundingbox"][0], data[0]["boundingbox"][1], data[0]["boundingbox"][2], data[0]["boundingbox"][3])
-    document.getElementById("loc").scrollIntoView();
+    document.getElementById("mapOSM").scrollIntoView();
     showRoutes();
 }
 
@@ -143,39 +144,28 @@ Load Page
 */
 
 async function showRoutes() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    search = document.getElementById("searchbar").value;
+    locationX = search + ";" + document.getElementById("var3").innerHTML;
+    var fullurl = server_url + '/backend/index.php?request=getRides&username=' + l_username + "&session=" + l_session + "&location=" + locationX + "&distance=10&time=now";
     try {
-        const request = await fetch('/backend/index.php?request=nearbyRides&lat=' + lat + '&lon=' + lon, {
+        let request = await fetch(fullurl, {
             method: "GET",
             dataType: "application/x-www-form-urlencoded",
         });
-        const data = await request.json();
 
-        console.log(data);
+        data = await request.json();
 
-        var el = document.getElementById('angebot');
-        var elb = document.getElementById('gesuche');
-        // get element content as string
-        console.log(el.innerHTML);
-        // kommentar
-
-        el.innerHTML = '';
-        elb.innerHTML = '';
-
-        for (x in data) {
-            currentRoute = data[x];
-            if (currentRoute["type"] == "1") {
-                el.innerHTML += "<article style='margin-left: 0px;'><span id='frage'><b>Von: </b></span><span>" + currentRoute["start_klar"] + "</span><br /><span id='frage'><b>Nach: </b></span><span> " + currentRoute["ziel_klar"] + " </span><br /><span id='frage'><b>Fahrer: </b></span><span>" + currentRoute["fahrer_name"] + "</span><br><span id='frage'><b>Mitfahrer: </b></span><span><button class='btn btn-dark'>Mitfahren!</button></span><hr /></article>";
-            } else {
-                elb.innerHTML += "<article style='margin-left: 0px;'><span id='frage'><b>Von: </b></span><span>" + currentRoute["start_klar"] + "</span><br /><span id='frage'><b>Nach: </b></span><span> " + currentRoute["ziel_klar"] + " </span><br /><span id='frage'><b>Fahrer: </b></span><span><button class='btn btn-dark'>Anbieten!</button></span><br><span id='frage'><b>Mitfahrer: </b></span><span>" + currentRoute["mitfahrer_name"] + "</span><hr /></article>";
-            }
+        for(i = 0; i < data.length; i++){
+            vout = "Von: " + data[i]['location']['name'] + "<br>"
+            vout += "Nach: " + data[i]['destination']['name'] + "<br>"
+            vout += "Fahrer: @" + data[i]['offerUser'] + "<br>"
+            vout += "Distanz: " + parseInt(data[i]['destination']['distance']).toString() + " km (Strecke); " + parseInt(data[i]['location']['distance']).toString() + " km (Zum Abfahrtsort)<br><hr><br>"
+            document.getElementById("angebot").innerHTML += vout;
         }
-
-        // append to the element's content
-        el.innerHTML += "";
-
-
+    
     } catch (e) {
         console.error('fetch error', e);
     }
-
 }
