@@ -223,6 +223,10 @@ if($request == "offerRide"){
     echo addBulletin("offerRide", $_GET['username'], $_GET['session'], $_GET['from'], $_GET['to'], $_GET['addr'], $_GET['time']);
 }
 
+if($request == "getRides"){
+    echo json_encode(getBulletin("ride", $_GET['username'], $_GET['session'], $_GET['location'], $_GET['distance'], $_GET['time']));
+}
+
 
 if($request == "logout"){
 	$u_username = $_GET['username'];

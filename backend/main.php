@@ -166,15 +166,6 @@ function login($ldc_username, $ldc_password){
 	}
 }
 
-/*
-function sessionCheck($username){
-    global $mysqli, $current_session_id;
-    $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
-    return ($current_session_id == $res['session'] && $current_session_id != "");
-}
-*/
 function idByUsername($username){
     global $pdo;
     $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
@@ -606,25 +597,48 @@ function addBulletin($type, $u_username, $u_session, $location, $additional, $ad
 	}
 }
 
-/*
-
-function addRide($type, $user_id, $start, $ziel, $description){
-    global $mysqli;
-    if($type == "true"){
-        $fahrer_id = $user_id;
-        $mitfahrer_id = "";
-    } else {
-        $fahrer_id = "";
-        $mitfahrer_id = $user_id;
-    }
-    $sql = "INSERT INTO `mitfahren` VALUES (NULL, '$type', '$mitfahrer_id', '$fahrer_id', '$start', '$ziel')";
-    $result = $mysqli->query($sql);
-    $res = $result->fetch_assoc();
+function getBulletin($type, $u_username, $u_session, $location, $additional, $time){
+	if(sessionDataCorrect($u_username, $u_session)){
+		global $pdo;
+		if($type == "ride"){
+			$user = getUserByUsername($u_username);
+			$groups = str_replace("GROUPS=", "", explode(";", $user['settings'])[2]);
+			
+			$out = [];
+			
+			$sql = "SELECT * FROM `bulletinBoard` WHERE `type` = 'offerRide'";
+			foreach ($pdo->query($sql) as $row) {
+				$inGroup = false;
+				if($row['addressee'] != "all"){
+					$row_groups = explode(",", $row['addressee']);
+					foreach($groups as $group){
+						if(in_array($group, $row_groups)){
+							$inGroup = true;
+						}
+					}
+				}
+				if($row['addressee'] == "all" || $inGroup){
+					$locationUser = explode(";", $location);
+					$locationRow = explode(";", $row['location']);
+					$locationRowB = explode(";", $row['additional']);
+					$distnz = distance(floatval($locationUser[1]), floatval($locationUser[2]), floatval($locationRow[1]), floatval($locationRow[2]), "K");
+					$distnb = distance(floatval($locationRowB[1]), floatval($locationRowB[2]), floatval($locationRow[1]), floatval($locationRow[2]), "K");
+					if($distnz < floatval($additional)){
+						$rw = explode(";", $row['location']);
+						$locout = array("name" => $rw[0], "lat" => $rw[1], "lon" => $rw[2], "distance" => $distnz);
+						$rw = explode(";", $row['additional']);
+						$destin = array("name" => $rw[0], "lat" => $rw[1], "lon" => $rw[2], "distance" => $distnb);
+						$mout = array( 'type' => $row['type'], "offerUser" => $row['offerUser'], "acceptorUser" => $row['acceptorUser'], "location" => $locout, "destination" => $destin, "time" => $row['time'], "hash" => $row['hash']);
+						array_push($out, $mout);
+					}
+				}
+			}
+			return $out;
+		} else {
+			return "unknown_bulletin_type";
+		}
+	} else {
+		return "failed";
+	}
 }
-
-if(!(isset($_GET['request']))){
-	exit();
-}
-*/
-
 ?>

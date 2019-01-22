@@ -88,3 +88,7 @@ Use `userInput;lat;lon` e.g. `Berlin HBF;52.5249451;13.3696614`
 Can be set to `all` (offer will be public) or `groups` (only group members can see your offer).
 ##### time
 Date and time of your ride e.g. `2019-01-21 16:30`
+
+#### getRides
+    index.php?request=getRides&username=username&session=sessionID&location=userLocation&distance=searchRadius&time=timeToSearchFor
+Returns all possible rides or `failed` (JSON encoded). For location format see `offerRide`.
