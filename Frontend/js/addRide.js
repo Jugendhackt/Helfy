@@ -132,8 +132,8 @@ async function fahrtWeiter(){
 
 
 async function fahrtAnbieten(){
-    von = document.getElementById("var2").innerHTML;
-    nach = document.getElementById("var1").innerHTML;
+    von = document.getElementById("var1").innerHTML;
+    nach = document.getElementById("var2").innerHTML;
     if(document.getElementById("selectPublic").selectedIndex == 0){
         addr = "all";
     } else {
