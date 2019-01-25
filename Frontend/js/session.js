@@ -380,6 +380,10 @@ async function hideIfSessionInvalid() {
         data = await request.text();
         if(data != "correct"){
             document.getElementById("menu").style.display = "none";
+            document.getElementById("loginLink").innerHTML = "Login";
+        } else {
+            document.getElementById("loginLink").innerHTML = "Home";
+            document.getElementById("loginLink").href = "home.html";
         }
         console.log("fetch success");
 
@@ -394,6 +398,8 @@ function menu(){
     var username = getCookie("username");
     if (username == ""){
         document.getElementById("menu").style.display = "none";
+    } else {
+        document.getElementById("loginLink").innerHTML = "Home";
     }
     hideIfSessionInvalid();
 }

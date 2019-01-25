@@ -104,7 +104,7 @@ async function checkPos(search) { // Suche Koordinaten, "wähle" erstes Ergebnis
         lon = data[0]["lon"];
 
         console.log(data[0]["display_name"]);
-        if (document.getElementById("searchbar").value != "") {
+        if (screen.width > 450) {
             inputElement = document.getElementById("searchbar");
         } else {
             inputElement = document.getElementById("searchbar2");
@@ -156,6 +156,8 @@ async function showRoutes() {
         });
 
         data = await request.json();
+        
+        document.getElementById("angebot").innerHTML = "";
 
         for(i = 0; i < data.length; i++){
             vout = "Von: " + data[i]['location']['name'] + "<br>"
