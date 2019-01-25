@@ -104,24 +104,43 @@ async function fahrtWeiter(){
         });
         sdata = await requestb.json();
 
-        preview = "<b>Wollen Sie wirklich diese Fahrt anbieten?</b><br><br>";
+        preview = "<b>Wollen Sie wirklich diese Fahrt anbieten?</b><br><br><div style='text-align: left;'>";
         if(data[0]['display_name'].split(",")[0].length > 3){
-            preview += "Von: " + data[0]['display_name'].split(",")[0] + ", " + data[0]['display_name'].split(",")[1];
+            preview += "<b>Von:</b> " + data[0]['display_name'].split(",")[0] + ", " + data[0]['display_name'].split(",")[1];
         } else {
-            preview += "Von: " + data[0]['display_name'].split(",")[1] + " " + data[0]['display_name'].split(",")[0] + ", " + data[0]['display_name'].split(",")[2];
+            preview += "<b>Von:</b> " + data[0]['display_name'].split(",")[1] + " " + data[0]['display_name'].split(",")[0] + ", " + data[0]['display_name'].split(",")[2];
         }
         preview += "<br>";
         if(sdata[0]['display_name'].split(",")[0].length > 3){
-            preview += "Nach: " + sdata[0]['display_name'].split(",")[0] + ", " + sdata[0]['display_name'].split(",")[1];
+            preview += "<b>Nach:</b> " + sdata[0]['display_name'].split(",")[0] + ", " + sdata[0]['display_name'].split(",")[1];
         } else {
-            preview += "Nach: " + sdata[0]['display_name'].split(",")[1] + " " + sdata[0]['display_name'].split(",")[0] + ", " + sdata[0]['display_name'].split(",")[2];
+            preview += "<b>Nach:</b> " + sdata[0]['display_name'].split(",")[1] + " " + sdata[0]['display_name'].split(",")[0] + ", " + sdata[0]['display_name'].split(",")[2];
         }
+
+        if(screen.width < 450){
+            datime = document.getElementById("datePickM").valueAsDate.toLocaleDateString() + " um ";
+            datime += document.getElementById("timePickM").value + " Uhr";
+        } else {
+            datime = document.getElementById("datePick").valueAsDate.toLocaleDateString() + " um ";
+            datime += document.getElementById("timePick").value + " Uhr"; 
+        }
+        preview += "<br><b>Wann:</b> " + datime + "<br><br>";
+
+        if(document.getElementById("selectPublic").selectedIndex == 0){
+            preview += "Diese Fahrt ist <b>öffentlich</b> sichtbar."
+        } else {
+            preview += "Diese Fahrt ist <b>nur für meine Gruppen</b> sichtbar."
+        }
+
+        preview += "</div>";
 
         document.getElementById("var1").innerHTML = search + ";" + data[0]['lat'] + ";" + data[0]['lon'];
         document.getElementById("var2").innerHTML = searchb + ";" + sdata[0]['lat'] + ";" + sdata[0]['lon'];
 
         document.getElementById("btnAnbieten").style.display = "";
+        document.getElementById("btnAnbieten").style.textAlign = "left";
         document.getElementById("previewFahrt").innerHTML = preview + "<br><br>";
+        document.getElementById("previewFahrt").scrollIntoView();
 
     } catch (e) {
         console.error('fetch error', e);
@@ -139,14 +158,14 @@ async function fahrtAnbieten(){
     } else {
         addr = "groups";
     }
-    if(datime = document.getElementById("datePick").value != ""){
-        datime = document.getElementById("datePick").value + " ";
-        datime += document.getElementById("timePick").value;
-    } else {
+    if(screen.width < 450){
         datime = document.getElementById("datePickM").value + " ";
         datime += document.getElementById("timePickM").value;
-        console.log(document.getElementById("mobile").style);
+    } else {
+        datime = document.getElementById("datePick").value + " ";
+        datime += document.getElementById("timePick").value; 
     }
+
     console.log(datime);
     var fullurl = server_url + '/backend/index.php?request=offerRide&username=' + getCookie("username") + "&session=" + getCookie("session") + "&addr=" + addr + "&from=" + von + "&to=" + nach + "&time=" + datime;
     try {

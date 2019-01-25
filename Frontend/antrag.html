@@ -34,10 +34,10 @@
     <div class="container-float">
         <h1 class="header">Helfy - Antrag</h1>
         <div style="width: 100%; max-width: 500px; margin: auto;">
-            <button class="tablink" onclick="openCity('fahrt', this)" id="defaultOpen">Fahrt</button>
-            <button class="tablink" onclick="openCity('einkauf', this)">Einkauf</button>
-            <button class="tablink" onclick="openCity('jobs', this)">Jobs</button>
-            <button class="tablink" onclick="openCity('sonstiges', this)">...</button>
+            <button class="tablink" onclick="openTab('fahrt', this)" id="defaultOpen">Fahrt</button>
+            <button class="tablink" onclick="openTab('einkauf', this)">Einkauf</button>
+            <button class="tablink" onclick="openTab('jobs', this)">Jobs</button>
+            <button class="tablink" onclick="openTab('sonstiges', this)">...</button>
 
             <div id="fahrt" class="tabcontent">
                 <div style="width: 100%; max-width: 300px; margin: auto; padding-top: 20px;">
@@ -83,22 +83,26 @@
         </div>
     
     <script>
-        function openCity(cityName, elmnt) {
+        d = new Date;
+        document.getElementById("datePick").valueAsNumber = Date.now();
+        document.getElementById("timePick").value = (d.getHours() + 1).toString() + ":00";
+        document.getElementById("datePickM").valueAsNumber = Date.now();
+        document.getElementById("timePickM").value = (d.getHours() + 1).toString() + ":00";
+
+        function openTab(tabName, elmnt) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
 
-            // Remove the background color of all tablinks/buttons
             tablinks = document.getElementsByClassName("tablink");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].style.backgroundColor = "";
                 tablinks[i].style.color = "white";
             }
 
-            // Show the specific tab content
-            document.getElementById(cityName).style.display = "block";
+            document.getElementById(tabName).style.display = "block";
 
             elmnt.style.backgroundColor = "rgb(200, 200, 200)";
             elmnt.style.color = "black";
