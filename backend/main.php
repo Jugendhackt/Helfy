@@ -122,18 +122,26 @@ function loginDataCorrect($ldc_username, $ldc_password){
     global $pdo;
     $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
 	$statement->execute(array($ldc_username));
-	$res = $statement->fetchAll()[0];
-
-    return (password_verify($ldc_password, $res['password']) && $ldc_password != "" && $ldc_username != '');
+	$res = $statement->fetchAll();
+	if(isset($res[0])){
+		$res = $res[0];
+		return (password_verify($ldc_password, $res['password']) && $ldc_password != "" && $ldc_username != '');
+	} else {
+		return false;
+	}
 }
 
 function sessionDataCorrect($ldc_username, $ldc_session){
     global $pdo;
     $statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
 	$statement->execute(array($ldc_username));
-	$res = $statement->fetchAll()[0];
-	
-    return ($res['session'] == $ldc_session && $res != "" && $ldc_session != "");
+	$res = $statement->fetchAll();
+	if(isset($res[0])){
+		$res = $res[0];
+		return ($res['session'] == $ldc_session && $res != "" && $ldc_session != "");
+	} else {
+		return false;
+	}
 }
 
 function getHomeData($ldc_username){
@@ -602,7 +610,7 @@ function getBulletin($type, $u_username, $u_session, $location, $additional, $ti
 		global $pdo;
 		if($type == "ride"){
 			$user = getUserByUsername($u_username);
-			$groups = str_replace("GROUPS=", "", explode(";", $user['settings'])[2]);
+			$groups = explode(",", str_replace("GROUPS=", "", explode(";", $user['settings'])[2]));
 			
 			$out = [];
 			
@@ -611,8 +619,8 @@ function getBulletin($type, $u_username, $u_session, $location, $additional, $ti
 				$inGroup = false;
 				if($row['addressee'] != "all"){
 					$row_groups = explode(",", $row['addressee']);
-					foreach($groups as $group){
-						if(in_array($group, $row_groups)){
+					foreach($groups as $mgroup){
+						if(in_array($mgroup, $row_groups)){
 							$inGroup = true;
 						}
 					}
@@ -624,12 +632,16 @@ function getBulletin($type, $u_username, $u_session, $location, $additional, $ti
 					$distnz = distance(floatval($locationUser[1]), floatval($locationUser[2]), floatval($locationRow[1]), floatval($locationRow[2]), "K");
 					$distnb = distance(floatval($locationRowB[1]), floatval($locationRowB[2]), floatval($locationRow[1]), floatval($locationRow[2]), "K");
 					if($distnz < floatval($additional)){
-						$rw = explode(";", $row['location']);
-						$locout = array("name" => $rw[0], "lat" => $rw[1], "lon" => $rw[2], "distance" => $distnz);
-						$rw = explode(";", $row['additional']);
-						$destin = array("name" => $rw[0], "lat" => $rw[1], "lon" => $rw[2], "distance" => $distnb);
-						$mout = array( 'type' => $row['type'], "offerUser" => $row['offerUser'], "acceptorUser" => $row['acceptorUser'], "location" => $locout, "destination" => $destin, "time" => $row['time'], "hash" => $row['hash']);
-						array_push($out, $mout);
+						$timeClient = new DateTime($time);
+						$timeRide = new DateTime($row['time']);
+						if($timeClient < $timeRide){
+							$rw = explode(";", $row['location']);
+							$locout = array("name" => $rw[0], "lat" => $rw[1], "lon" => $rw[2], "distance" => $distnz);
+							$rw = explode(";", $row['additional']);
+							$destin = array("name" => $rw[0], "lat" => $rw[1], "lon" => $rw[2], "distance" => $distnb);
+							$mout = array( 'type' => $row['type'], "offerUser" => $row['offerUser'], "acceptorUser" => $row['acceptorUser'], "location" => $locout, "destination" => $destin, "time" => $row['time'], "hash" => $row['hash']);
+							array_push($out, $mout);
+						}
 					}
 				}
 			}
