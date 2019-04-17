@@ -235,6 +235,9 @@ if($request == "getSettings"){
     echo json_encode(getSettings($_GET['username'], $_GET['session']));
 }
 
+if($request == "getPublicProfile"){
+    echo json_encode(getPublicProfile($_GET['username'], $_GET['session'], $_GET['profile']));
+}
 
 if($request == "logout"){
 	$u_username = $_GET['username'];

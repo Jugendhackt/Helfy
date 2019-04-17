@@ -244,7 +244,7 @@ function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_
 			'email' => $rg_email,
 			'vname' => $rg_vorname,
 			'nname' => $rg_nachname,
-			'settings' => "ORT=".$rg_ort.";PLZ=".$rg_plz.";GROUPS=",
+			'settings' => "ORT=".$rg_ort.";PLZ=".$rg_plz.";GROUPS=;PROFILE=1,1",
 			'hash' => $hash,
 			'password' => $rg_password_crypt,
 		];
@@ -477,6 +477,30 @@ function getGroups($u_username, $u_session){
 	}
 }
 
+
+function containSameGroups($usernameA, $usernameB){
+	global $pdo;
+	$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+	$statement->execute(array($usernameA));
+	$res = $statement->fetchAll()[0];
+	$groupsA = explode(",", str_replace("GROUPS=", "", explode(";", $res['settings'])[2]));
+	
+	$statement->execute(array($usernameB));
+	$res = $statement->fetchAll()[0];
+	$groupsB = explode(",", str_replace("GROUPS=", "", explode(";", $res['settings'])[2]));
+	
+	$cont = false;
+	
+	for($i = 0; $i < sizeof($groupsA); $i++){
+		if(in_array($groupsA[$i], $groupsB)){
+			$cont = true;
+		}
+	}
+	
+	return $cont;
+}
+
+
 function leaveGroup($u_username, $u_session, $u_groupHash){
 	if(sessionDataCorrect($u_username, $u_session)){
 		global $pdo;
@@ -699,6 +723,57 @@ function editProfileSettings($u_username, $u_session, $public, $mail_visible){
 			return "success";
 		} else {
 			return "invalid_profile_settings";
+		}
+	} else {
+		return "failed";
+	}
+}
+
+
+function getPublicProfile($u_username, $u_session, $profile){
+	if(sessionDataCorrect($u_username, $u_session)){
+		if(existsUser($profile)){
+			global $pdo;
+			$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+			$statement->execute(array($profile));
+			$res = $statement->fetchAll()[0];
+			$settings = explode(";", $res['settings']);
+			$prSet = explode(",", explode("=", $settings[3])[1]);
+			$visible = false;
+			
+			if($prSet[0] == "0"){
+				$visible = true;
+			}
+			if($prSet[0] == "1"){
+				if(containSameGroups($u_username, $profile)){
+					$visible = false;
+				}
+			}
+			
+			if($visible){
+				if($prSet[1] == 0){
+					$rx = array(
+						"username" => $res["username"],
+						"vname" => $res["vname"],
+						"nname" => $res["nname"],
+						"email" => $res["email"]
+					);
+					return $rx; 
+				} else {
+					$rx = array(
+						"username" => $res["username"],
+						"vname" => $res["vname"],
+						"nname" => $res["nname"],
+						"email" => "not_given"
+					);
+					return $rx;
+				}
+			} else {
+				return "private";
+			}
+			
+		} else {
+			return "user_doesnt_exist";
 		}
 	} else {
 		return "failed";

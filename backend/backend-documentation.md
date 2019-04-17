@@ -102,3 +102,7 @@ Returns usersettings (JSON encoded) or `failed`.
 `mail` can be set to `0` or `1` (0: mail adress is visible in profile, 1: not visible).  
 `type` can be set to `0`, `1` or `2` (0: public profile, 1: only members of your groups can see your profile, 2: noone can see your profile).  
 Returns `success` or `failed`.
+
+#### getPublicProfile
+    index.php?request=getPublicProfile&username=username&session=sessionID&profile=usernameOfProfile
+Returns `failed`, `user_doesnt_exist`, `private` or the profile of the user (JSON encoded).
