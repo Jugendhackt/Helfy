@@ -425,3 +425,16 @@ a .user {
     text-align: center;
     min-height: 100px;
   }
+
+  .collapseTitle {
+      padding: 10px 20px;
+      width: 100%;
+      border: 1px solid black;
+      border-radius: 30px;
+      color: black;
+      background-color: white;
+  }
+
+  .collapseTitle:hover {
+      background-color: rgb(200, 200, 200);
+  }
