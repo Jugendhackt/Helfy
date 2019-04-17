@@ -511,3 +511,40 @@ function footer(){
 
     document.getElementById("thisyear").innerHTML = thisyear;
 }
+
+async function setupPublicProfile(){
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var c = url.searchParams.get("user");
+
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+
+    var fullurl = server_url + '/backend/index.php?request=getPublicProfile&username=' + l_username + "&session=" + l_session + "&profile=" + c;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.json();
+        if(data == "private"){
+            document.getElementById("formular1").innerHTML = "<p>Dieses Profil ist privat.</p>"
+        } else if(data == "failed"){
+            document.getElementById("formular1").innerHTML = "<p>Fehlgeschlagen.</p>"
+        } else if(data == "user_doesnt_exist"){
+            document.getElementById("formular1").innerHTML = "<p>Dieser Benutzer existiert nicht.</p>"
+        } else {
+            document.getElementById("formular1").innerHTML = "<p><b>" + data["vname"] + " " + data["nname"] + "</b><br>@" + data["username"];
+            if(data["email"] != "not_given"){
+                document.getElementById("formular1").innerHTML += "Email: <a href='mailto:" + data["email"] + "'>" + data["email"] + "</a>";
+            }
+            document.getElementById("formular1").innerHTML += "</p>";
+            console.log(data);
+        }
+
+    } catch (e) {
+        console.error('fetch error', e);
+        data = "fetch_error";
+    }
+}

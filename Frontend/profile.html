@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy - Nachrichten</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body onload="menu(); footer();">        
+        <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div id="me"><a href="home.html">Home</a></div>
+                <a href="einstellungen.html">Einstellungen</a>
+                <a href="notification.html" id="here">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
+                <a href="gruppen.html">Gruppen</a>
+                <a href="rides.html">Eigene Fahrten</a>
+                <br />
+              </div>
+
+              <div>
+
+                    <div style="float: left; height:50px; width: 50px;" id="menu">
+                    <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+                    </div>
+            </div>
+
+    <div class="container-float" id="insertHere">
+        <h1 class="header">
+            Helfy
+        </h1>
+        
+        <div id="formular1" class="formular">
+            
+        </div>
+    </div>
+    <script src="js/session.js"></script>
+    <script src="js/notification.js"></script>
+    <script src="js/navigation.js"></script>
+    <script> setupPublicProfile(); </script>
+
+
+<div id="footer">
+    <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+    <p style="margin-top: 15px; margin-bottom: 7px;">
+    <a href="login.html" id="loginLink">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="about.html">Über uns</a> | <a href="impressum.html">Impressum</a>
+    </p>
+    <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+</div>
+
+</body>
+
+</html>

@@ -157,7 +157,12 @@ async function getGroups(){
                 noti.setAttribute("id", "alert" + data[i][4]);
                 noti.setAttribute("class", "alert alert-dark");
                 noti.style.paddingBottom = "0";
-                noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: <a href='#' class='user'>@" + replaceAll(data[i][1], ",", "</a> <a href='#' class='user'>@") + "</a><p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;' onclick='leaveGroup(\"" + data[i][4] + "\")'>Gruppe verlassen</p>";
+                usersLs = data[i][1].split(",");
+                users = ""
+                for(j in usersLs){
+                    users += "<a class='user' href='profile.html?user=" + usersLs[j] + "'>@" + usersLs[j] + "</a> ";
+                }
+                noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: " + users + "<p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;' onclick='leaveGroup(\"" + data[i][4] + "\")'>Gruppe verlassen</p>";
                 div.appendChild(noti)
             }
         }
