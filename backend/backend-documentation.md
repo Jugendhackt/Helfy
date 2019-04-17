@@ -92,3 +92,13 @@ Date and time of your ride e.g. `2019-01-21 16:30`
 #### getRides
     index.php?request=getRides&username=username&session=sessionID&location=userLocation&distance=searchRadius&time=timeToSearchFor
 Returns all possible rides or `failed` (JSON encoded). For location format see `offerRide`.
+
+#### getSettings
+    index.php?request=getSettings&username=username&session=sessionID
+Returns usersettings (JSON encoded) or `failed`.
+
+#### changeProfileSettings
+    index.php?request=changeProfileSettings&username=username&session=sessionID&type=publicProfileType&mail=mailVisible
+`mail` can be set to `0` or `1` (0: mail adress is visible in profile, 1: not visible). 
+`type` can be set to `0`, `1` or `2` (0: public profile, 1: only members of your groups can see your profile, 2: noone can see your profile). 
+Returns `success` or `failed`.

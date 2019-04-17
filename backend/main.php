@@ -157,6 +157,29 @@ function getHomeData($ldc_username){
     return [$res['username'], $res['vname'], $res['nname'], explode("=", explode(";", $res['settings'])[0])[1], explode("=", explode(";", $res['settings'])[1])[1], explode(";", $res['settings']), $notif];
 }
 
+
+function getSettings($username, $session){
+	if(sessionDataCorrect($username, $session)){
+		global $pdo;
+		$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+		$statement->execute(array($username));
+		$res = $statement->fetchAll()[0];
+		
+		$souta = explode(";", $res['settings']);
+		$soutb = [];
+		for($i = 0; $i < sizeof($souta); $i++){
+			$cur = explode("=", $souta[$i]);
+			$soutb[$cur[0]] = $cur[1];
+		}
+		
+		return $soutb;
+		
+	} else {
+		return "failed";
+	}
+}
+
+
 function login($ldc_username, $ldc_password){
 	global $pdo;
     if(loginDataCorrect($ldc_username, $ldc_password)){
@@ -648,6 +671,34 @@ function getBulletin($type, $u_username, $u_session, $location, $additional, $ti
 			return $out;
 		} else {
 			return "unknown_bulletin_type";
+		}
+	} else {
+		return "failed";
+	}
+}
+
+
+
+function editProfileSettings($u_username, $u_session, $public, $mail_visible){
+	if(sessionDataCorrect($u_username, $u_session)){
+		if(intval($public) < 3 and intval($mail_visible) < 2){
+			global $pdo;
+			$statement = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
+			$statement->execute(array($u_username));
+			$res = $statement->fetchAll()[0];
+			$settings = explode(";", $res['settings']);
+			$settingsOut = str_replace($settings[3], "PROFILE=".$public.",".$mail_visible, $res['settings']);
+			
+			$sql = "UPDATE `users` SET `settings` = :setout WHERE `username` = :username";
+			$data = [
+				'username' => $u_username,
+				'setout' => $settingsOut,
+			];
+			$statement = $pdo->prepare($sql);
+			$statement->execute($data);
+			return "success";
+		} else {
+			return "invalid_profile_settings";
 		}
 	} else {
 		return "failed";

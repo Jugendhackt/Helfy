@@ -175,11 +175,9 @@ async function setupHome() {
             var navPage = document.createElement("div");
             navPage.id = "formular";
             navPage.style.textAlign = "center";
-            navPage.innerHTML = "<h5>Mitfahrgelegenheiten:" +
-                "</h5><button class='btn btn-primary' onclick='self.location.href=\"mitfahrer.html\"'>In der Nähe suchen</button>" +
-                "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Bieten</button><br>" +
-                "<br><h5>Einkäufe:</h5><button class='btn btn-primary' onclick='self.location.href=\"einkauf.html\"'>Suchen</button>" +
-                "<button class='btn btn-primary' onclick='self.location.href=\"einkauf-antrag.html\"'>Bieten</button>";
+            navPage.innerHTML = "<h5>Hilfe suchen und anbieten" +
+                "</h5><button class='btn btn-primary' onclick='self.location.href=\"mitfahrer.html\"'>Suchen</button>" +
+                "<button class='btn btn-primary' onclick='self.location.href=\"antrag.html\"'>Anbieten</button><br>";
             var ih = document.getElementById("insertHere")
             ih.appendChild(navPage);
             console.log("fetch success");
@@ -187,7 +185,7 @@ async function setupHome() {
             var groups = document.createElement("div");
             groups.id = "formular";
             groups.style.textAlign = "center";
-            groups.innerHTML = "<h5>Gruppen:</h5>" +
+            groups.innerHTML = "<h5>Gruppen</h5>" +
                 "<button class='btn btn-primary' onclick='self.location.href=\"newgroup.html\"'>Neue Gruppe erstellen</button><br>" +
                 "";
             ih.appendChild(groups);
@@ -298,6 +296,43 @@ async function changePassword() {
     }
 }
 
+
+async function changeProfileSettings() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var pblc = "0";
+    if(document.getElementsByName("options")[1].checked){
+        pblc = "1";
+    }
+    if(document.getElementsByName("options")[2].checked){
+        pblc = "2";
+    }
+
+    var ml = "0";
+    if(document.getElementsByName("optionsB")[1].checked){
+        ml = "1";
+    }
+
+    var fullurl = server_url + '/backend/index.php?request=changeProfileSettings&username=' + l_username + "&session=" + l_session + "&mail=" + ml + "&type=" + pblc;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+        sdata = await request.text();
+        console.log(sdata);
+        if (sdata == "failed") {
+            console.log("failed");
+        } else {
+            console.log("success");
+        }
+
+    } catch (e) {
+        console.error('fetch error', e);
+        sdata = "fetch_error";
+    }
+}
+
 async function changeEmail() {
     var l_username = getCookie("username");
     var l_session = getCookie("session");
@@ -346,6 +381,57 @@ async function logout() {
         data = "fetch_error";
     }
 }
+
+async function setupSettings() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+
+    var fullurl = server_url + '/backend/index.php?request=getSettings&username=' + l_username + "&session=" + l_session;
+    try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.json();
+        console.log("success");
+
+        prvt = data["PROFILE"][0];
+        ml = data["PROFILE"][2];
+
+        if(prvt != "1"){
+            document.getElementsByName("options")[parseInt(prvt)].checked = true;
+            document.getElementsByName("options")[1].checked = false;
+            document.getElementById("la" + prvt).classList = "btn btn-outline-dark btn-sm active";
+            document.getElementById("la1").classList = "btn btn-outline-dark btn-sm";
+        } else {
+            document.getElementsByName("options")[0].checked = false;
+            document.getElementsByName("options")[2].checked = false;
+            document.getElementsByName("options")[1].checked = true;
+            document.getElementById("la0").classList = "btn btn-outline-dark btn-sm";
+            document.getElementById("la2").classList = "btn btn-outline-dark btn-sm";
+            document.getElementById("la1").classList = "btn btn-outline-dark btn-sm active";
+        }
+
+        if(ml == "0"){
+            document.getElementsByName("optionsB")[0].checked = true;
+            document.getElementsByName("optionsB")[1].checked = false;
+            document.getElementById("lb0").classList = "btn btn-outline-dark btn-sm active";
+            document.getElementById("lb1").classList = "btn btn-outline-dark btn-sm";
+        } else {
+            document.getElementsByName("optionsB")[1].checked = true;
+            document.getElementsByName("optionsB")[0].checked = false;
+            document.getElementById("lb1").classList = "btn btn-outline-dark btn-sm active";
+            document.getElementById("lb0").classList = "btn btn-outline-dark btn-sm";
+        }
+
+
+    } catch (e) {
+        console.error('fetch error', e);
+        data = "fetch_error";
+    }
+}
+
 
 function checkTime(){
     var date = new Date();

@@ -219,12 +219,20 @@ if($request == "changeUsername"){
     echo changeUsername($_GET['username'], $_GET['session'], $_GET['newUsername']);
 }
 
+if($request == "changeProfileSettings"){
+    echo editProfileSettings($_GET['username'], $_GET['session'], $_GET['type'], $_GET['mail']);
+}
+
 if($request == "offerRide"){
     echo addBulletin("offerRide", $_GET['username'], $_GET['session'], $_GET['from'], $_GET['to'], $_GET['addr'], $_GET['time']);
 }
 
 if($request == "getRides"){
     echo json_encode(getBulletin("ride", $_GET['username'], $_GET['session'], $_GET['location'], $_GET['distance'], $_GET['time']));
+}
+
+if($request == "getSettings"){
+    echo json_encode(getSettings($_GET['username'], $_GET['session']));
 }
 
 
