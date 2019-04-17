@@ -7,6 +7,10 @@
     <title>Helfy - Einstellungen</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/session.js"></script>
+
     <link rel="stylesheet" href="css/main.css" />
 </head>
 
@@ -34,43 +38,6 @@
     document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;' id='h3username'>@" + username + "</h3>";    
     }
 
-    function toLeftUsername(){
-        document.getElementById("changeusername").style.display = "";
-        document.getElementById("changepsswd").style.display = "none";
-        document.getElementById("changeemail").style.display = "none";
-    }
-
-    function toRightUsername(){
-        document.getElementById("changeusername").style.display = "none";
-        document.getElementById("changepsswd").style.display = "none";
-        document.getElementById("changeemail").style.display = "none";
-
-    }
-
-    function toLeftPsswd(){
-        document.getElementById("changepsswd").style.display = "";
-        document.getElementById("changeusername").style.display = "none";
-        document.getElementById("changeemail").style.display = "none";
-    }
-
-    function toRightPsswd(){
-        document.getElementById("changeusername").style.display = "none";
-        document.getElementById("changepsswd").style.display = "none";
-        document.getElementById("changeemail").style.display = "none";
-    }
-
-    function toLeftEmail(){
-        document.getElementById("changeemail").style.display = "";
-        document.getElementById("changeusername").style.display = "none";
-        document.getElementById("changepsswd").style.display = "none";
-    }
-
-    function toRightEmail(){
-        document.getElementById("changeusername").style.display = "none";
-        document.getElementById("changepsswd").style.display = "none";
-        document.getElementById("changeemail").style.display = "none";
-    }
-
     function vorschlag(){
         usernameVorschlag();
     }
@@ -80,56 +47,99 @@
         <h1 class="header">Helfy</h1>
 
         <br />
-        
+
+
         <div id="formular1" class="formular">
-            <div id="username"></div>
-            <br />
-            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftUsername()">Benutzername &auml;ndern</button>
-            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftPsswd()">Passwort &auml;ndern</button>
-            <button type="button" class="btn btn-dark" style="margin: 10px;" onclick="toLeftEmail()">Email-Adresse &auml;ndern</button>
-            <form id="autoform"></form>
-        </div>
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#usernameEdit" aria-expanded="false" aria-controls="usernameEdit">
+                    Benutzername
+                </button>
+            </p>
+            <div class="collapse" id="usernameEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
 
-        <div style="display: none; margin-bottom: 5%;" class="formular" id="changeusername">
-            <a onclick="toRightUsername()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
-            <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                <h5 style="text-align: center;"><b>Benutzername &auml;ndern</b></h5><br>
-                <input name="username" type="text" class="form-control" id="usernameInp" placeholder="Neuer Benutzername" value="">
-            </div>
-            <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                <button class="btn-success btn" onclick="changeUsername();">Speichern</button>
-                <button class="btn-outline-info btn" onclick="vorschlag()">Vorschlag</button>
-            </div>
-        </div>
-
-        <div style="display: none; margin-bottom: 5%;" class="formular" id="changepsswd">
-                <a onclick="toRightPsswd()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
-                <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                    <h5 style="text-align: center;"><b>Passwort &auml;ndern</b></h5><br>
-                    <input name="oldpsswd" type="password" class="form-control" id="oldpsswd" placeholder="Altes Passwort" value=""><div style="padding: 4px;"></div>
-                    <input name="changepsswd1" type="password" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value=""><div style="padding: 4px;"></div>
-                    <input name="changepsswd2" type="password" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
-                </div>
-                <p id="pwdFeedback" style="color: green; text-align: center; padding-top: 10px; display: none;"></p>
-                <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                    <button class="btn-success btn" onclick="changePassword();" style="display: block; margin: 0 auto;">Speichern</button>
-                </div>
-            </div>
-
-            <div style="display: none; margin-bottom: 5%;" class="formular" id="changeemail">
-                    <a onclick="toRightEmail()"><p style="float: right; margin-top: 0; font-size: 25px; cursor: pointer;">&times;</p></a>
+                    <input name="username" type="text" class="form-control" id="usernameInp" placeholder="Neuer Benutzername" value="" style="max-width: 250px; margin: auto;">
                     <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                        <h5 style="text-align: center;"><b>Email-Adresse &auml;ndern</b></h5><br>
-                        <input name="changeemail" type="text" class="form-control" id="changeemailInp" placeholder="Neue Email-Adresse" value="">
+                        <button class="btn-success btn" onclick="changeUsername();">Speichern</button>
+                        <button class="btn-outline-info btn" onclick="vorschlag()">Vorschlag</button>
                     </div>
-                    <br><p style="color: red; padding: 0px 10px;">Nachdem Sie ihre E-Mail Adresse geändert haben, werden Sie automatisch abgemeldet. Wir werden Ihnen dann einen Link senden, mit welchem Sie ihre E-Mail Adresse bestätigen müssen, bevor Sie ihren Account wieder nutzen können.</p>
+                </div>
+            </div>
+            
+
+
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#passwordEdit" aria-expanded="false" aria-controls="passwordEdit">
+                    Passwort
+                </button>
+            </p>
+            <div class="collapse" id="passwordEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
+    
+                        <div class="form-group" style="max-width: 250px; margin: auto;">
+                                <input name="oldpsswd" type="password" class="form-control" id="oldpsswd" placeholder="Altes Passwort" value=""><div style="padding: 4px;"></div>
+                                <input name="changepsswd1" type="password" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value=""><div style="padding: 4px;"></div>
+                                <input name="changepsswd2" type="password" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
+                            </div>
+                            <p id="pwdFeedback" style="color: green; text-align: center; padding-top: 10px; display: none;"></p>
+                            <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                                <button class="btn-success btn" onclick="changePassword();" style="display: block; margin: 0 auto;">Speichern</button>
+                            </div>
+                </div>
+            </div>
+            
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#emailEdit" aria-expanded="false" aria-controls="emailEdit">
+                    Email-Adresse
+                </button>
+            </p>
+            <div class="collapse" id="emailEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
+                    <input name="changeemail" type="text" class="form-control" id="changeemailInp" placeholder="Neue Email-Adresse" value="" style="max-width: 250px; margin: auto;">
+                    <br><p style="color: red; padding: 10px 10px;">Nachdem Sie ihre E-Mail Adresse geändert haben, werden Sie automatisch abgemeldet. Wir werden Ihnen dann einen Link senden, mit welchem Sie ihre E-Mail Adresse bestätigen müssen, bevor Sie ihren Account wieder nutzen können.</p>
                     <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                         <button class="btn-success btn" onclick="changeEmail();" style="display: block; margin: 0 auto;">Speichern</button>
                     </div>
                 </div>
+            </div>
 
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#profileEdit" aria-expanded="false" aria-controls="profileEdit">
+                    Benutzer-Profil
+                </button>
+            </p>
+            <div class="collapse" id="profileEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200);">
+                    <p style="margin-bottom: 0px;">In deinem Benutzer-Profil wird dein echter Name angezeigt. Öffentliche Profile kann jeder ansehen. Wenn dein Profil privat ist, können nur Mitglieder deiner Gruppen dein Profil sehen. Du kannst dein öffentliches Profil jedoch auch komplett deaktivieren.</p>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-dark btn-sm" id="la0">
+                            <input type="radio" name="options" id="option0" autocomplete="off" onchange="changeProfileSettings()"> Öffentlich
+                        </label>
+                        <label class="btn btn-outline-dark btn-sm active" id="la1">
+                            <input type="radio" name="options" id="option1" autocomplete="off" onchange="changeProfileSettings()" checked> Privat
+                        </label>
+                        <label class="btn btn-outline-dark btn-sm" id="la2">
+                            <input type="radio" name="options" id="option2" autocomplete="off" onchange="changeProfileSettings()"> Deaktiviert
+                        </label>
+                    </div>
+
+                    <p style="margin-bottom: 0px;"><br>Soll deine Email-Adresse in deinem Profil angezeigt werden?</p>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-dark btn-sm" id="lb0">
+                            <input type="radio" name="optionsB" id="optionB0" autocomplete="off" onchange="changeProfileSettings()"> Ja
+                        </label>
+                        <label class="btn btn-outline-dark btn-sm active" id="lb1">
+                            <input type="radio" name="optionsB" id="optionB1" autocomplete="off" onchange="changeProfileSettings()" checked> Nein
+                        </label>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            
         </div>
-    </div>
+
 
     <div id="footer">
         <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
@@ -139,11 +149,12 @@
         <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
     </div>
 
-    <script src="js/session.js"></script>
     <script src="js/navigation.js"></script>
     <script>
     if(getCookie("username") == ""){
         settingsInvalidSession();
+    } else {
+        setupSettings();   
     }
     </script>
 </body>
