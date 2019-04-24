@@ -1,0 +1,21 @@
+/*!
+ * Bootstrap-Plugins Library v1
+ * http://bootstrap-plugins.de/
+ *
+ * Copyright 2015 Bootstrap-Plugins
+ * Released under the MIT license
+ * https://opensource.org/licenses/MIT
+ *
+ * Date: 2015-12-21T19:57Z
+ */
+.bootstrap-combobox .input-group-addon:hover{
+    cursor: pointer;
+    opacity: .8;
+}
+
+.bootstrap-combobox-list-group{
+    max-height: 200px;
+    overflow: auto;
+    position: absolute;
+    z-index: 10000;
+}

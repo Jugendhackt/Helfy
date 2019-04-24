@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/main.css" />
     <script src="js/session.js"></script> 
     <script src="js/navigation.js"></script>
+    <script type="text/javascript" src="bootstrap/bootstrap-plugins_v1.1/v1.1/bootstrap-plugins.min.js"></script>
 </head>
 <body onload="alreadyRegistrated(); menu(); footer();">
 
@@ -49,9 +50,9 @@
         <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="validationEmail">E-Mail Adresse *</label>
-                <input type="text" class="form-control" id="validationEmail" placeholder="email@example.com"  name="email" required>
-                <div class="invalid-feedback">
-                        Sie müssen später ihre E-Mail Adresse bestätigen.
+                <input type="email" class="form-control" id="validationEmail" placeholder="email@example.com" name="email" required>
+                <div class="invalid-feedback" id="invalid-email">
+                  Bitte geben Sie eine gültige E-mail an!
                 </div>
             </div>
         </div>
@@ -186,8 +187,7 @@
           } else if(vname != "" && nname != "") {
               username.value = vname.replace(" ", ".") + "." + nname.replace(" ", ".");
           }
-        }
-        
+        } 
       </script>
       <br />
     </div>
