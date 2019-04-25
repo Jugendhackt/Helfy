@@ -237,6 +237,13 @@ async function changeUsername() {
     var l_session = getCookie("session");
     var newUsername = document.getElementById("usernameInp").value
     var fullurl = server_url + '/backend/index.php?request=changeUsername&username=' + l_username + "&session=" + l_session + "&newUsername=" + newUsername;
+    if(newUsername == "" || newUsername == l_username){
+        document.getElementById("no-username").style.display = "";
+        document.getElementById("cusername").style.paddingTop = "";
+    }
+    else {
+        document.getElementById("no-username").style.display = "none";
+        document.getElementById("cusername").style.paddingTop = "20px";
     try {
         let request = await fetch(fullurl, {
             method: "GET",
@@ -258,6 +265,7 @@ async function changeUsername() {
         console.error('fetch error', e);
         sdata = "fetch_error";
     }
+  }
 }
 
 async function changePassword() {
@@ -266,7 +274,15 @@ async function changePassword() {
     var newPassword1 = document.getElementById("changepsswd1").value;
     var newPassword2 = document.getElementById("changepsswd2").value;
     var password = document.getElementById("oldpsswd").value;
+    if(password == "" || newPassword1 == "" || newPassword1 == password){
+        document.getElementById("no-password").style.display = "";
+        document.getElementById("cpassword").style.paddingTop = "";
+    }
+    else{
+        document.getElementById("no-password").style.display = "none";
+        document.getElementById("cpassword").style.paddingTop = "20px";
     if(newPassword1 == newPassword2){
+        document.getElementById("w-passwd-repeat").style.display = "none";
         var fullurl = server_url + '/backend/index.php?request=changePassword&username=' + l_username + "&session=" + l_session + "&passwordNew=" + newPassword1 + "&password=" + password;
         try {
             let request = await fetch(fullurl, {
@@ -294,6 +310,10 @@ async function changePassword() {
             sdata = "fetch_error";
         }
     }
+    else{
+        document.getElementById("w-passwd-repeat").style.display = "";
+    }
+ }
 }
 
 
@@ -338,6 +358,15 @@ async function changeEmail() {
     var l_session = getCookie("session");
     var email = document.getElementById("changeemailInp").value;
     var fullurl = server_url + '/backend/index.php?request=changeEmail&username=' + l_username + "&session=" + l_session + "&email=" + email;
+    if(email == ""){
+        document.getElementById("no-email").style.display = "";
+        document.getElementById("cemail").style.paddingTop = "";
+        document.getElementById("safety-note").style.display = "none";
+    }
+    else{
+        document.getElementById("no-email").style.display = "none";
+        document.getElementById("cemail").style.paddingTop = "20px";
+        document.getElementById("safety-note").style.display = "";
     try {
         let request = await fetch(fullurl, {
             method: "GET",
@@ -358,6 +387,7 @@ async function changeEmail() {
         console.error('fetch error', e);
         sdata = "fetch_error";
     }
+  }
 }
 
 async function logout() {

@@ -59,7 +59,8 @@
                 <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
 
                     <input name="username" type="text" class="form-control" id="usernameInp" placeholder="Neuer Benutzername" value="" style="max-width: 250px; margin: auto;">
-                    <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                    <p id="no-username" style="text-align: center; color: red; display: none;">Bitte geben Sie einen neuen Benutzername an!</p>
+                    <div id="cusername" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                         <button class="btn-success btn" onclick="changeUsername();">Speichern</button>
                         <button class="btn-outline-info btn" onclick="vorschlag()">Vorschlag</button>
                     </div>
@@ -81,8 +82,10 @@
                                 <input name="changepsswd1" type="password" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value=""><div style="padding: 4px;"></div>
                                 <input name="changepsswd2" type="password" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
                             </div>
+                            <p id="no-password" style="color: red; text-align: center; display: none;">Bitte geben Sie ein neues Passwort an!</p>
+                            <p id="w-passwd-repeat" style="color: red; text-align: center; display: none">Die Passwörter stimmen nicht überein!</p>
                             <p id="pwdFeedback" style="color: green; text-align: center; padding-top: 10px; display: none;"></p>
-                            <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                            <div id="cpassword" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                                 <button class="btn-success btn" onclick="changePassword();" style="display: block; margin: 0 auto;">Speichern</button>
                             </div>
                 </div>
@@ -96,8 +99,9 @@
             <div class="collapse" id="emailEdit">
                 <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
                     <input name="changeemail" type="text" class="form-control" id="changeemailInp" placeholder="Neue Email-Adresse" value="" style="max-width: 250px; margin: auto;">
-                    <br><p style="color: red; padding: 10px 10px;">Nachdem Sie ihre E-Mail Adresse geändert haben, werden Sie automatisch abgemeldet. Wir werden Ihnen dann einen Link senden, mit welchem Sie ihre E-Mail Adresse bestätigen müssen, bevor Sie ihren Account wieder nutzen können.</p>
-                    <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                    <br><p id="safety-note" style="color: red; padding: 10px 10px;">Nachdem Sie ihre E-Mail Adresse geändert haben, werden Sie automatisch abgemeldet. Wir werden Ihnen dann einen Link senden, mit welchem Sie ihre E-Mail Adresse bestätigen müssen, bevor Sie ihren Account wieder nutzen können.</p>
+                    <p id="no-email" style="color: red; text-align: center; display: none;">Bitte geben sie eine gültige E-Mail an!</p>
+                    <div id="cemail" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
                         <button class="btn-success btn" onclick="changeEmail();" style="display: block; margin: 0 auto;">Speichern</button>
                     </div>
                 </div>
