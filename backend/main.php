@@ -746,7 +746,7 @@ function getPublicProfile($u_username, $u_session, $profile){
 			}
 			if($prSet[0] == "1"){
 				if(containSameGroups($u_username, $profile)){
-					$visible = false;
+					$visible = true;
 				}
 			}
 			
