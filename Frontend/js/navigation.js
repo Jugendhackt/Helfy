@@ -39,7 +39,7 @@
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     var username = getCookie("username");
-    document.getElementById("me").innerHTML = "<a href='home.html' style='color: blue;'>@ " + username + "</a>";
+    document.getElementById("me").innerHTML = "<a href='home.html' style='color: aqua;'>@ " + username + "</a>";
     if(getCookie("notification") != "0"){
         document.getElementById("notifyBadge").innerHTML = getCookie("notification");
     }
