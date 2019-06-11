@@ -164,7 +164,7 @@ async function showRoutes() {
             vout += "<b>Nach:</b> " + data[i]['destination']['name'] + "<br>"
             var dxdate = new Date(data[i]['time']);
             vout += "<b>Wann:</b> " + dxdate.toLocaleDateString() + " um " + (dxdate.toLocaleTimeString() + " ").replace(":00 ", "") + " Uhr<br>"
-            vout += "<b>Fahrer:</b> @" + data[i]['offerUser'] + "<br>"
+            vout += "<b>Fahrer:</b> <a href='profile.html?user=" + data[i]['offerUser'] + "'>@" + data[i]['offerUser'] + "</a><br>"
             vout += "<b>Distanz:</b> " + parseInt(data[i]['destination']['distance']).toString() + " km (Strecke); " + parseInt(data[i]['location']['distance']).toString() + " km (Zum Abfahrtsort)<br><hr><br>"
             document.getElementById("angebot").innerHTML += vout;
         }
