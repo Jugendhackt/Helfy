@@ -106,3 +106,15 @@ Returns `success` or `failed`.
 #### getPublicProfile
     index.php?request=getPublicProfile&username=username&session=sessionID&profile=usernameOfProfile
 Returns `failed`, `user_doesnt_exist`, `private` or the profile of the user (JSON encoded).
+
+#### getChats
+    index.php?request=getChats&username=username&session=sessionID
+Returns `failed` or a list of all usernames the user has a chat with (JSON encoded).
+
+#### getChat
+    index.php?request=getChat&username=username&session=sessionID&partner=usernameOfChatPartner
+Returns `failed` or a list of all messages sent in this chat (JSON encoded).
+
+#### sendMessage
+    index.php?request=getChat&username=username&session=sessionID&partner=usernameOfChatPartner&message=this+is+a+message
+Returns `success`, `failed` or `empty_message`.

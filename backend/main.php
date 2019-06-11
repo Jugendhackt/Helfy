@@ -45,6 +45,47 @@ error_reporting(E_ALL);
 $pdo = new PDO('mysql:host='.$sql_server.';dbname='.$sql_database, $sql_username, $sql_password);
 
 
+
+class chat {
+	function sendMessage($sender, $receiver, $message, $type){
+		global $pdo;
+		$statement = $pdo->prepare("INSERT INTO `chat` VALUES (NULL, :sender, :receiver, :type, :message, CURRENT_TIMESTAMP)");
+		$statement->execute(array('sender' => $sender, 'receiver' => $receiver, 'type' => $type, 'message' => $message));
+	}
+
+	function getChats($username){
+		global $pdo;
+		$statement = $pdo->prepare("SELECT * FROM `chat` WHERE ( `sender` = :username ) OR ( `receiver` = :username )");
+		$statement->execute(array('username' => $username)); 
+		$res = $statement->fetchAll();
+		$outUn = [];
+		for($i = 0; $i < sizeof($res); $i++){
+			if($res[$i]["sender"] == $username and !in_array($res[$i]["receiver"], $outUn)){
+				array_push($outUn, $res[$i]["receiver"]);
+			} elseif($res[$i]["receiver"] == $username and !in_array($res[$i]["sender"], $outUn)) {
+				array_push($outUn, $res[$i]["sender"]);
+			}
+		}
+		return $outUn;
+	}
+	
+	function getChat($username, $partner){
+		global $pdo;
+		if(in_array($partner, $this->getChats($username))){
+			$statement = $pdo->prepare("SELECT * FROM `chat` WHERE ( `sender` = :username AND `receiver` = :partner ) OR ( `sender` = :partner AND `receiver` = :username )");
+			$statement->execute(array('username' => $username, 'partner' => $partner)); 
+			$res = $statement->fetchAll();
+			return $res;
+		} else {
+			return [];
+		}
+	}
+}
+
+
+$chat = new chat();
+
+
 function guidv4($data)
 {
     assert(strlen($data) == 16);

@@ -245,5 +245,42 @@ if($request == "logout"){
     echo logout($u_username, $u_session);
 }
 
+if($request == "getChat"){
+	$username = $_GET['username'];
+	$session = $_GET['session'];
+	$partner = $_GET['partner'];
+	if(sessionDataCorrect($username, $session)){
+		echo json_encode($chat->getChat($username, $partner));
+	} else {
+		echo json_encode("failed");
+	}
+}
+
+if($request == "getChats"){
+	$username = $_GET['username'];
+	$session = $_GET['session'];
+	if(sessionDataCorrect($username, $session)){
+		echo json_encode($chat->getChats($username));
+	} else {
+		echo json_encode("failed");
+	}
+}
+
+if($request == "sendMessage"){
+	$username = $_GET['username'];
+	$session = $_GET['session'];
+	$partner = $_GET['partner'];
+	$message = $_GET['message'];
+	if(sessionDataCorrect($username, $session)){
+		if($message != ""){
+			$chat->sendMessage($username, $partner, $message, "text");
+			echo "success";
+		} else {
+			echo "empty_message";
+		}
+	} else {
+		echo "failed";
+	}
+}
 
 ?>
