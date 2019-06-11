@@ -1,5 +1,5 @@
 /*
-	chat.js - display and interact with notifications
+	chat.js - display and send messages
 
 	Copyright 2019 Jakob Stolze
 
@@ -137,6 +137,7 @@ async function getChats() {
                 noti.style.textAlign = "center";
                 nBox.appendChild(noti);
                 nBox.setAttribute("class", "");
+                document.getElementById("sendmdiv").innerHTML = "";
             }
             console.log("fetch success");
 
@@ -145,7 +146,55 @@ async function getChats() {
             data = "fetch_error";
         }
     } else {
-        
+        var fullurl = server_url + '/backend/index.php?request=getChats&username=' + l_username + "&session=" + l_session;
+        document.getElementById("sendmdiv").innerHTML = "<h5 style='text-align: center;'>Meine Chats</h5>";
+        try {
+            let request = await fetch(fullurl, {
+                method: "GET",
+                dataType: "application/x-www-form-urlencoded",
+            });
+
+            data = await request.text();
+            if(data != "failed"){
+                ntfcn = JSON.parse(data);
+                console.log(data);
+                notified = true;
+                document.getElementById("notification").innerHTML = "";
+                for(i in ntfcn){
+                    var nBox = document.getElementById("notification");
+                    var noti = document.createElement("div");
+                    noti.setAttribute("role", "alert");
+                    noti.setAttribute("id", "alert" + i);
+                    noti.setAttribute("class", "alert alert-success");
+                    noti.innerHTML = '<h5 class="alert-heading"> ' + ntfcn[i] + ' </h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + ntfcn[i] + "\"'>Chat betreten</button>"
+                    nBox.appendChild(noti);
+                    notified = false;
+                }
+                if(notified){
+                    var nBox = document.getElementById("notification");
+                    var noti = document.createElement("div");
+                    noti.setAttribute("role", "alert");
+                    noti.setAttribute("id", "alert" + i);
+                    noti.setAttribute("class", "alert alert-dark");
+                    noti.innerHTML = 'Du hast noch keine Chats.';
+                    nBox.appendChild(noti);
+                }
+            } else {
+                var nBox = document.getElementById("notification");
+                var noti = document.createElement("div");
+                noti.setAttribute("class", "formular");
+                noti.innerHTML = "Falsche oder fehlende Nutzerdaten.<br>Bitte melden Sie sich erneut an!<br><br><button class='btn btn-primary' onclick='self.location.href=\"login.html\"'>zurück zum Login</button>";
+                noti.style.textAlign = "center";
+                nBox.appendChild(noti);
+                nBox.setAttribute("class", "");
+                document.getElementById("sendmdiv").innerHTML = "";
+            }
+            console.log("fetch success");
+
+        } catch (e) {
+            console.error('fetch error', e);
+            data = "fetch_error";
+        }
     }
 
 }
