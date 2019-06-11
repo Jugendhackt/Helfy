@@ -113,8 +113,8 @@ Returns `failed` or a list of all usernames the user has a chat with (JSON encod
 
 #### getChat
     index.php?request=getChat&username=username&session=sessionID&partner=usernameOfChatPartner
-Returns `failed` or a list of all messages sent in this chat (JSON encoded).
+Returns `failed`, `invalid_receiver` or a list of all messages sent in this chat (JSON encoded).
 
 #### sendMessage
     index.php?request=getChat&username=username&session=sessionID&partner=usernameOfChatPartner&message=this+is+a+message
-Returns `success`, `failed` or `empty_message`.
+Returns `success`, `failed`, `invalid_receiver` or `empty_message`.

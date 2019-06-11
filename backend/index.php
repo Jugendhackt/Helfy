@@ -250,7 +250,11 @@ if($request == "getChat"){
 	$session = $_GET['session'];
 	$partner = $_GET['partner'];
 	if(sessionDataCorrect($username, $session)){
-		echo json_encode($chat->getChat($username, $partner));
+		if(existsUser($partner)){
+			echo json_encode($chat->getChat($username, $partner));
+		} else {
+			echo json_encode("invalid_receiver");
+		}
 	} else {
 		echo json_encode("failed");
 	}
@@ -273,8 +277,12 @@ if($request == "sendMessage"){
 	$message = $_GET['message'];
 	if(sessionDataCorrect($username, $session)){
 		if($message != ""){
-			$chat->sendMessage($username, $partner, $message, "text");
-			echo "success";
+			if(existsUser($partner)){
+				$chat->sendMessage($username, $partner, $message, "text");
+				echo "success";
+			} else {
+				echo "invalid_receiver";
+			}
 		} else {
 			echo "empty_message";
 		}
