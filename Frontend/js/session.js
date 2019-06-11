@@ -560,6 +560,7 @@ async function setupPublicProfile(){
         data = await request.json();
         if(data == "private"){
             document.getElementById("formular1").innerHTML = "<p>Dieses Profil ist privat.</p>"
+            document.getElementById("formular1").innerHTML += "<br> <button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + c + "\"'>Chat öffnen</button>"
         } else if(data == "failed"){
             document.getElementById("formular1").innerHTML = "<p>Fehlgeschlagen.</p>"
         } else if(data == "user_doesnt_exist"){
@@ -570,6 +571,7 @@ async function setupPublicProfile(){
                 document.getElementById("formular1").innerHTML += "Email: <a href='mailto:" + data["email"] + "'>" + data["email"] + "</a>";
             }
             document.getElementById("formular1").innerHTML += "</p>";
+            document.getElementById("formular1").innerHTML += "<br> <button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + c + "\"'>Chat öffnen</button>"
             console.log(data);
         }
 
