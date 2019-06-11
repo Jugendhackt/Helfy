@@ -95,9 +95,18 @@ async function getChats() {
                 dataType: "application/x-www-form-urlencoded",
             });
 
-            data = await request.text();
-            if(data != "failed"){
-                ntfcn = JSON.parse(data);
+            data = await request.json();
+            if(data == "invalid_receiver"){
+                var nBox = document.getElementById("notification");
+                var noti = document.createElement("div");
+                noti.setAttribute("class", "formular");
+                noti.innerHTML = "Es existiert keine Person mit dem Nutzernamen <i>@" + getQueryVariable("p") + "</i>";
+                noti.style.textAlign = "center";
+                nBox.appendChild(noti);
+                nBox.setAttribute("class", "");
+                document.getElementById("sendmdiv").remove()
+            } else if(data != "failed"){
+                ntfcn = data;
                 console.log(data);
                 notified = true;
                 document.getElementById("notification").innerHTML = "";
