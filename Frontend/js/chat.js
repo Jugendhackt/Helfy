@@ -113,6 +113,8 @@ async function getChats() {
                 for(var i = 0; i < ntfcn.length; i++){
                     var nBox = document.getElementById("notification");
                     var noti = document.createElement("div");
+                    document.getElementById("menu").style.display = "none";
+                    document.getElementById("backbutton").style.display = "";
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
                     if(ntfcn[i]["sender"] == l_username){
