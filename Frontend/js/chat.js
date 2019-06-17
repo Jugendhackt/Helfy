@@ -117,13 +117,13 @@ async function getChats() {
                     noti.setAttribute("id", "alert" + i);
                     if(ntfcn[i]["sender"] == l_username){
                         noti.setAttribute("class", "alert alert-success");
-                        noti.innerHTML = '<h5 class="alert-heading"> Ich </h5>' +
+                        noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + l_username + '">Ich </a></h5>' +
                         ntfcn[i]["message"] + "<br>" + "<i><font style='font-size: 10px;'>" + ntfcn[i]["timestamp"] + "</i></font>";
                         nBox.appendChild(noti);
                         notified = false;
                     } else {
                         noti.setAttribute("class", "alert alert-primary");
-                        noti.innerHTML = '<h5 class="alert-heading"> ' + ntfcn[i]["sender"] + ' </h5>' +
+                        noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + ntfcn[i]["sender"] + '">' + ntfcn[i]["sender"] + '</a></h5>' +
                         ntfcn[i]["message"] + "<br>" + "<font style='font-size: 10px;'><i>" + ntfcn[i]["timestamp"] + "</i></font>";
                         nBox.appendChild(noti);
                         notified = false;
@@ -175,7 +175,7 @@ async function getChats() {
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
                     noti.setAttribute("class", "alert alert-success");
-                    noti.innerHTML = '<h5 class="alert-heading"> ' + ntfcn[i] + ' </h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + ntfcn[i] + "\"'>Chat betreten</button>"
+                    noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + ntfcn[i] + '"</a>' + ntfcn[i] + '</h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + ntfcn[i] + "\"'>Chat betreten</button>"
                     nBox.appendChild(noti);
                     notified = false;
                 }
