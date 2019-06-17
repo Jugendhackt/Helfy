@@ -372,9 +372,10 @@ a .user {
 
 .notifyBox{
     padding-top: 20px;
-    width: 90%;
-    max-width: 700px;
-    margin: auto;
+    width: 100%;
+    margin-bottom: 10%;
+    height: 75%;
+    overflow: auto;
 }
 
 .user:hover {

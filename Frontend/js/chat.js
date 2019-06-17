@@ -117,12 +117,18 @@ async function getChats() {
                     noti.setAttribute("id", "alert" + i);
                     if(ntfcn[i]["sender"] == l_username){
                         noti.setAttribute("class", "alert alert-success");
+                        noti.style.width = "80%";
+                        noti.style.float = "right";
+                        noti.style.marginRight = "0.5%";
                         noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + l_username + '">Ich </a></h5>' +
                         ntfcn[i]["message"] + "<br>" + "<i><font style='font-size: 10px;'>" + ntfcn[i]["timestamp"] + "</i></font>";
                         nBox.appendChild(noti);
                         notified = false;
                     } else {
                         noti.setAttribute("class", "alert alert-primary");
+                        noti.style.width = "80%";
+                        noti.style.float = "left";
+                        noti.style.marginLeft = "0.5%";
                         noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + ntfcn[i]["sender"] + '">' + ntfcn[i]["sender"] + '</a></h5>' +
                         ntfcn[i]["message"] + "<br>" + "<font style='font-size: 10px;'><i>" + ntfcn[i]["timestamp"] + "</i></font>";
                         nBox.appendChild(noti);
