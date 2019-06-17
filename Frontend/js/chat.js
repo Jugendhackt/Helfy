@@ -110,7 +110,7 @@ async function getChats() {
                 console.log(data);
                 notified = true;
                 document.getElementById("notification").innerHTML = "";
-                for(var i = ntfcn.length - 1; i >= 0; i--){
+                for(var i = 0; i < ntfcn.length; i++){
                     var nBox = document.getElementById("notification");
                     var noti = document.createElement("div");
                     noti.setAttribute("role", "alert");
@@ -162,7 +162,7 @@ async function getChats() {
         }
     } else {
         var fullurl = server_url + '/backend/index.php?request=getChats&username=' + l_username + "&session=" + l_session;
-        document.getElementById("sendmdiv").innerHTML = "<h5 style='text-align: center;'>Meine Chats</h5>";
+        document.getElementById("sendmdiv").remove()
         try {
             let request = await fetch(fullurl, {
                 method: "GET",
@@ -176,7 +176,7 @@ async function getChats() {
                 notified = true;
                 document.getElementById("notification").innerHTML = "";
                 for(i in ntfcn){
-                    var nBox = document.getElementById("notification");
+                    var nBox = document.getElementById("notificationB");
                     var noti = document.createElement("div");
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
