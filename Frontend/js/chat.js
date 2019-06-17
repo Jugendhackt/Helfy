@@ -124,6 +124,7 @@ async function getChats() {
                         ntfcn[i]["message"] + "<br>" + "<i><font style='font-size: 10px;'>" + ntfcn[i]["timestamp"] + "</i></font>";
                         nBox.appendChild(noti);
                         notified = false;
+                        document.getElementById("alert" +  i).scrollIntoView()
                     } else {
                         noti.setAttribute("class", "alert alert-primary");
                         noti.style.width = "80%";
@@ -133,6 +134,7 @@ async function getChats() {
                         ntfcn[i]["message"] + "<br>" + "<font style='font-size: 10px;'><i>" + ntfcn[i]["timestamp"] + "</i></font>";
                         nBox.appendChild(noti);
                         notified = false;
+                        document.getElementById("alert" + i).scrollIntoView()
                     }
                 }
                 if(notified){
