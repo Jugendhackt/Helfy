@@ -44,7 +44,7 @@
     <script>
     function getKeyCode(event) {
     event = event || window.event;
-    if(event.keyCode == 13){
+    if(event.keyCode == 13 && document.getElementById("usernameInp").value != ""){
         sendMessage();
     }
     }
