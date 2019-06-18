@@ -128,65 +128,6 @@ if($request == "newSession"){
 	}
 }
 
-/*
-if($request == "nearbyRides"){
-    //$u_username = ($_GET['username']);
-    //$u_session_id = ($_GET['session_id']);
-    //if(sessionCheck($u_username, $u_session_id)){
-        $u_lat = $_GET['lat'];
-        $u_lon = $_GET['lon'];
-        $sql = "SELECT * FROM `mitfahren`";
-        $result = $mysqli->query($sql);
-        $rawo = [];
-        $i = 0;
-        while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            $cur = explode(":::", $row['start'])[1];
-            $curr = explode(";;;", $cur);
-            $d_lat = $curr[0];
-            $d_lon = $curr[1];
-            #echo json_encode($row);
-            if(distance(intval($u_lat), intval($u_lon), intval($d_lat), intval($d_lon), "K") < 100){
-				#echo $row['id'].",".$row['type'].",".$row['mitfahrer_id'].",".$row['fahrer_id'].",".$row['start'].",".$row['ziel'].",".$row['description'].",".$row['timestamp']."\n";
-				$row['start_klar'] = explode(":::", $row['start'])[0];
-				$row['start_lat'] = explode(";;;", explode(":::", $row['start'])[1])[0];
-				$row['start_lon'] = explode(";;;", explode(":::", $row['start'])[1])[1];
-				$row['ziel_klar'] = explode(":::", $row['ziel'])[0];
-				$row['ziel_lat'] = explode(";;;", explode(":::", $row['ziel'])[1])[0];
-				$row['ziel_lon'] = explode(";;;", explode(":::", $row['ziel'])[1])[1];
-				$row['fahrer_name'] = idToName($row['fahrer_id']);
-				$row['mitfahrer_name'] = idToName($row['mitfahrer_id']);
-				$row['distance'] = distance(intval($row['start_lat']), intval($row['start_lon']), intval($row['ziel_lat']), intval($row['ziel_lon']), "K");
-				$rawo[$i] = $row;
-				$i = $i + 1;
-				#echo json_encode($row);
-			}
-			
-        }
-        echo json_encode($rawo);
-    //}
-}
-
-
-if($request == "editRide"){
-	$u_username = ($_GET['username']);
-    $u_session_id = ($_GET['session_id']);
-    if(sessionCheck($u_username, $u_session_id)){
-		$u_fahrt_id = ($_GET['fahrt_id']);
-		$u_type = ($_GET['type']);
-        $u_start = ($_GET['start']);
-        $u_ziel = ($_GET['ziel']);
-        $u_description = ($_GET['description']);
-        $fahrer_id = $_GET['fahrer_id'];
-        $mitfahrer_id = $_GET['mitfahrer_id'];
-        $sql = "INSERT INTO `mitfahren` VALUES (NULL, '$u_type', '$mitfahrer_id', '$fahrer_id', '$u_start', '$u_ziel', '$u_description', CURRENT_TIMESTAMP)";
-        $insert = $mysqli->query($sql);
-        echo "success";
-    } else {
-        echo "failed";
-    }
-}
-*/
-
 if($request == "newGroup"){
     echo newGroup($_GET['groupname'], $_GET['users'], $_GET['description'], $_GET['username'], $_GET['session']);
 }
@@ -289,6 +230,18 @@ if($request == "sendMessage"){
 	} else {
 		echo "failed";
 	}
+}
+
+if($request == "verifyEmail"){
+	if(verifyEmail($_GET['username'], $_GET['code']) == "success"){
+		echo "success";
+	} else {
+		echo "failed";
+	}
+}
+
+if($request == "searchUser"){
+	echo json_encode(searchUser($_GET['username'], $_GET['session'], $_GET['q']));
 }
 
 ?>

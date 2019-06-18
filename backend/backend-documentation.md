@@ -118,3 +118,7 @@ Returns `failed`, `invalid_receiver` or a list of all messages sent in this chat
 #### sendMessage
     index.php?request=getChat&username=username&session=sessionID&partner=usernameOfChatPartner&message=this+is+a+message
 Returns `success`, `failed`, `invalid_receiver` or `empty_message`.
+
+#### searchUser
+    index.php?request=searchUser&username=username&session=sessionID&q=yourSearchRequest
+Returns `failed` or a list of users that fit your search request (JSON encoded).

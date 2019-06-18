@@ -153,7 +153,7 @@ function sendEMail($mode, $empfaenger){
 		$empfaenger_email = $res['email'];
 		$hash = $res['session'];
 		$betreff = "Registration bei Helfy: E-Mail bestätigen";
-		$nachricht = "Guten Tag, $vname $nname,\n\nvielen Dank, dass Sie sich bei Helfy registriert haben! Bitte bestätigen Sie ihre E-Mail Adresse, um ihren Account freizuschalten.\n\nJetzt bestätigen: ".$server_url."/verify.php?mode=email&id=$hash&username=$username&type=true\n\nSollten Sie sich nicht bei Helfy registriert haben, dann klicken Sie bitte hier: ".$server_url."/verify.php?mode=email&id=$hash&username=$username&type=false\n\nMit freundlichen Grüße,\ndas Helfy Team";
+		$nachricht = "Guten Tag, $vname $nname,\n\nvielen Dank, dass Sie sich bei Helfy registriert haben! Bitte bestätigen Sie ihre E-Mail Adresse, um ihren Account freizuschalten.\n\nJetzt bestätigen: ".$server_url."/backend/index.php?mode=verifyEmail&code=$hash&username=$username\n\nMit freundlichen Grüße,\ndas Helfy Team";
 		mail($empfaenger_email, $betreff, $nachricht, "From: Helfy <".$server_mail.">");
 	}
 }
@@ -293,6 +293,7 @@ function registrateUser($rg_username, $rg_password, $rg_email, $rg_vorname, $rg_
         $sql = "INSERT INTO `users` VALUES (NULL, :username, :password, :vname, :nname, :email, :settings, 'welcome', 0, :hash)";
         $stmt= $pdo->prepare($sql);
 		$stmt->execute($data);
+		sendEMail("regist", $rg_email);
         return true;
     } else {
         return false;
@@ -820,4 +821,35 @@ function getPublicProfile($u_username, $u_session, $profile){
 		return "failed";
 	}
 }
+
+
+function searchUser($username, $session, $search){
+	if(sessionDataCorrect($username, $session)){
+		global $pdo;
+		$statement = $pdo->prepare("SELECT * FROM `users`");
+		$statement->execute();
+		$res = $statement->fetchAll();
+		$ol = [];
+		for($i = 0; $i < sizeof($res); $i++){
+			if(strpos(strtolower($res[$i]["username"]), strtolower($search)) !== false){
+				$profile = getPublicProfile($username, $session, $res[$i]["username"]);
+				if(!in_array($profile, ["private", "user_doesnt_exist", "failed"])){
+					array_push($ol, array("username" => $res[$i]["username"], "name" => $profile["vname"]." ".$profile["nname"]));
+				} else {
+					array_push($ol, array("username" => $res[$i]["username"], "name" => "unknown"));
+				}
+			}
+			if(strpos(strtolower($res[$i]["vname"]." ".$res[$i]["nname"]), strtolower($search)) !== false){
+				$profile = getPublicProfile($username, $session, $res[$i]["username"]);
+				if(!in_array($profile, ["private", "user_doesnt_exist", "failed"])){
+					array_push($ol, array("username" => $res[$i]["username"], "name" => $profile["vname"]." ".$profile["nname"]));
+				}
+			}
+		}
+		return $ol;
+	} else {
+		return "failed";
+	}
+}
+
 ?>
