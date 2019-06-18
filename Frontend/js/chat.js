@@ -116,6 +116,8 @@ async function getChats() {
                     document.getElementById("menu").style.display = "none";
                     document.getElementById("backbutton").style.display = "";
                     document.getElementById("footer").style.display = "none";
+                    document.getElementById("helfy-header").style.display = "none";
+                    document.getElementById("header").style.display = "";
                     document.getElementById("header").innerHTML = "<a href='profile.html?user=" + getQueryVariable("p") + "' style='color: black;'>" + getQueryVariable("p") + "</a>";
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);

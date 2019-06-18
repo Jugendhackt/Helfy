@@ -29,12 +29,20 @@
                     <div style="float: left; height:60px; width: 50px; display: none;" id="backbutton">
                     <a href="chat.html"><img src="img/back.png" height="50px" style="margin-left: 5px; margin-top: 25%;"></img></a>
                     </div>
-            </div>
+            </di
+        <h1 class="header" id="header" style="height: 80px; margin-bottom: 0; display: none;"></h1>
+        <h1 class="header" id="helfy-header" style="height: 80px; margin-bottom: 0;">Helfy</h1>
 
-    <div class="container-float" id="insertHere" style="margin-bottom: 6%; min-height:80%;">
-        <h1 class="header" id="header" style="height: 80px; margin-bottom: 0;">
-            
-        </h1>
+        <div class="container-float" id="insertHere" style="margin-bottom: 3%; margin-top: 1%; margin-left: 15%; min-height:80%; width: 70%;">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="search-username" placeholder="Nach Chatpartner suchen " onkeyup="getUserKeyCode()" aria-describedby="inputGroupPrepend"  name="username">
+                  </div>
+                </div>
+              </div>
+
         <div id="notification" class="notifyBox" style="position: absolute; margin-bottom: 0;"></div>
         <div id="notificationB" class="notifyBox" style="width: 90%; max-width: 500px; margin: auto;"></div>
     </div>
@@ -46,6 +54,12 @@
     event = event || window.event;
     if(event.keyCode == 13 && document.getElementById("usernameInp").value != ""){
         sendMessage();
+    }
+    }
+    function getUserKeyCode(event) {
+    event = event || window.event;
+    if(event.keyCode == 13 && document.getElementById("search-username").value != ""){
+        alert("Du suchst gerade einen User!");
     }
     }
     </script>
