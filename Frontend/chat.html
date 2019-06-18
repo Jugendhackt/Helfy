@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/main.css" />
 </head>
 
-<body onload="menu();" style="overflow: hidden;">        
+<body onload="menu(); footer();">        
         <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <div id="me"><a href="home.html">Home</a></div>
@@ -26,26 +26,34 @@
                     <div style="float: left; height:50px; width: 50px;" id="menu">
                     <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
                     </div>
-                    <div style="float: left; height:50px; width: 50px; display: none;" id="backbutton">
-                    <a href="chat.html"><img src="img/back.png" height="50px" style="margin-left: 5px; margin-top: 10%;"></img></a>
+                    <div style="float: left; height:60px; width: 50px; display: none;" id="backbutton">
+                    <a href="chat.html"><img src="img/back.png" height="50px" style="margin-left: 5px; margin-top: 25%;"></img></a>
                     </div>
             </div>
 
-    <div class="container-float" id="insertHere" style="margin-bottom: 6%;">
-        <h1 class="header">
-            Helfy
+    <div class="container-float" id="insertHere" style="margin-bottom: 6%; min-height:80%;">
+        <h1 class="header" id="header" style="height: 80px; margin-bottom: 0;">
+            
         </h1>
-        <div id="notification" class="notifyBox" style="position: absolute;"></div>
+        <div id="notification" class="notifyBox" style="position: absolute; margin-bottom: 0;"></div>
         <div id="notificationB" class="notifyBox" style="width: 90%; max-width: 500px; margin: auto;"></div>
     </div>
     <script src="js/session.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/navigation.js"></script>
-  <div id="sendmessage" style="position: fixed; bottom: 0; left: 0; right: 0;">
+    <script>
+    function getKeyCode(event) {
+    event = event || window.event;
+    if(event.keyCode == 13){
+        sendMessage();
+    }
+    }
+    </script>
+  <div id="sendmessage" style="position: fixed; bottom: 0; left: 0; right: 0; margin: auto; width: device-width;">
     <div id="sendmdiv" role="alert" class="alert alert-dark" style="padding: 10px 5px; margin-bottom: 0;">
         <div style="margin-left: 3%;">
-            <input type="text" id="messageSend" placeholder="Nachricht..." style="width: 70%;">
-            <button type="button" class="btn btn-primary" style="width: 20%; min-width: 80px; margin: 0px;" onclick="sendMessage()">Senden</button>
+            <input type="text" id="messageSend" placeholder="Nachricht..." style="width: 70%;" onkeyup="getKeyCode()">
+            <button id="sm" type="button" class="btn btn-primary" style="width: 20%; ; margin: 0px;" onclick="sendMessage()">Senden</button>
         </div>
     </div>
 </div>
@@ -53,5 +61,11 @@
     getChats();
 </script>
 </body>
-
+<div id="footer">
+    <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+    <p style="margin-top: 15px; margin-bottom: 7px;">
+    <a href="login.html" id="loginLink">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="about.html">Über uns</a> | <a href="impressum.html">Impressum</a>
+    </p>
+    <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+</div>
 </html>

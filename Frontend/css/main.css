@@ -371,7 +371,7 @@ a .user {
 .btn-green:hover{background-color: green;}
 
 .notifyBox{
-    padding-top: 20px;
+    padding-top: 0.5%;
     width: 100%;
     margin-bottom: 10%;
     height: 75%;
@@ -439,3 +439,12 @@ a .user {
   .collapseTitle:hover {
       background-color: rgb(200, 200, 200);
   }
+
+  @media (max-width: 450px) {
+    #sm {
+        font-size: 85%;
+        padding: 0;
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+}
