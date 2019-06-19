@@ -1,35 +1,26 @@
 /*
 	chat.js - display and send messages
-
 	Copyright 2019 Jakob Stolze
-
  	This file is part of Helfy - https://github.com/Jugendhackt/Helfy
-
     Helfy is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
-
     Helfy is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with Helfy.  If not, see <http://www.gnu.org/licenses/>.
-
     Diese Datei ist Teil von Helfy.
-
     Helfy ist Freie Software: Sie können es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
     Version 3 der Lizenz oder (nach Ihrer Wahl) jeder neueren
     veröffentlichten Version, weiter verteilen und/oder modifizieren.
-
     Helfy wird in der Hoffnung, dass es nützlich sein wird, aber
     OHNE JEDE GEWÄHRLEISTUNG, bereitgestellt; sogar ohne die implizite
     Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
     Siehe die GNU General Public License für weitere Details.
-
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
@@ -99,9 +90,18 @@ async function getChats() {
             if(data == "invalid_receiver"){
                 var nBox = document.getElementById("notification");
                 var noti = document.createElement("div");
+                document.getElementById("menu").style.display = "none";
+                document.getElementById("backbutton").style.display = "";
+                document.getElementById("footer").style.display = "none";
+                document.getElementById("helfy-header").style.display = "none";
+                document.getElementById("header").style.display = "";
+                document.getElementById("searchUser").style.display = "none";
+                document.getElementById("header").innerHTML = "<a href='profile.html?user=" + getQueryVariable("p") + "' style='color: black;'>" + getQueryVariable("p") + "</a>";
                 noti.setAttribute("class", "formular");
                 noti.innerHTML = "Es existiert keine Person mit dem Nutzernamen <i>@" + getQueryVariable("p") + "</i>";
                 noti.style.textAlign = "center";
+                noti.style.width = "92%";
+                noti.style.marginTop = "10%";
                 nBox.appendChild(noti);
                 nBox.setAttribute("class", "");
                 document.getElementById("sendmdiv").remove()
@@ -118,6 +118,7 @@ async function getChats() {
                     document.getElementById("footer").style.display = "none";
                     document.getElementById("helfy-header").style.display = "none";
                     document.getElementById("header").style.display = "";
+                    document.getElementById("searchUser").style.display = "none";
                     document.getElementById("header").innerHTML = "<a href='profile.html?user=" + getQueryVariable("p") + "' style='color: black;'>" + getQueryVariable("p") + "</a>";
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
@@ -145,6 +146,13 @@ async function getChats() {
                 if(notified){
                     var nBox = document.getElementById("notification");
                     var noti = document.createElement("div");
+                    document.getElementById("menu").style.display = "none";
+                    document.getElementById("backbutton").style.display = "";
+                    document.getElementById("footer").style.display = "none";
+                    document.getElementById("helfy-header").style.display = "none";
+                    document.getElementById("header").style.display = "";
+                    document.getElementById("searchUser").style.display = "none";
+                    document.getElementById("header").innerHTML = "<a href='profile.html?user=" + getQueryVariable("p") + "' style='color: black;'>" + getQueryVariable("p") + "</a>";
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
                     noti.setAttribute("class", "alert alert-dark");
