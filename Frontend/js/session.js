@@ -576,6 +576,8 @@ async function searchUsername(){
     var l_username = getCookie("username");  
     var l_session = getCookie("session"); 
     var search = document.getElementById("searchUser").value 
+    document.getElementById("notificationB").innerHTML = "";
+    await getChats();
     var fullurl = server_url + '/backend/index.php?request=searchUser&username=' + l_username + '&session=' + l_session + '&q=' + search; 
     try {  
          let request = await fetch(fullurl, {
@@ -583,31 +585,72 @@ async function searchUsername(){
                 dataType: "application/x-www-form-urlencoded",
             });
         uname = await request.json();
+        var notified = true;
 
         if(uname == "failed"){
             alert("fehler");
         } else {
-                if (uname.length == 1){
-                var nBox = document.getElementById("searchnotification");
+            var nBox = document.getElementById("searchnotification");
+            nBox.innerHTML = "";
+
+            var rn = true;
+            var i = 0;
+            var liste = Array();
+
+            while(rn){
+                if(document.getElementById("alert" + i) == null || i > 1000){
+                    rn = false;
+                } else {
+                    n = document.getElementById("alert" + i).getElementsByTagName("a")[0].innerHTML;
+                    liste.push(n);
+                    i++;
+                }
+            }
+
+            if (uname.length == 1){
                 var noti = document.createElement("div");
                 noti.setAttribute("role", "alert");
                 noti.setAttribute("id", "alerts0");
                 noti.setAttribute("class", "alert alert-success");
-                noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + uname[0]["username"] + '"</a>' + uname[0]["username"] + '</h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + uname[0]["username"] + "\"'>Neuen Chat beginnen</button>";
-                nBox.appendChild(noti);
+                state = "Privates Profil";
+                var i = 0;
+                if(uname[i]["name"] != "unknown"){
+                    state = uname[i]["name"];
+                }
+                if(liste.includes(uname[i]["username"])){
+                    n = document.getElementById("alert" + liste.indexOf(uname[i]["username"]));
+                    n.getElementsByTagName("button")[0].innerHTML = "Offenen Chat betreten"
+                    nBox.appendChild(n);
+                } else {
+                    noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + uname[i]["username"] + '"</a>' + uname[i]["username"] + '<div style="font-size: 12px;">' + state + '</div></h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + uname[i]["username"] + "\"'>Neuen Chat beginnen</button>";
+                    nBox.appendChild(noti);
+                }
                 notified = false;
-            }
-
-            else{
+            } else if(uname.length == 0){
+                var noti = document.createElement("div");
+                noti.setAttribute("role", "alert");
+                noti.setAttribute("id", "alerts0");
+                noti.setAttribute("class", "alert alert-warning");
+                noti.innerHTML = "Keine Suchtreffer für \"" + search + "\" gefunden.";
+                nBox.appendChild(noti);
+            } else {
                 for(i in uname){
-                    var nBox = document.getElementById("searchnotification");
                     var noti = document.createElement("div");
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alerts" + i);
                     noti.setAttribute("class", "alert alert-success");
-                    noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + uname[i]["username"] + '"</a>' + uname[i]["username"] + '</h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + uname[i]["username"] + "\"'>Neuen Chat beginnen</button>";
-                    nBox.appendChild(noti);
-                    notified = false;
+                    state = "Privates Profil";
+                    if(uname[i]["name"] != "unknown"){
+                        state = uname[i]["name"];
+                    }
+                    if(liste.includes(uname[i]["username"])){
+                        n = document.getElementById("alert" + liste.indexOf(uname[i]["username"]));
+                        n.getElementsByTagName("button")[0].innerHTML = "Offenen Chat betreten"
+                        nBox.appendChild(n);
+                    } else {
+                        noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + uname[i]["username"] + '"</a>' + uname[i]["username"] + '<div style="font-size: 12px;">' + state + '</div></h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + uname[i]["username"] + "\"'>Neuen Chat beginnen</button>";
+                        nBox.appendChild(noti);
+                    }
                 }
             }
             

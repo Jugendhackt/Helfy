@@ -87,6 +87,7 @@ async function getChats() {
             });
 
             data = await request.json();
+            document.getElementById("notificationB").innerHTML = "";
             if(data == "invalid_receiver"){
                 var nBox = document.getElementById("notification");
                 var noti = document.createElement("div");
@@ -177,7 +178,11 @@ async function getChats() {
         }
     } else {
         var fullurl = server_url + '/backend/index.php?request=getChats&username=' + l_username + "&session=" + l_session;
-        document.getElementById("sendmdiv").remove()
+        try {
+            document.getElementById("sendmdiv").remove()
+        } catch(e) {
+            console.error(e);
+        }
         try {
             let request = await fetch(fullurl, {
                 method: "GET",
