@@ -29,10 +29,23 @@ var server_url = "";
 
 var rawFile = new XMLHttpRequest();
 rawFile.open("GET", "server.txt", false);
-rawFile.onreadystatechange = function (){
-    if(rawFile.readyState === 4){
-        if(rawFile.status === 200 || rawFile.status == 0){
-                server_url = rawFile.responseText;
+rawFile.onreadystatechange = function () {
+    if (rawFile.readyState === 4) {
+        if (rawFile.status === 200 || rawFile.status == 0) {
+            server_url = rawFile.responseText;
+        }
+    }
+}
+rawFile.send(null);
+
+var emjs = "";
+
+var rawFile = new XMLHttpRequest();
+rawFile.open("GET", "res/emojis.json", false);
+rawFile.onreadystatechange = function () {
+    if (rawFile.readyState === 4) {
+        if (rawFile.status === 200 || rawFile.status == 0) {
+            emjs = JSON.parse(rawFile.responseText);
         }
     }
 }
@@ -66,19 +79,19 @@ function getCookie(cname) {
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
-    for (var i=0;i<vars.length;i++) {
+    for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split("=");
-        if(pair[0] == variable){
+        if (pair[0] == variable) {
             return pair[1];
         }
     }
-    return(false);
+    return (false);
 }
 
 async function getChats() {
     var l_username = getCookie("username");
     var l_session = getCookie("session");
-    if(getQueryVariable("p") != ""){
+    if (getQueryVariable("p") != "") {
         var fullurl = server_url + '/backend/index.php?request=getChat&username=' + l_username + "&session=" + l_session + "&partner=" + getQueryVariable("p");
         try {
             let request = await fetch(fullurl, {
@@ -87,8 +100,9 @@ async function getChats() {
             });
 
             data = await request.json();
+
             document.getElementById("notificationB").innerHTML = "";
-            if(data == "invalid_receiver"){
+            if (data == "invalid_receiver") {
                 var nBox = document.getElementById("notification");
                 var noti = document.createElement("div");
                 document.getElementById("menu").style.display = "none";
@@ -106,12 +120,12 @@ async function getChats() {
                 nBox.appendChild(noti);
                 nBox.setAttribute("class", "");
                 document.getElementById("sendmdiv").remove()
-            } else if(data != "failed"){
+            } else if (data != "failed") {
                 ntfcn = data;
-                console.log(data);
                 notified = true;
                 document.getElementById("notification").innerHTML = "";
-                for(var i = 0; i < ntfcn.length; i++){
+                for (var i = 0; i < ntfcn.length; i++) {
+                    ntfcn[i]["message"] = emojisShortToHtml(ntfcn[i]["message"]);
                     var nBox = document.getElementById("notification");
                     var noti = document.createElement("div");
                     document.getElementById("menu").style.display = "none";
@@ -124,7 +138,7 @@ async function getChats() {
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
                     noti.style.wordWrap = "break-word";
-                    if(ntfcn[i]["sender"] == l_username){
+                    if (ntfcn[i]["sender"] == l_username) {
                         noti.setAttribute("class", "alert alert-success");
                         noti.style.width = "80%";
                         noti.style.float = "right";
@@ -132,7 +146,7 @@ async function getChats() {
                         noti.innerHTML = ntfcn[i]["message"] + "<br>" + "<i><font style='font-size: 10px; float: right;'>" + ntfcn[i]["timestamp"] + "</i></font>";
                         nBox.appendChild(noti);
                         notified = false;
-                        document.getElementById("alert" +  i).scrollIntoView()
+                        document.getElementById("alert" + i).scrollIntoView()
                     } else {
                         noti.setAttribute("class", "alert alert-primary");
                         noti.style.width = "80%";
@@ -144,7 +158,7 @@ async function getChats() {
                         document.getElementById("alert" + i).scrollIntoView()
                     }
                 }
-                if(notified){
+                if (notified) {
                     var nBox = document.getElementById("notification");
                     var noti = document.createElement("div");
                     document.getElementById("menu").style.display = "none";
@@ -180,7 +194,7 @@ async function getChats() {
         var fullurl = server_url + '/backend/index.php?request=getChats&username=' + l_username + "&session=" + l_session;
         try {
             document.getElementById("sendmdiv").remove()
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
         try {
@@ -190,12 +204,12 @@ async function getChats() {
             });
 
             data = await request.text();
-            if(data != "failed"){
+            if (data != "failed") {
                 ntfcn = JSON.parse(data);
                 console.log(data);
                 notified = true;
                 document.getElementById("notification").innerHTML = "";
-                for(i in ntfcn){
+                for (i in ntfcn) {
                     var nBox = document.getElementById("notificationB");
                     var noti = document.createElement("div");
                     noti.setAttribute("role", "alert");
@@ -205,7 +219,7 @@ async function getChats() {
                     nBox.appendChild(noti);
                     notified = false;
                 }
-                if(notified){
+                if (notified) {
                     var nBox = document.getElementById("notification");
                     var noti = document.createElement("div");
                     noti.setAttribute("role", "alert");
@@ -240,7 +254,7 @@ async function sendMessage() {
     var message = document.getElementById("messageSend").value;
     document.getElementById("messageSend").value = "";
     console.log(message);
-    if(getQueryVariable("p") != ""){
+    if (getQueryVariable("p") != "") {
         var fullurl = server_url + '/backend/index.php?request=sendMessage&username=' + l_username + "&session=" + l_session + "&partner=" + getQueryVariable("p") + "&message=" + message;
         try {
             let request = await fetch(fullurl, {
@@ -250,7 +264,7 @@ async function sendMessage() {
 
             data = await request.text();
 
-            if(data == "success"){
+            if (data == "success") {
                 document.getElementById("sendmdiv").setAttribute("class", "alert alert-success")
                 getChats();
                 document.getElementById("sendmdiv").setAttribute("class", "alert alert-dark")
@@ -261,6 +275,46 @@ async function sendMessage() {
         } catch (e) {
             console.error('fetch error', e);
             data = "fetch_error";
+        }
+    }
+}
+
+
+function loadJSON(callback) {
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'file.json', true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+
+            // .open will NOT return a value but simply returns undefined in async mode so use a callback
+            callback(xobj.responseText);
+
+        }
+    }
+    xobj.send(null);
+
+}
+
+function emojisShortToHtml(text) {
+    for (x in emjs) {
+        if (text.includes(":" + x + ":")) {
+            console.log(emjs[x]);
+            text = text.replace(":" + x + ":", String.fromCodePoint(parseInt(emjs[x], 16)));
+        }
+    }
+
+    return text;
+}
+
+
+
+function emojisReplace(ms) {
+    var x;
+    for (x in emjs) {
+        if (ms.value.includes(":" + x + ":")) {
+            ms.value = ms.value.replace(":" + x + ":", String.fromCodePoint(parseInt(emjs[x], 16)));
         }
     }
 }
