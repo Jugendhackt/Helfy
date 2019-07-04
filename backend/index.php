@@ -169,7 +169,7 @@ if($request == "offerRide"){
 }
 
 if($request == "getRides"){
-    echo json_encode(getBulletin("ride", $_GET['username'], $_GET['session'], $_GET['location'], $_GET['distance'], $_GET['time']));
+    echo json_encode(getBulletin("ride", $_GET['username'], $_GET['session'], $_GET['location'], $_GET['distance'], $_GET['time'], $_GET['source']));
 }
 
 if($request == "getSettings"){

@@ -218,7 +218,7 @@ async function addGroups(){
         } else {
 
             var newnauswahl = document.createElement("option");
-                newnauswahl.setAttribute("value", "0");
+                newnauswahl.setAttribute("value", "public");
                 newnauswahl.setAttribute("id", "einschraenken");
                 newnauswahl.innerHTML = "-- Suchergebnisse einschränken --";
                 auswahl.appendChild(newnauswahl);
@@ -226,7 +226,8 @@ async function addGroups(){
             for(i in data){
                 var newauswahl = document.createElement("option");
                 newauswahl.setAttribute("value", "group" + data[i][4]);
-                newauswahl.innerHTML = data[i][0];
+                newauswahl.innerHTML = data[i][5]; //data[i][5] should be the group-ID
+                console.log(data[i]);
                 auswahl.appendChild(newauswahl);
             }
             if(data.length == 0){

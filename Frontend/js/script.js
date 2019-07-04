@@ -147,8 +147,9 @@ async function showRoutes() {
     var l_username = getCookie("username");
     var l_session = getCookie("session");
     search = document.getElementById("searchbar").value;
+    sogroup = document.getElementById("gruppenauswahl").value;
     locationX = search + ";" + document.getElementById("var3").innerHTML;
-    var fullurl = server_url + '/backend/index.php?request=getRides&username=' + l_username + "&session=" + l_session + "&location=" + locationX + "&distance=10&time=now";
+    var fullurl = server_url + '/backend/index.php?request=getRides&username=' + l_username + "&session=" + l_session + "&location=" + locationX + "&distance=10&time=now&source=" + sogroup;
     try {
         let request = await fetch(fullurl, {
             method: "GET",

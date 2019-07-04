@@ -694,7 +694,7 @@ function addBulletin($type, $u_username, $u_session, $location, $additional, $ad
 	}
 }
 
-function getBulletin($type, $u_username, $u_session, $location, $additional, $time){
+function getBulletin($type, $u_username, $u_session, $location, $additional, $time, $source){  
 	if(sessionDataCorrect($u_username, $u_session)){
 		global $pdo;
 		if($type == "ride"){
