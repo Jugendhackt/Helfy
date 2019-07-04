@@ -54,6 +54,11 @@
       event = event || window.event;
       if (event.keyCode == 13) {
         sendMessage();
+      } else {
+        var ms = document.getElementById("messageSend")
+        if(ms.value.includes(":")){
+          emojisReplace(ms);
+        }
       }
     }
     function UserKeyCode(event) {
