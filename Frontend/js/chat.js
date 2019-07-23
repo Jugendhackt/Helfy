@@ -51,6 +51,12 @@ rawFile.onreadystatechange = function () {
 }
 rawFile.send(null);
 
+var emjsX = [];
+for(x in emjs){
+    emjsX.push(":" + x + ":");
+}
+
+var drdw = emjsX;
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -300,7 +306,6 @@ function loadJSON(callback) {
 function emojisShortToHtml(text) {
     for (x in emjs) {
         if (text.includes(":" + x + ":")) {
-            console.log(emjs[x]);
             text = text.replace(":" + x + ":", String.fromCodePoint(parseInt(emjs[x], 16)));
         }
     }
@@ -317,4 +322,53 @@ function emojisReplace(ms) {
             ms.value = ms.value.replace(":" + x + ":", String.fromCodePoint(parseInt(emjs[x], 16)));
         }
     }
+}
+
+function dropcalc() {
+
+    //var drdw = [":joy:", ":thumbs_up:", ":smile:", ":grin:", ":smiley:", ":laughing:", ":smirk:", ":kissing:", ":rolling_eyes:"]; // Liste der Emoji-Codes, die im Dropdown angezeigt werden
+    //var drdw = emjsX;
+
+    var text = document.getElementById("messageSend").value
+    var sout = [];
+    var sn = text.split(" ");
+
+
+    if (text.includes(":")) {
+        for (var i = 0; i < drdw.length; i++) {
+            if (drdw[i].includes(sn[sn.length - 1]) && sn[sn.length - 1].includes(":")) {
+                if (!sout.includes(drdw[i])) {
+                    sout.push(drdw[i]);
+                }
+            }
+        }
+    }
+
+    document.getElementsByClassName("dropcontent")[0].innerHTML = "";
+    for (var i = 0; i < sout.length; i++) {
+        var newd = document.createElement("div");
+        newd.setAttribute("id", "drdwel" + i);
+        newd.setAttribute("class", "dropelement");
+        newd.setAttribute("onclick", "dropselect(" + i + ")");
+        newd.innerHTML = sout[i];
+        document.getElementsByClassName("dropcontent")[0].append(newd);
+    }
+    if (sout.length == 0) {
+        document.getElementsByClassName("dropcontent")[0].setAttribute("hidden", "true");
+    } else {
+        document.getElementsByClassName("dropcontent")[0].removeAttribute("hidden");
+    }
+}
+
+function dropselect(num) {
+    var text = document.getElementById("messageSend").value;
+    var sn = text.split(" ");
+    var selected = document.getElementById("drdwel" + num);
+    sn[sn.length - 1] = selected.innerHTML;
+    text = "";
+    for (var i = 0; i < sn.length; i++) {
+        text += sn[i] + " ";
+    }
+    document.getElementById("messageSend").value = text;
+    dropcalc();
 }

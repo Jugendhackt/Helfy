@@ -10,6 +10,28 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 
+<style>
+  .dropinput {
+    padding: 7px 10px;
+  }
+
+  .dropcontent {
+    max-height: 150px;
+    overflow-y: scroll;
+    width: 300px;
+  }
+
+  .dropelement {
+    border: 1px solid grey;
+    padding: 5px 15px;
+    background: white;
+  }
+
+  .dropelement:hover {
+    background: rgb(200, 200, 200);
+  }
+</style>
+
 <body onload="menu(); footer();">
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -41,7 +63,7 @@
     <div id="searchnotification" class="notifyBox" style="width: 90%; max-width: 500px; margin: auto;"></div>
     <div class="notifyBox" style="position: absolute; margin-bottom: 0;">
       <div id="notification" style="width: 96%; max-width: 800px; margin: auto;">
-        
+
       </div>
     </div>
     <div id="notificationB" class="notifyBox" style="width: 90%; max-width: 500px; margin: auto;"></div>
@@ -56,7 +78,7 @@
         sendMessage();
       } else {
         var ms = document.getElementById("messageSend")
-        if(ms.value.includes(":")){
+        if (ms.value.includes(":")) {
           emojisReplace(ms);
         }
       }
@@ -73,9 +95,15 @@
     <div id="sendmdiv" role="alert" class="alert alert-dark" style="padding: 10px 5px; margin-bottom: 0;">
       <div style="margin-left: 3%;">
         <div style="margin: auto; width: 100%; max-width: 800px;">
-          <input type="text" id="messageSend" list="emojis" placeholder="Nachricht..." style="width: 70%;" onkeyup="getKeyCode();">
-          <button id="sm" type="button" class="btn btn-primary" style="width: 20%; ; margin: 0px;"
-            onclick="sendMessage()">Senden</button>
+          <div class="dropdiv" style="margin: auto; width: 500px;">
+            <div class="dropcontent" style="position: absolute; bottom: 50px;" hidden></div>
+            <input id="messageSend" type="text" class="dropinput" style="width: 70%;" onkeyup="dropcalc()"
+              placeholder="Nachricht...">
+            <button id="sm" type="button" class="btn btn-primary" style="width: 20%; ; margin: 0px;"
+              onclick="sendMessage()">Senden</button>
+
+          </div>
+          <!--<input type="text" id="messageSend" list="emojis" placeholder="Nachricht..." style="width: 70%;" onkeyup="getKeyCode();">-->
         </div>
       </div>
     </div>
@@ -84,98 +112,6 @@
     getChats();
   </script>
 
-<datalist id="emojis" style="display: none;">
-  <option>:grinning:</option>
-  <option>:smiley:</option>
-  <option>:smile:</option>
-  <option>:grin:</option>
-  <option>:laughing:</option>
-  <option>:satisfied:</option>
-  <option>:sweat_smile:</option>
-  <option>:rolling_on_the_floor_laughing:</option>
-  <option>:joy:</option>
-  <option>:joy:</option>
-  <option>:slight_smile:</option>
-  <option>:upside_down:</option>
-  <option>:wink:</option>
-  <option>:blush:</option>
-  <option>:innocent:</option>
-  <option>:heart_eyes:</option>
-  <option>:star_struck:</option>
-  <option>:kissing_heart:</option>
-  <option>:kissing:</option>
-  <option>:relaxed:</option>
-  <option>:kissing_closed_eyes:</option>
-  <option>:kissing_smyling_eyes:</option>
-  <option>:yum:</option>
-  <option>:stuck_out_tongue:</option>
-  <option>:stuck_out_tongue_winking_eyes:</option>
-  <option>:zany:</option>
-  <option>:stuck_out_tongue_closed_eyes:</option>
-  <option>:money_face:</option>
-  <option>:hugging_face:</option>
-  <option>:hand_over_mouth:</option>
-  <option>:shushing_face:</option>
-  <option>:thinking:</option>
-  <option>:silence:</option>
-  <option>:raised_eyebrow:</option>
-  <option>:neutral_face:</option>
-  <option>:expressionless:</option>
-  <option>:no_mouth:</option>
-  <option>:smirk:</option>
-  <option>:rolling_eyes:</option>
-  <option>:grimacing:</option>
-  <option>:lying:</option>
-  <option>:relieved:</option>
-  <option>:pensive:</option>
-  <option>:sleepy:</option>
-  <option>:drooling:</option>
-  <option>:sleeping:</option>
-  <option>:mask:</option>
-  <option>:sick_face:</option>
-  <option>:hurt:</option>
-  <option>:nauseated:</option>
-  <option>:vomiting:</option>
-  <option>:sneezing:</option>
-  <option>:hot_face:</option>
-  <option>:cold_face:</option>
-  <option>:drunk:</option>
-  <option>:dizzy:</option>
-  <option>:exploding_head:</option>
-  <option>:cowboy:</option>
-  <option>:party_face:</option>
-  <option>:sunglasses:</option>
-  <option>:nerd:</option>
-  <option>:monocle_face:</option>
-  <option>:confused:</option>
-  <option>:worried:</option>
-  <option>:slightly_frown:</option>
-  <option>:frown:</option>
-  <option>:open_mouth:</option>
-  <option>:hushed:</option>
-  <option>:astonished:</option>
-  <option>:flushed:</option>
-  <option>:pleading:</option>
-  <option>:frowning:</option>
-  <option>:anguished:</option>
-  <option>:fearful:</option>
-  <option>:cold_sweat:</option>
-  <option>:disappointed_relieved:</option>
-  <option>:cry:</option>
-  <option>:sob:</option>
-  <option>:scream:</option>
-  <option>:confounded:</option>
-  <option>:persevere:</option>
-  <option>:disappointed:</option>
-  <option>:sweat:</option>
-  <option>:weary:</option>
-  <option>:tired_face:</option>
-  <option>:triumph:</option>
-  <option>:rage:</option>
-  <option>:angry:</option>
-  <option>:face_with_symbols_on_mouth:</option>
-  <option>:unamused:</option>
-</datalist>
 
 </body>
 <div id="footer">
