@@ -18,7 +18,8 @@
   .dropcontent {
     max-height: 150px;
     overflow-y: scroll;
-    width: 300px;
+    max-width: 300px;
+    width: 90%;
   }
 
   .dropelement {
@@ -92,10 +93,10 @@
 
   </script>
   <div id="sendmessage" style="position: fixed; bottom: 0; left: 0; right: 0; margin: auto; width: device-width;">
-    <div id="sendmdiv" role="alert" class="alert alert-dark" style="padding: 10px 5px; margin-bottom: 0;">
+    <div id="sendmdiv" role="alert" class="alert alert-dark" style="padding: 10px 5px; margin-bottom: 0; width: 100%;">
       <div style="margin-left: 3%;">
         <div style="margin: auto; width: 100%; max-width: 800px;">
-          <div class="dropdiv" style="margin: auto; width: 500px;">
+          <div class="dropdiv" style="margin: auto; width: 100%; max-width: 500px">
             <div class="dropcontent" style="position: absolute; bottom: 50px;" hidden></div>
             <input id="messageSend" type="text" class="dropinput" style="width: 70%;" onkeyup="dropcalc()"
               placeholder="Nachricht...">
