@@ -25,20 +25,7 @@
     Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
 
-
-
-var server_url = "";
-
-var rawFile = new XMLHttpRequest();
-rawFile.open("GET", "server.txt", false);
-rawFile.onreadystatechange = function (){
-    if(rawFile.readyState === 4){
-        if(rawFile.status === 200 || rawFile.status == 0){
-                server_url = rawFile.responseText;
-        }
-    }
-}
-rawFile.send(null);
+var server_url = getCookie("server_url");
 
 var data = "";
 
@@ -72,6 +59,7 @@ function settingsInvalidSession(){
 }
 
 async function login(l_username, l_password) {
+    console.log(server_url)
     var fullurl = server_url + '/backend/index.php?request=newSession&username=' + l_username + "&password=" + l_password;
     try {
         let request = await fetch(fullurl, {

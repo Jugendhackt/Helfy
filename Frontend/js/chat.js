@@ -25,18 +25,8 @@
     Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
 */
 
-var server_url = "";
+var server_url = getCookie("server_url");
 
-var rawFile = new XMLHttpRequest();
-rawFile.open("GET", "server.txt", false);
-rawFile.onreadystatechange = function () {
-    if (rawFile.readyState === 4) {
-        if (rawFile.status === 200 || rawFile.status == 0) {
-            server_url = rawFile.responseText;
-        }
-    }
-}
-rawFile.send(null);
 
 var emjs = "";
 
