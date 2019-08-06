@@ -648,3 +648,35 @@ async function searchUsername(){
         console.error('fetch error', e);
 }
 }
+
+async function deleteHelfyAccount() {
+    var l_username = getCookie("username");
+    var l_session = getCookie("session");
+    var l_password = document.getElementById("pwddel").value;
+    if(l_password != ""){
+        var fullurl = server_url + '/backend/index.php?request=deleteAccount&username=' + l_username + "&session=" + l_session + "&password=" + l_password;
+        console.log(fullurl);
+        try {
+            let request = await fetch(fullurl, {
+                method: "GET",
+                dataType: "application/x-www-form-urlencoded",
+            });
+
+            data = await request.text();
+            console.log(data);
+            if(data == "success"){
+                console.log("del_success")
+                document.getElementById("normal").hidden = true;
+                document.getElementById("deletedAcc").hidden = false;
+            } else {
+                console.log("del_failed")
+                document.getElementById("safety-note-b").innerHTML += "<br><br>Fehlgeschlagen! Geben Sie Ihr Passwort erneut ein.";
+            }
+
+        } catch (e) {
+            console.error('fetch error', e);
+        }
+    } else {
+        document.getElementById("pwddel").style.borderColor = "red";
+    }
+}
