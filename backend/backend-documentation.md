@@ -122,3 +122,7 @@ Returns `success`, `failed`, `invalid_receiver` or `empty_message`.
 #### searchUser
     index.php?request=searchUser&username=username&session=sessionID&q=yourSearchRequest
 Returns `failed` or a list of users that fit your search request (JSON encoded).
+
+#### deleteAccount
+    index.php?request=deleteAccount&username=username&session=sessionID&password=yourPassword
+Deletes an account and removes every message send by the user as well as every offer on the bulletin board. Returns `success` or `failed`.

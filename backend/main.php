@@ -694,7 +694,7 @@ function addBulletin($type, $u_username, $u_session, $location, $additional, $ad
 	}
 }
 
-function getBulletin($type, $u_username, $u_session, $location, $additional, $time, $source){  
+function getBulletin($type, $u_username, $u_session, $location, $additional, $time){
 	if(sessionDataCorrect($u_username, $u_session)){
 		global $pdo;
 		if($type == "ride"){
@@ -847,6 +847,53 @@ function searchUser($username, $session, $search){
 			}
 		}
 		return $ol;
+	} else {
+		return "failed";
+	}
+}
+
+function deleteUser($username, $session, $password){
+	if(sessionDataCorrect($username, $session) and loginDataCorrect($username, $password)){
+		global $pdo;
+		$statement = $pdo->prepare("DELETE FROM `bulletinBoard` WHERE `offerUser` = ?");
+		$statement->execute(array($username));
+		$statement = $pdo->prepare("DELETE FROM `chat` WHERE `receiver` = ?");
+		$statement->execute(array($username));
+		$statement = $pdo->prepare("DELETE FROM `chat` WHERE `sender` = ?");
+		$statement->execute(array($username));
+		$statement = $pdo->prepare("SELECT * FROM `groups`");
+		$statement->execute();
+		$res = $statement->fetchAll();
+		for($i = 0; $i < sizeof($res); $i++){
+			if((strpos($res[$i]["users"], $username.",") !== false) or (strpos($res[$i]["users"], ",".$username) !== false) or ($res[$i]["users"] == $username)){
+				$id = $i + 1;
+				$newUsers = str_replace(",".$username, "", str_replace($username.",", "", $res[$i]["users"]));
+				$sql = "UPDATE `groups` SET `users` = :users WHERE `id` = :id";
+				$data = [
+					'id' => $id,
+					'users' => $newUsers,
+				];
+				$statement = $pdo->prepare($sql);
+				$statement->execute($data);
+				
+				if($res[$i]["admin"] == $username){
+					if($res[$i]["users"] != $username){
+						$newAdmin = explode(",", $res[$i]["users"])[0];
+						if($newAdmin == $username){
+							$newAdmin = explode(",", $res[$i]["users"])[1];
+						}
+						$statement = $pdo->prepare("UPDATE `groups` SET `admin` = ? WHERE `id` = ".$id);
+						$statement->execute(array($newAdmin));
+					} else {
+						$statement = $pdo->prepare("DELETE FROM `groups` WHERE `id` = ?");
+						$statement->execute(array($id));
+					}
+				}
+			}
+		}
+		$statement = $pdo->prepare("DELETE FROM `users` WHERE `username` = ?");
+		$statement->execute(array($username));
+		return "success";
 	} else {
 		return "failed";
 	}
