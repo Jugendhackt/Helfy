@@ -161,7 +161,7 @@ async function addGroupUser(groupID){
             method: "GET",
             dataType: "application/x-www-form-urlencoded",
         });
-
+-
         data = await request.text();
     
     } catch (e) {
