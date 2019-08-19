@@ -123,6 +123,53 @@ function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
 
+
+function editGroup(groupID){
+	noti = document.getElementById("alert" + groupID);
+	noti.innerHTML += `
+	<div class="input-group" style="margin-bottom: 10px;">
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="inputGroupPrepend">@</span>
+		</div>
+		<input type="text" id="raUser` + groupID + `" placeholder="Benutzername" aria-describedby="inputGroupPrepend" name="username" style="width: 80%; max-width: 200px;">
+		<button class="btn btn-primary" onclick="addGroupUser('` + groupID + `')">Hinzufügen</button><button class="btn btn-danger" onclick="rmGroupUser('` + groupID + `')">Entfernen</button>
+	</div>`;
+}
+
+
+async function rmGroupUser(groupID){
+	var user = document.getElementById("raUser" + groupID).value;
+	var fullurl = server_url+ '/backend/index.php?request=removeUserFromGroup&username=' + getCookie("username") + "&session=" + getCookie("session") + "&group=" + groupID + "&rmUser=" + user;
+	try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.text();
+    
+    } catch (e) {
+        console.error('fetch error', e);
+    }
+}
+
+async function addGroupUser(groupID){
+	var user = document.getElementById("raUser" + groupID).value;
+	var fullurl = server_url+ '/backend/index.php?request=addUserToGroup&username=' + getCookie("username") + "&session=" + getCookie("session") + "&group=" + groupID + "&rmUser=" + user;
+	try {
+        let request = await fetch(fullurl, {
+            method: "GET",
+            dataType: "application/x-www-form-urlencoded",
+        });
+
+        data = await request.text();
+    
+    } catch (e) {
+        console.error('fetch error', e);
+    }
+}
+
+
 async function getGroups(){
     var fullurl = server_url + '/backend/index.php?request=getGroups&username=' + getCookie("username") + "&session=" + getCookie("session");
     try {
@@ -140,6 +187,7 @@ async function getGroups(){
             noti.innerHTML = 'Falsche Sitzungsdaten, bitte melden Sie sich erneut an.';
             div.appendChild(noti)
         } else {
+			console.log(data)
             for(i in data){
                 var noti = document.createElement("div");
                 noti.setAttribute("role", "alert");
@@ -152,6 +200,9 @@ async function getGroups(){
                     users += "<a class='user' href='profile.html?user=" + usersLs[j] + "'>@" + usersLs[j] + "</a> ";
                 }
                 noti.innerHTML = '<h5 class="alert-heading">' + data[i][0] + "</h5><p>" + data[i][3] + "</p><p>Teilnehmer: " + users + "<p style='margin-bottom: 0; color: red; text-align: right; margin-bottom: 1%; cursor: pointer;' onclick='leaveGroup(\"" + data[i][4] + "\")'>Gruppe verlassen</p>";
+                if(data[i][2] == getCookie("username")){
+					noti.innerHTML += '<p style="text-align: right;"><a href="#" onclick="editGroup(\'' + data[i][4] + '\')">Gruppe verwalten</a></p>'
+				}
                 div.appendChild(noti)
             }
         }
