@@ -204,7 +204,7 @@ async function getChats() {
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
                     noti.setAttribute("class", "alert alert-success");
-                    noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + ntfcn[i] + '"</a>' + ntfcn[i] + '</h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + ntfcn[i] + "\"'>Chat betreten</button>"
+                    noti.innerHTML = '<h5 class="alert-heading"><a class="alert-heading" href="profile.html?user=' + ntfcn[i] + '">' + ntfcn[i] + '</a></h5>' + "<button class='btn btn-primary' onclick='self.location.href=\"chat.html?p=" + ntfcn[i] + "\"'>Chat betreten</button>"
                     nBox.appendChild(noti);
                     notified = false;
                 }
