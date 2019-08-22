@@ -137,6 +137,7 @@ html, body {
     box-shadow: 4px 4px 2px -2px gray;
     padding: 10px;
     margin-right: 5%;
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 
 .formular {
@@ -145,6 +146,7 @@ html, body {
     box-shadow: 4px 4px 2px -2px gray;
     padding: 10px;
     margin-right: 5%;
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 
 #formular1 {
@@ -377,6 +379,7 @@ a .user {
     margin-bottom: 10%;
     height: 75%;
     overflow: auto;
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 
 .user:hover {
