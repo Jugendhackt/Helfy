@@ -19,6 +19,10 @@
     color: navy;
 }
 
+#footer {
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
 html, body {
     overflow-x: hidden;
     height: 100%;

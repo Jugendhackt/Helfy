@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
-    <title>Helfy</title>
+    <title>Helfy - Eigene Fahrten</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <script src="js/session.js"></script> 
+    <script src="js/session.js"></script>
     <script src="js/navigation.js"></script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="img/Icons/apple-touch-icon.png">
@@ -21,100 +21,138 @@
 
 </head>
 
-<body onload="menu(); footer()">
-    <div class="container-float">
-        <div class="row" id="row">
-                <div id="mySidenav" class="sidenav" style="text-align: left;">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <div id="me"><a href="home.html">Home</a></div>
-                        <a href="einstellungen.html">Einstellungen</a>
-                        <a href="notification.html">Nachrichten</a>
-                        <a href="chat.html">Chats</a>
-                        <a href="gruppen.html">Gruppen</a>
-                        <a href="rides.html">Eigene Fahrten</a>
-                        <br />
-                      </div>
-        
-                      <div>
-        
-                            <div style="float: left; height:50px; width: 50px;" id="menu">
-                            <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
-                            </div>
-                    </div>
-            <h1 style="display: inline-block; margin: 15px;">Helfy</h1>
-        </div>
-        <br /><br /><br /><br />
-        
-        <center>
-            <table class="texttype" style="width: 90%; margin-left: 5%; margin-right: 95%;">
-            <tr><td><center>
-            Impressum:<hr style="color: darkgrey; border-color: darkgrey;">
-            <div class="handlung">
-              <p>Jakob Stolze<br />
-              Nussbaumweg 7<br />79713 Bad Säckingen</p>
-              <p>&</p>
-              <p>Achim Stumpp<br />
-              Justinger Weg 31<br />72535 Heroldstatt</p>
-              <br />
-              E-Mail: <a style="color: blue;">Noch nicht vorhanden</a><br />
-              </p>
-            <br><br /></div></td></tr>
-            <tr><td><center>
-            Rechtliche Hinweise:<hr style="color: darkgrey; border-color: darkgrey;">
-            <div class="handlung" style="text-align:left;">
-               <br><strong>Urheberrechtshinweise</strong><br>
-              Die auf dieser Website veröffentlichten Inhalte unterliegen dem deutschen Urheber- und Leistungsschutzrecht. Jede vom deutschen Urheber- und Leistungsschutzrecht nicht zugelassene Verwertung bedarf der vorherigen schriftlichen Zustimmung des Anbieters oder jeweiligen Rechteinhabers. Dies gilt insbesondere für Vervielfältigung, Bearbeitung, Übersetzung, Einspeicherung, Verarbeitung bzw. Wiedergabe von Inhalten in Datenbanken oder anderen elektronischen Medien und Systemen. Inhalte und Rechte Dritter sind dabei als solche gekennzeichnet. Die unerlaubte Vervielfältigung oder Weitergabe einzelner Inhalte oder kompletter Seiten ist nicht gestattet und strafbar. Lediglich die Herstellung von Kopien und Downloads für den persönlichen, privaten und nicht kommerziellen Gebrauch ist erlaubt.
-          
-              <br><br><strong>Haftungsausschluss</strong><br>
-              Alle auf diesen Internetseiten enthaltenen Artikel wurden nach bestem Wissen erstellt und mit größtmöglicher Sorgfalt überprüft. Dennoch sind Fehler nicht völlig auszuschließen. Daher erfolgen alle Angaben ohne jegliche Verpflichtung oder Garantie des Herausgebers. Er übernimmt deshalb keinerlei Haftung für etwa vorhandene inhaltliche Unrichtigkeiten. Dies gilt insbesondere für alle Verknüpfungen (Links) zu anderen Websites, auf die direkt oder indirekt verwiesen wird.
-              
-              <br><br><strong>Externe Links</strong><br>
-              Diese Website enthält Verknüpfungen zu Websites Dritter ("externe Links"). Diese Websites unterliegen der Haftung der jeweiligen Betreiber. Der Anbieter hat bei der erstmaligen Verknüpfung der externen Links die fremden Inhalte daraufhin überprüft, ob etwaige Rechtsverstöße bestehen. Zu dem Zeitpunkt waren keine Rechtsverstöße ersichtlich. Der Anbieter hat keinerlei Einfluss auf die aktuelle und zukünftige Gestaltung und auf die Inhalte der verknüpften Seiten. Das Setzen von externen Links bedeutet nicht, dass sich der Anbieter die hinter dem Verweis oder Link liegenden Inhalte zu Eigen macht. Eine ständige Kontrolle der externen Links ist für den Anbieter ohne konkrete Hinweise auf Rechtsverstöße nicht zumutbar. Bei Kenntnis von Rechtsverstößen werden jedoch derartige externe Links unverzüglich gelöscht.
-          
-          
-            <br><br><br><br></div></td></tr>
-            <tr><td><center>
-               Datenschutzerklärung:<hr style="color: darkgrey; border-color: darkgrey;">
-            <div class="handlung" style="text-align:left;">
-              <p><strong>Datenschutz</strong><br />Nachfolgend möchten wir Sie über unsere Datenschutzerklärung informieren. Sie finden hier Informationen über die Erhebung und Verwendung persönlicher Daten bei der Nutzung unserer Webseite. Wir beachten dabei das für Deutschland geltende Datenschutzrecht. Sie können diese Erklärung jederzeit auf unserer Webseite abrufen.
-              <br /><br />
-              Wir weisen ausdrücklich darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen und nicht lückenlos vor dem Zugriff durch Dritte geschützt werden kann.
-              <br /><br />
-              Die Verwendung der Kontaktdaten unseres Impressums zur gewerblichen Werbung ist ausdrücklich nicht erwünscht, es sei denn wir hatten zuvor unsere schriftliche Einwilligung erteilt oder es besteht bereits eine Geschäftsbeziehung. Der Anbieter und alle auf dieser Website genannten Personen widersprechen hiermit jeder kommerziellen Verwendung und Weitergabe ihrer Daten.
-              <br /><br />
-              <strong>Erhebung personenbezogener Daten bei Besuch unserer Webseite</strong>
-              <br />
-          
-          (1) Bei der bloß informatorischen Nutzung unserer Webseite, also wenn Sie sich nicht registrieren oder uns anderweitig Informationen übermitteln, erheben wir nur die personenbezogenen Daten, die Ihr Browser an unseren Server übermittelt (sog. „Server-Logfiles“). Wenn Sie unsere Webseite betrachten möchten, erheben wir die folgenden Daten, die für uns technisch erforderlich sind, um Ihnen unsere Webseite anzuzeigen und die Stabilität, Funktionalität und Sicherheit unserer Webseite zu gewährleisten:
-          
-          <ul>
-              <li>unsere besuchte Webseite</li>
-              <li>verwendete IP-Adresse (ggf. in anonymisierter Form)</li>
-              <li>Datum und Uhrzeit des Zugriffs</li>
-              <li>Zeitzonendifferenz zur Greenwich Mean Time (GMT)</li>
-              <li>Zugriffsstatus / HTTP-Statuscode</li>
-              <li>jeweils übertragene Datenmenge in Byte</li>
-              <li>Webseite, von welcher Sie auf die Seite gelangten (Quelle/Verweis)</li>
-              <li>verwendeter Browser</li>
-              <li>verwendetes Betriebssystem und dessen Oberfläche</li>
-              <li>Sprache und Version der Browsersoftware.</li>
-          </ul>
-          
-          (2) Rechtsgrundlage ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO. Eine Weitergabe oder anderweitige Verwendung der Daten findet nicht statt.
-          
-          
-            <br><br></div></td></tr>
-          </table>
-          </center>
-          
+<body onload="menu(); footer();">        
+        <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div id="me"><a href="home.html">Home</a></div>
+                <a href="einstellungen.html">Einstellungen</a>
+                <a href="notification.html">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
+                <a href="chat.html">Chats</a>
+                <a href="gruppen.html">Gruppen</a>
+                <a href="rides.html" style="color: white;">Eigene Fahrten</a>
+                <br />
+              </div>
 
-        <div id="footer">
-            <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
-            <p style="margin-top: 2%;">
-            <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="index.html#about">Über uns</a> | <a href="impressum.html">Impressum</a>
-            </p>
-            <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
-        </div>
+              <div>
+
+                    <div style="float: left; height:50px; width: 50px;" id="menu">
+                    <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+                    </div>
+            </div>
+
+    <div class="container-float" id="insertHere" style="min-height: 100%;">
+        <h1 class="header">
+            Helfy
+        </h1>
+
+    <div class="texttype" style="width: 80%; margin-left: 10%;">
+    <div style="margin-top: 5%; text-align: center;">
+    <strong><p>Impressum:</p></strong>
+    </div>
+
+    <hr style="color: darkgrey; border-color: darkgrey;">
+
+    <div style="text-align: center;">
+    <p>Jakob Stolze<br />
+    Nussbaumweg 7<br />
+    79713 Bad Säckingen</p> 
+    <p>&</p>
+    <p>Achim Stumpp<br />
+    Justinger Weg 31<br />
+    72535 Heroldstatt</p>
+    <br />
+    <p>E-Mail: <a style="color: blue;">Noch nicht vorhanden</a></p>
+    </div>
+    </div>
+    </div>
+
+    <div class="container-float" id="insertHere" style="min-height: 100%;">
+    <div class="texttype" style="width: 80%; margin-left: 10%;">
+    <div style="margin-top: 5%; text-align: center;">
+    <strong><p>Rechtliche Hinweise</p></strong>
+    </div>
+
+    <hr style="color: darkgrey; border-color: darkgrey;">
+
+    <div>
+    <strong><p>Urheberrechtshinweise</p></strong>
+    <p>Die auf dieser Website veröffentlichten Inhalte unterliegen dem deutschen Urheber- und Leistungsschutzrecht. Jede vom deutschen 
+    Urheber- und Leistungsschutzrecht nicht zugelassene Verwertung bedarf der vorherigen schriftlichen Zustimmung des Anbieters oder 
+    jeweiligen Rechteinhabers. Dies gilt insbesondere für Vervielfältigung, Bearbeitung, Übersetzung, Einspeicherung, Verarbeitung bzw.
+    Wiedergabe von Inhalten in Datenbanken oder anderen elektronischen Medien und Systemen. Inhalte und Rechte Dritter sind dabei als solche
+    gekennzeichnet. Die unerlaubte Vervielfältigung oder Weitergabe einzelner Inhalte oder kompletter Seiten ist nicht gestattet und strafbar.
+    Lediglich die Herstellung von Kopien und Downloads für den persönlichen, privaten und nicht kommerziellen Gebrauch ist erlaubt.</p>
+    <br />
+    <strong><p>Haftungsausschluss</p></strong>
+    <p>Alle auf diesen Internetseiten enthaltenen Artikel wurden nach bestem Wissen erstellt und mit größtmöglicher Sorgfalt überprüft.
+    Dennoch sind Fehler nicht völlig auszuschließen. Daher erfolgen alle Angaben ohne jegliche Verpflichtung oder Garantie des Herausgebers.
+    Er übernimmt deshalb keinerlei Haftung für etwa vorhandene inhaltliche Unrichtigkeiten. Dies gilt insbesondere für alle Verknüpfungen
+    (Links) zu anderen Websites, auf die direkt oder indirekt verwiesen wird.</p>
+    <br />
+    <strong><p>Externe Links</p></strong>
+    <p>Diese Website enthält Verknüpfungen zu Websites Dritter ("externe Links"). Diese Websites unterliegen der Haftung der jeweiligen
+    Betreiber. Der Anbieter hat bei der erstmaligen Verknüpfung der externen Links die fremden Inhalte daraufhin überprüft, ob etwaige
+    Rechtsverstöße bestehen. Zu dem Zeitpunkt waren keine Rechtsverstöße ersichtlich. Der Anbieter hat keinerlei Einfluss auf die aktuelle und
+    zukünftige Gestaltung und auf die Inhalte der verknüpften Seiten. Das Setzen von externen Links bedeutet nicht, dass sich der Anbieter die
+    hinter dem Verweis oder Link liegenden Inhalte zu Eigen macht. Eine ständige Kontrolle der externen Links ist für den Anbieter ohne
+    konkrete Hinweise auf Rechtsverstöße nicht zumutbar. Bei Kenntnis von Rechtsverstößen werden jedoch derartige externe Links unverzüglich
+    gelöscht.</p>
+    <br />
+    </div>
+    </div>
+    </div>
+
+    <div class="container-float" id="insertHere" style="min-height: 100%;">
+    <div class="texttype" style="width: 80%; margin-left: 10%;">
+    <div style="margin-top: 5%; text-align: center;">
+    <strong><p>Datenschutzerklärung</p></strong>
+    </div>
+
+    <hr style="color: darkgrey; border-color: darkgrey;">
+
+    <div>
+    <strong><p>Datenschutz</p></strong>
+    <p>Nachfolgend möchten wir Sie über unsere Datenschutzerklärung informieren. Sie finden hier Informationen über die Erhebung und
+    Verwendung persönlicher Daten bei der Nutzung unserer Webseite. Wir beachten dabei das für Deutschland geltende Datenschutzrecht. Sie
+    können diese Erklärung jederzeit auf unserer Webseite abrufen. </p>
+    <p>Wir weisen ausdrücklich darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken
+    aufweisen und nicht lückenlos vor dem Zugriff durch Dritte geschützt werden kann. </p>
+    <p>Die Verwendung der Kontaktdaten unseres Impressums zur gewerblichen Werbung ist ausdrücklich nicht erwünscht, es sei denn wir hatten
+    zuvor unsere schriftlich Einwilligung erteilt oder es besteht bereits eine Geschäftsbeziehung. Der Anbieter und alle auf dieser Website
+    genannten Personen widersprechen hiermit jeder kommerziellen Verwendung und Weitergabe ihrer Daten. </p>
+    <br />
+    <strong><p>Erhebung personenbezogener Daten bei Besuch unserer Webseite</p></strong>
+    <p>(1) Bei der bloß informatorischen Nutzung unserer Webseite, also wenn Sie sich nicht registrieren oder uns anderweitig Informationen
+    übermitteln, erheben wir nur die personenbezogenen Daten, die Ihr Browser an unseren Server übermittelt (sog. „Server-Logfiles“). Wenn Sie
+    unsere Webseite betrachten möchten, erheben wir die folgenden Daten, die für uns technisch erforderlich sind, um Ihnen unsere Webseite
+    anzuzeigen und die Stabilität, Funktionalität und Sicherheit unserer Webseite zu gewährleisten: </p>
+    <ul>
+      <li>unsere besuchte Webseite</li>
+      <li>verwendete IP-Adresse (ggf. in anonymisierter Form)</li>
+      <li>Datum und Uhrzeit des Zugriffs</li>
+      <li>Zeitzonendifferenz zur Greenwich Mean Time (GMT)</li>
+      <li>Zugriffsstatus / HTTP-Statuscode</li>
+      <li>jeweils übertragene Datenmenge in Byte</li>
+      <li>Webseite, von welcher Sie auf die Seite gelangten (Quelle/Verweis)</li>
+      <li>verwendeter Browser</li>
+      <li>verwendetes Betriebssystem und dessen Oberfläche</li>
+      <li>Sprache und Version der Browsersoftware.</li>
+    </ul>
+    <p>(2) Rechtsgrundlage ist Art. 6 Abs. 1 S. 1 lit. f DS-GVO. Eine Weitergabe oder anderweitige Verwendung der Daten findet nicht statt.</p>
+    <br />
+    </div>
+    </div>
+    </div>
+    
+    <div id="footer">
+        <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+        <p style="margin-top: 2%;">
+        <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="index.html#about">Über uns</a> |
+        <a href="impressum.html">Impressum</a>
+        </p>
+        <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div>
+        Achim Stumpp, Jakob Stolze</div>
+    </div>
 
 </body>
 
