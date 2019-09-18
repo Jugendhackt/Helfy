@@ -458,7 +458,7 @@ a .user {
 }
 
 #indeximg {
-    background-image: url(/home/jugendhackt2018/Dokumente/Helfy_Icon/Icon-H.svg);
+    background-image: url(img/Icon-H.svg);
     background-repeat: no-repeat;
     background-position: center center;
     animation: fadein 1s;
