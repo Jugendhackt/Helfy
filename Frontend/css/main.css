@@ -457,20 +457,6 @@ a .user {
     }
 }
 
-#indeximg {
-    background-image: url(img/Icon-H.svg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    animation: fadein 1s;
-    -moz-animation: fadein 1s; /* Firefox */
-    -webkit-animation: fadein 1s; /* Safari and Chrome */
-    -o-animation: fadein 1s; /* Opera */
-    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-    min-height: 80%; 
-    min-width: device-width; 
-    background-color: black;
-}
-
 #indexheader{
     left: 0;
     top: 0;
