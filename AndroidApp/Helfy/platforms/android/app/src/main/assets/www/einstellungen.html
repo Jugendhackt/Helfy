@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy - Einstellungen</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/session.js"></script>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/Icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/Icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/Icons/favicon-16x16.png">
+    <link rel="manifest" href="img/Icons/site.webmanifest">
+    <link rel="mask-icon" href="img/Icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body onload="menu(); footer();">
+    <div id="normal">
+        <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div id="me"><a href="home.html">Home</a></div>
+                <a href="#" id="here" style="color: white;">Einstellungen</a>
+                <a href="notification.html">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
+                <a href="chat.html">Chats</a>
+                <a href="gruppen.html">Gruppen</a>
+                <a href="rides.html">Eigene Fahrten</a>
+                <br />
+              </div>
+
+              <div>
+                    <div style="float: left; height:50px; width: 50px;" id="menu">
+                    <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+                    </div>
+            </div>
+
+    <script type="text/javascript">
+    /*function username() {
+    var username = getCookie("username");
+    document.getElementById("username").innerHTML = "<h3 style='color: blue; text-align: center;' id='h3username'>@" + username + "</h3>";    
+    }*/
+
+    function vorschlag(){
+        usernameVorschlag();
+    }
+    </script>
+
+    <div class="container-float" style="min-height: 90%;">
+        <h1 class="header">Helfy</h1>
+
+        <br />
+
+
+        <div id="formular1" class="formular">
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#usernameEdit" aria-expanded="false" aria-controls="usernameEdit">
+                    Benutzername
+                </button>
+            </p>
+            <div class="collapse" id="usernameEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
+
+                    <input name="username" type="text" class="form-control" id="usernameInp" placeholder="Neuer Benutzername" value="" style="max-width: 250px; margin: auto;">
+                    <p id="no-username" style="text-align: center; color: red; display: none;">Bitte geben Sie einen neuen Benutzername an!</p>
+                    <div id="cusername" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                        <button class="btn-success btn" onclick="changeUsername();">Speichern</button>
+                        <button class="btn-outline-info btn" onclick="vorschlag()">Vorschlag</button>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#passwordEdit" aria-expanded="false" aria-controls="passwordEdit">
+                    Passwort
+                </button>
+            </p>
+            <div class="collapse" id="passwordEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
+    
+                        <div class="form-group" style="max-width: 250px; margin: auto;">
+                                <input name="oldpsswd" type="password" class="form-control" id="oldpsswd" placeholder="Altes Passwort" value=""><div style="padding: 4px;"></div>
+                                <input name="changepsswd1" type="password" class="form-control" id="changepsswd1" placeholder="Neues Passwort" value=""><div style="padding: 4px;"></div>
+                                <input name="changepsswd2" type="password" class="form-control" id="changepsswd2" placeholder="Passwort wiederholen" value="">
+                            </div>
+                            <p id="no-password" style="color: red; text-align: center; display: none;">Bitte geben Sie ein neues Passwort an!</p>
+                            <p id="w-passwd-repeat" style="color: red; text-align: center; display: none">Die Passwörter stimmen nicht überein!</p>
+                            <p id="pwdFeedback" style="color: green; text-align: center; padding-top: 10px; display: none;"></p>
+                            <div id="cpassword" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                                <button class="btn-success btn" onclick="changePassword();" style="display: block; margin: 0 auto;">Speichern</button>
+                            </div>
+                </div>
+            </div>
+            
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#emailEdit" aria-expanded="false" aria-controls="emailEdit">
+                    Email-Adresse
+                </button>
+            </p>
+            <div class="collapse" id="emailEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
+                    <input name="changeemail" type="text" class="form-control" id="changeemailInp" placeholder="Neue Email-Adresse" value="" style="max-width: 250px; margin: auto;">
+                    <br><p id="safety-note" style="color: red; padding: 10px 10px;">Nachdem Sie ihre E-Mail Adresse geändert haben, werden Sie automatisch abgemeldet. Wir werden Ihnen dann einen Link senden, mit welchem Sie ihre E-Mail Adresse bestätigen müssen, bevor Sie ihren Account wieder nutzen können.</p>
+                    <p id="no-email" style="color: red; text-align: center; display: none;">Bitte geben sie eine gültige E-Mail an!</p>
+                    <div id="cemail" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                        <button class="btn-success btn" onclick="changeEmail();" style="display: block; margin: 0 auto;">Speichern</button>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#profileEdit" aria-expanded="false" aria-controls="profileEdit">
+                    Benutzer-Profil
+                </button>
+            </p>
+            <div class="collapse" id="profileEdit">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200); margin-bottom: 15px;">
+                    <p style="margin-bottom: 0px;">In deinem Benutzer-Profil wird dein echter Name angezeigt. Öffentliche Profile kann jeder ansehen. Wenn dein Profil privat ist, können nur Mitglieder deiner Gruppen dein Profil sehen. Du kannst dein öffentliches Profil jedoch auch komplett deaktivieren.</p>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-dark btn-sm" id="la0">
+                            <input type="radio" name="options" id="option0" autocomplete="off" onchange="changeProfileSettings()"> Öffentlich
+                        </label>
+                        <label class="btn btn-outline-dark btn-sm active" id="la1">
+                            <input type="radio" name="options" id="option1" autocomplete="off" onchange="changeProfileSettings()" checked> Privat
+                        </label>
+                        <label class="btn btn-outline-dark btn-sm" id="la2">
+                            <input type="radio" name="options" id="option2" autocomplete="off" onchange="changeProfileSettings()"> Deaktiviert
+                        </label>
+                    </div>
+
+                    <p style="margin-bottom: 0px;"><br>Soll deine Email-Adresse in deinem Profil angezeigt werden?</p>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-dark btn-sm" id="lb0">
+                            <input type="radio" name="optionsB" id="optionB0" autocomplete="off" onchange="changeProfileSettings()"> Ja
+                        </label>
+                        <label class="btn btn-outline-dark btn-sm active" id="lb1">
+                            <input type="radio" name="optionsB" id="optionB1" autocomplete="off" onchange="changeProfileSettings()" checked> Nein
+                        </label>
+                    </div>
+
+                    
+                </div>
+            </div>
+
+            <p>
+                <button class="collapseTitle" type="button" data-toggle="collapse" data-target="#delete" aria-expanded="false" aria-controls="delete">
+                    Account löschen
+                </button>
+            </p>
+            <div class="collapse" id="delete">
+                <div class="card card-body" style="background-color: rgb(200, 200, 200);">
+                    <br><p>Wenn Sie Ihren Account löschen, können Sie nicht mehr die Dienste von Helfy nutzen! Wir werden alle ihre Daten löschen, der Account kann danach nicht wiederhergestellt werden.<br>Nachrichten sowie Fahrtangebote, die Sie über Helfy versendet haben werden nicht mehr für andere Nutzer sichtbar sein.<br>Das Löschen kann einige Minuten dauern.</p><p id="safety-note-b" style="color: red; padding: 10px 10px;">Diese Aktion kann nicht rückgängig gemacht werden!</p>
+                    <p style="color: red; text-align: center; display: none;">Bitte geben sie eine gültige E-Mail an!</p>
+                    <input type="password" class="form-control" id="pwddel" placeholder="Passwort" value="" style="max-width: 250px; margin: auto;">
+                    <div id="cemail" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                        <button class="btn-danger btn" onclick="deleteHelfyAccount();" style="display: block; margin: 0 auto;">Account löschen</button>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <div id="footer">
+        <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+        <p style="margin-top: 15px; margin-bottom: 7px;">
+          <a href="login.html" id="loginLink">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a
+            href="index.html#about">Über uns</a> | <a href="impressum.html">Impressum</a>
+        </p>
+        <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear"
+            style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+      </div>
+
+    <script src="js/navigation.js"></script>
+    <script>
+    if(getCookie("username") == ""){
+        settingsInvalidSession();
+    } else {
+        setupSettings();   
+    }
+    </script>
+    </div>
+    <div id="deletedAcc" hidden>
+        <p style="max-width: 500px; width: 90%; margin: 5px; padding: 5px;">Ihr Account wurde erfolgreich gelöscht!</p>
+    </div>
+</body>
+
+</html>

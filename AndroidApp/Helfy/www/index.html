@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy</title>
+
+    <script src="js/session.js"></script>
+    <script src="js/navigation.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/Icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/Icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/Icons/favicon-16x16.png">
+    <link rel="manifest" href="img/Icons/site.webmanifest">
+    <link rel="mask-icon" href="img/Icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body onload="footer(); menu();">        
+        <div id="mySidenav" class="sidenav" style="z-index: 9999;">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div id="me"><a href="home.html">Home</a></div>
+                <a href="einstellungen.html">Einstellungen</a>
+                <a href="notification.html">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
+                <a href="chat.html">Chats</a>
+                <a href="gruppen.html">Gruppen</a>
+                <a href="rides.html">Eigene Fahrten</a>
+                <br />
+              </div>
+    
+    <div style="background-color:rgba(0, 0, 0, 1); height: 10%;"></div>     
+    
+    <div id="indexheader">
+
+        <div>
+            <div style="float: left; height:50px; width: 50px;" id="menu">
+            <img src="img/Menu-weiß.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+            </div>
+        </div>
+
+    <h1 id="H-index">Helfy</h1>
+    <a class="btn btn-dark" href="login.html" role="button" style="background-color: blue; float: right; margin-top: 5px; margin-right: 10px;">Log In</a>
+    </div>
+
+    <div id="indeximg"></div>
+    <div id="about" class="texttype" style="background-color:rgba(0, 0, 0, 1); height: auto; min-height: 10%;">
+        <h4 style="bottom: 0; text-align: center; color: darkorange; padding-top: 1.5%; padding-bottom: 3%">Noch nicht angemeldet? Jetzt <a style="text-decoration: underline; color: darkorange;" href="registration.html">registrieren</a>!</h4>
+    </div>    
+
+    <div class="texttype" style="min-height: 95%; background-color:white; width: 80%; margin-left: 10%; margin-top: 2.5%; margin-bottom: 2.5%; box-shadow: 5px 5px 5px silver, -5px -5px 5px silver; padding-top: 3%; padding-left: 5%; padding-right: 5%;">
+    <h1 style="text-align: center;">Was ist Helfy ?</h1>
+    <br />
+    <h4>Helfy ist eine Plattform zur Mitfahrervermittlung und Nachbarschaftshilfe.</h4>
+    <h4>Die Idee dahinter ist, dass Personen die keine Möglichkeit haben in den nächsten Ort oder in die nächste Stadt zu kommen einen Eintrag bei Helfy verfassen, in dem festgehalten wird zu welcher Uhrzeit und wann man in einem bestimmten Ort sein will und wo man abgeholt werden will.
+    Personen die nun sowieso mit dem Auto unterwegs sind können nun bei Helfy schauen, ob jemand von dem eigenen Ort oder der eigenen Stadt bzw. in einem Ort oder einer Stadt die auf dem Weg liegt auch zu dem Zielort will, zu dem die Person untwegs ist.</h4>
+    <h4>Falls in dem Moment ein passender Eintrag bei Helfy notiert ist, können über eine Chatfunktion wenn nötig noch Einzelheiten geklärt werden und schon hat die Person, die eigentlich keine Möglichkeit gehabt hätte zu ihrem Zielort zu kommen, nun doch eine Möglichkeit dazu.</h4>
+    <h4>Gerade in ländlichen Gegenden gibt es oft das Problem das jüngere Leute oder ältere Leute nicht von einem Ort in den anderen Ort kommen, da die Anbindung an die Öffentlichen Verkehrsmittel oft sehr schlecht sind und kein Auto oder Ähnliches zur Verfügung steht. Unser Ziel ist es gegen genau dieses Problem vorzugehen! Und ganz nebenbei tut man mit der Nutzung von Helfy auch noch der Umwelt etwas zugute in dem nicht jeder allein mit seinem eigenen Auto fährt sondern mithilfe von Helfy Fahrgemeinschaften entstehen und so die CO₂ Belastung reduziert wird. Dadurch eignet sich das ganze auch hervorragend für die Stadt.</h4>  
+    <br />
+    </div>
+
+    <br />
+    <div class="texttype" style="min-height: 95%; background-color:white; width: 80%; margin-left: 10%; margin-top: 2.5%; margin-bottom: 2.5%; box-shadow: 5px 5px 5px silver, -5px -5px 5px silver; padding-top: 3%; padding-left: 5%; padding-right: 5%;">
+    <h1 style="text-align: center;">Über die Entwickler:</h1>
+    <h4>Wir sind zwei Schüler, 15 und 17 Jahre alt, die sich 2017 bei Jugendhackt kennengelernt haben. 2018 entstand dann ebenfalls bei Jugendhackt unsere Idee von Helfy und da wir der Meinung waren, dass Helfy nicht nur ein kleines Projekt bleiben sollte, sondern den Menschen helfen soll, haben wir Helfy auch nach dem Wochenende in unserer Freizeit neben der Schule weiterentwickelt.</h4>
+    <h4>Jugendhackt, bei dem die Idee von Helfy entstanden ist, ist ein 3-tägiger Hackathon bei dem sich Jugendliche zwischen 12 und 18 Jahren zum Programmieren und Tüfteln treffen und sich gemeinsam unter dem Motto "Mit Code die Welt verbessern" Projekte überlegen mit denen man Probleme die es auf der Welt gibt oder die man selbst hat lösen kann.</h4>
+    <h4>Helfy ist komplett kostenlos und wir sind immer offen für neue Ideen die in Helfy implementiert werden können. Diese können uns gerne über die Chatfunktion an <a href="chat.html?p=support.helfy">@support.helfy</a> mitgeteilt werden und natürlich sind wir auch offen für Kritik die ebenfalls an <a href="chat.html?p=support.helfy">@support.helfy</a> geschrieben werden kann.</h4>
+    <br />
+    <h4>Du möchtest unser Projekt unterstützen?</h4>
+    <h4>Spende uns jetzt per PayPal an <a href="#">xyz@online.de</a>, damit wir die Kosten die für den Server, auf dem unsere Plattform gehostet ist, anfallen bezahlen können oder unterstütze uns einfach durch neue Ideen mit denen wir Helfy verbessern können!</h4>
+    <br />
+    </div>
+    
+
+<div id="footer">
+    <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+    <p style="margin-top: 15px; margin-bottom: 7px;">
+    <a href="login.html" id="loginLink">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="index.html#about">Über uns</a> | <a href="impressum.html">Impressum</a>
+    </p>
+    <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+</div>
+</body>
+
+</html>

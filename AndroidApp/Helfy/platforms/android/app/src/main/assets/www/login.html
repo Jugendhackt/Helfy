@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy - Log In</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/Icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/Icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/Icons/favicon-16x16.png">
+    <link rel="manifest" href="img/Icons/site.webmanifest">
+    <link rel="mask-icon" href="img/Icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body onload="alreadyLoggedIn(); footer();">
+    <div class="container-float">
+        <h1 class="header">
+            Helfy - Login
+        </h1>
+
+        <br />
+
+        <div id="formular">
+
+            <form>
+                <div class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
+                    <input name="username" type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Benutzername">
+                </div>
+                <div class="form-group"  style="max-width: 250px; margin: auto; padding: 10px 0px;">
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Passwort">
+                </div>
+                <p id="errorline" style="color: red; font-size: 13px; text-align: center;"></p>
+                <button type="button" class="btn btn-dark" style="display: block; margin: 0 auto;" onclick="loginAction()">Anmelden!</button>
+                <input type="hidden" name="request" value="login"></input>
+            </form>
+
+            <br />
+
+            <div id="ny-mobile">
+                <p style="margin-bottom: 1%; text-align: center;">Noch nicht angemeldet?</p>
+                <p id="list" style="text-align: center;">Jetzt <a href="registration.html">registrieren</a>!</p>
+            </div>
+            
+            <div id="ny">
+                <p id="list" style="margin-bottom: 1%; text-align: center;">Noch nicht angemeldet? Jetzt <a href="registration.html">registrieren</a>!</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="footer">
+        <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+        <p style="margin-top: 2%;">
+        <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="index.html#about">Über uns</a> | <a href="impressum.html">Impressum</a>
+        </p>
+        <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+    </div>
+
+    <script src="js/server.js"></script>
+    <script src="js/session.js"></script>
+    <script>
+        var input = document.getElementById("password");
+        input.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            if(document.getElementById("username").value != ""){
+                loginAction();
+            }
+        }
+        });
+    </script>
+</body>
+
+</html>

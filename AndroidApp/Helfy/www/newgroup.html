@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy - Gruppe erstellen</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script language="javascript" type="text/javascript" src="js/session.js"></script> 
+    <script language="javascript" type="text/javascript" src="js/groups.js"></script>
+    <script src="js/navigation.js"></script> 
+    <script>var tnum = 1; var rnum = 1;</script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/Icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/Icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/Icons/favicon-16x16.png">
+    <link rel="manifest" href="img/Icons/site.webmanifest">
+    <link rel="mask-icon" href="img/Icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body onload="menu(); footer();">
+
+
+        <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div id="me"><a href="home.html">Home</a></div>
+                <a href="einstellungen.html">Einstellungen</a>
+                <a href="notification.html">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
+                <a href="chat.html">Chats</a>
+                <a href="gruppen.html">Gruppen</a>
+                <a href="rides.html">Eigene Fahrten</a>
+                <br />
+              </div>
+
+              <div>
+
+                    <div style="float: left; height:50px; width: 50px;" id="menu">
+                    <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+                    </div>
+            </div>
+
+    <div class="container-float">
+        <h1 class="header">
+            Helfy - Gruppe erstellen
+        </h1>
+
+
+
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+
+<div id="formular">
+    <form id="teilnehmer">
+        <div class="form-row">
+            <label for="groupname">Gruppenname</label>
+            <div class="input-group" style="display: inline-block;">
+                <div class="input-group-prepend">
+                    <input name="groupname" type="text" class="form-control" id="groupname" placeholder="Gruppenname" required>
+                </div>
+            </div>  
+        </div>
+        <br>
+        <div class="form-row">
+            <label for="description">Beschreibung</label>
+            <div class="input-group" style="display: inline-block;">
+                <div class="input-group-prepend">
+                    <input name="description" type="text" class="form-control" id="description" placeholder="Beschreibung" required>
+                </div>
+            </div>  
+        </div>
+        <br /><br />
+        <div class="form-row" id="teilnehmer1" style="margin-bottom: 3%;">
+                <label for="validationUsername1">Teilnehmer 1</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationUsername1" placeholder="Benutzername" aria-describedby="inputGroupPrepend"  name="username" required>
+                    <img id="remove1" src="img/remove.svg" style="width: 5%; display: none; float: right; margin-left: 1%;" onclick="removeLast()"></img>
+                    <p id="usernameret" style="padding: 10px; font-size: 13px;"></p>
+                </div>
+        </div>
+    </form>
+    <br>
+    <div style="margin: auto;">
+        <img id="add" src="img/add.svg" style="width: 35px; margin-left: 45%;" onclick="insertInputField()"></img><img id="remove" src="img/remove.svg" style="width: 35px; display: none; float: right; margin: 5%;" onclick="removeLast()"></img>
+    </div>
+    <br><br><p id="errorline"></p><br>
+    <div style="padding-right: 33%;" id="ndesktop">
+        <button type="button" class="btn btn-danger" style="margin-left: 1%; display:  inline-block;" onclick="window.location.href = 'home.html'">Abbrechen</button>
+        <button type="button" class="btn btn-dark" style="float: right; display: none;" id="addgroup" onclick="newGroup(tnum)">Gruppe erstellen</button>
+    </div>
+
+    <div style="width: 100%; height: 90px;" id="nmobile">
+        <button type="button" class="btn btn-danger" style="margin-left: 1%; margin-top: 9.5%; float: left;" onclick="window.location.href = 'home.html'">Abbrechen</button>
+        <br />
+        <button type="button" class="btn btn-dark" style="float: right; display: none;" id="addgroup" onclick="newGroup(tnum)">Gruppe erstellen</button>
+    </div>
+</div>
+</div>
+<br />
+
+<div id="footer">
+    <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+    <p style="margin-top: 15px; margin-bottom: 7px;">
+    <a href="login.html" id="loginLink">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="index.html#about">Über uns</a> | <a href="impressum.html">Impressum</a>
+    </p>
+    <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+</div>
+</body>
+<script>
+var tself = document.getElementById("validationUsername1");
+if(getCookie("username") != ""){ // Falls ein Cookie mit dem Benutzername gesetzt ist
+    tself.value = getCookie("username"); // Setze Teilnehmer 1 auf den Benutzernamen
+    tself.disabled = true; // und deaktiviere das Feld (kann nicht mehr bearbeitet werden)
+}
+
+function insertInputField(){
+    var tnf = document.getElementById("teilnehmer"); // Formular in welches die Felder eingefügt werden sollen
+    var idv = document.createElement("div"); // Neues Feld (div)
+    var tenum = document.getElementById("teilnehmer" + tnum);  
+    tenum.style.marginBottom = "3%"; //Abstand zum nächsten div
+    rnum++;
+    tnum++;
+    idv.setAttribute("class", "form-row"); // Attribute setzten etc
+    idv.setAttribute("id", "teilnehmer" + tnum);
+    idv.innerHTML = '<label for="validationUsername' + tnum + '">Teilnehmer ' + tnum + '</label>' + 
+    '<div class="input-group">' +
+    '<div class="input-group-prepend">' +
+    '<span class="input-group-text" id="inputGroupPrepend">@</span>' +
+    '</div>' +
+    '<input type="text" class="form-control" id="validationUsername' + tnum + '" placeholder="Benutzername" aria-describedby="inputGroupPrepend"  name="username" required>' +
+    '<img id="remove' + rnum + '" src="img/remove.svg" style="width: 5%; display: none; float: right; margin-left: 1%;" onclick="removeLast()"></img>'
+    '<p id="usernameret" style="padding: 10px; font-size: 13px;"></p>' +
+    '</div>';
+    tnf.appendChild(idv); // Dem Formular hinzufügen
+    var element = document.getElementById("remove" + rnum); // Der entfernen-button...
+    element.style.display = ""; // ...wird sichtbar gemacht
+    var hide = rnum - 1;
+    document.getElementById("remove" + hide).style.display = "none"; //vorheriger hide button wird versteckt
+
+    document.getElementById("addgroup").style.display = "";
+}
+
+function removeLast(){
+    var element = document.getElementById("teilnehmer" + tnum); // Das div welches entfernt werden soll
+    element.parentNode.removeChild(element);
+    rnum--;
+    document.getElementById("remove" + rnum).style.display = ""; //vorheriger hide button wird wieder angezeigt
+    tnum--;
+    if(tnum == 1){ // Falls nur noch ein Teilnehmer-Feld da ist
+        element = document.getElementById("remove1");
+        element.style.display = "none"; // verstecke den remove button
+        document.getElementById("addgroup").style.display = "none";
+    }
+}
+</script>
+
+
+</html>

@@ -1,0 +1,533 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container-float {
+    min-height: 90%;
+}
+
+.btn {
+    margin: 5px;
+}
+
+#footer a:link {
+    color: navy;
+}
+
+#footer a:visited {
+    color: navy;
+}
+
+#footer {
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+html, body {
+    overflow-x: hidden;
+    height: 100%;
+    position: relative;
+    font-family: "Noto Sans";
+}
+
+.header {
+    color: black;
+    background: darkorange;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+}
+
+
+#row {
+    width: 100%;
+    background-color: darkorange;
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    
+}
+
+
+#alleFahren {
+    padding: 10px;
+}
+
+.addFahrten {
+    margin-bottom: 25px;
+}
+
+#search-box {
+    margin-left: 15%;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+#search-box * {
+    display: inline;
+}
+
+#search-box img {
+    cursor: pointer;
+}
+
+#search-box1 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box1 * {
+    display: inline;
+}
+
+#search-box1 img {
+    cursor: pointer;
+}
+
+#search-box2 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box2 * {
+    display: inline;
+}
+
+#search-box2 img {
+    cursor: pointer;
+    
+}
+
+#search-box3 {
+    display: inline;
+    white-space: nowrap;
+}
+
+#search-box3 * {
+    display: inline;
+}
+
+#search-box3 img {
+    cursor: pointer;
+    
+}
+
+#footer {
+    text-align: center;
+    height: 5%;
+}
+
+#frage {
+    margin: 30px;
+    margin-right: 0;
+}
+
+.fahrten {
+    margin-bottom: 20px;
+}
+
+.fahrten h2 {
+    margin-left: 10px;
+}
+
+.hr {
+    background-color: dimgrey;
+}
+
+#formular {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 10px;
+    margin-right: 5%;
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+.formular {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 10px;
+    margin-right: 5%;
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+#formular1 {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 10px;
+    margin-right: 5%;
+}
+
+#formular2 {
+    background-color: lightgrey;
+    margin: 10px;
+    box-shadow: 4px 4px 2px -2px gray;
+    padding: 10px;
+}
+
+@media (min-width: 450px) {
+    #formular {
+        background-color: lightgrey;
+        margin: 10px;
+        box-shadow: 4px 4px 2px -2px gray;
+        padding: 12px;
+        width: 40%;
+        margin-left: 30%;
+    }
+
+    .formular {
+        background-color: lightgrey;
+        margin: 10px;
+        box-shadow: 4px 4px 2px -2px gray;
+        padding: 12px;
+        width: 40%;
+        margin-left: 30%;
+    }
+
+    #formular1 {
+        background-color: lightgrey;
+        margin: 10px;
+        box-shadow: 4px 4px 2px -2px gray;
+        padding: 12px;
+        width: 40%;
+        margin-left: 30%;
+        display: inline-block;
+    }
+
+    #formular2 {
+        background-color: lightgrey;
+        margin: 10px;
+        box-shadow: 4px 4px 2px -2px gray;
+        padding: 12px;
+        width: 40%;
+        margin-left: 30%;
+    }
+
+    #mobile {
+        display: none;
+        margin-left: 50%;
+        width: 100%;
+    }
+
+    #nmobile {
+        display: none;
+    }
+
+    #ny-mobile{
+        display: none;
+    }
+  }
+
+  @media (max-width: 450px) {
+      #desktop {
+          display: none;
+          width: 100%;
+      }
+
+      #ndesktop {
+          display: none;
+      }
+
+      #ny{
+          display: none;
+      }
+  }
+
+#loginbutton {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#menua {
+    margin-top: 40px;
+    margin-left: 10px;
+}
+
+#list a:link {
+    color: navy;
+}
+
+#list a:visited {
+    color: navy;
+}
+
+/*#list {
+    text-align: center;
+}*/
+
+#location {
+    margin: 15px;
+    display: inline;
+    white-space: nowrap;
+}
+
+#location * {
+    display: inline;
+}
+
+#location img {
+    cursor: pointer;
+}
+
+#gesucht {
+    margin-left: 10px;
+}
+
+#searchicon {
+    margin-left: 10px;
+}
+
+#hrfooter {
+    margin: 10px; 
+    border-radius: 20px;
+}
+
+#frage2 {
+    float: left;
+    margin-right: 10px; 
+    margin-left: 10px;
+}
+
+#header {
+    text-align: center;
+    background-color: darkorange; 
+    height: 100px;
+}
+
+#headertext {
+    margin-top: 25px; 
+    display: inline-block;
+}
+
+a .user {
+    text-decoration: none;
+    color: blue;
+}
+
+#auswahl {
+    margin-left: 90%;
+    margin-top: 0;
+    display: inline-block;
+}
+
+#groupname {
+    width: 100%;
+}
+
+.form-control {
+    width: 100%;
+}
+
+#usernameret {
+    margin: 0;
+    padding: 0;
+    display: none;
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; 
+    width: 0; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    background-color: #111; 
+    overflow-x: hidden;
+    padding-top: 60px; 
+    transition: 0.5s; 
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+#here {
+    color: #f1f1f1;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#me {
+    margin-bottom: 10%;
+}
+
+.btn-green{background-color:lightgreen;color: black;}
+.btn-green:hover{background-color: green;}
+
+.notifyBox{
+    padding-top: 0.5%;
+    width: 100%;
+    margin-bottom: 10%;
+    height: 75%;
+    overflow: auto;
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+.user:hover {
+    text-decoration: none;
+}
+
+.badge1 {
+    position:relative;
+}
+.badge1[data-badge]:after {
+    content:attr(data-badge);
+    font-size:.7em;
+    padding: 5px;
+    background:green;
+    color:white;
+    text-align:center;
+    line-height:10px;
+    border-radius:50%;
+    box-shadow:0 0 1px #333;
+    margin-left: 10px;
+}
+
+/* Style the tab buttons */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tablink:hover {
+    background-color: #777;
+  }
+  
+  /* Set default styles for tab content */
+  .tabcontent {
+    color: black;
+    background: rgb(200, 200, 200);
+    display: none;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
+    min-height: 100px;
+  }
+
+  .collapseTitle {
+      padding: 10px 20px;
+      width: 100%;
+      border: 1px solid black;
+      border-radius: 15px;
+      color: black;
+      background-color: white;
+  }
+
+  .collapseTitle:hover {
+      background-color: rgb(200, 200, 200);
+  }
+
+  @media (max-width: 450px) {
+    #sm {
+        font-size: 85%;
+        padding: 0;
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+}
+
+#indeximg {
+    background-image: url(../img/Icon-H.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    animation: fadein 1s;
+    -moz-animation: fadein 1s; /* Firefox */
+    -webkit-animation: fadein 1s; /* Safari and Chrome */
+    -o-animation: fadein 1s; /* Opera */
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    min-height: 80%;
+    min-width: device-width;
+    background-color: black;
+}
+
+#indexheader{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    background-color:rgba(0, 0, 0);
+    z-index: 999;
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.texttype {
+    font-family: "SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+#H-index {
+    margin-left: 40%; 
+    margin-top: 1%; 
+    color: darkorange; 
+    display: inline-block; 
+    font-family: inherit;
+}
+
+@media (max-width: 450px) {
+    #H-index{
+    margin-left: 20%;
+    }
+}

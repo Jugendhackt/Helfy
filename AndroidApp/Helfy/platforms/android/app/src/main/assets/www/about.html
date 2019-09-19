@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+    <title>Helfy</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/session.js"></script> 
+    <script src="js/navigation.js"></script>
+
+<link rel="apple-touch-icon" sizes="180x180" href="img/Icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/Icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/Icons/favicon-16x16.png">
+<link rel="manifest" href="img/Icons/site.webmanifest">
+<link rel="mask-icon" href="img/Icons/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body onload="menu(); footer()">
+    <div class="container-float">
+        <div class="row" id="row">
+                <div id="mySidenav" class="sidenav" style="text-align: left;">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <div id="me"><a href="home.html">Home</a></div>
+                        <a href="einstellungen.html">Einstellungen</a>
+                        <a href="notification.html">Nachrichten</a>
+                        <a href="chat.html">Chats</a>
+                        <a href="gruppen.html">Gruppen</a>
+                        <a href="rides.html">Eigene Fahrten</a>
+                        <br />
+                      </div>
+        
+                      <div>
+        
+                            <div style="float: left; height:50px; width: 50px;" id="menu">
+                            <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+                            </div>
+                    </div>
+            <h1 style="display: inline-block; margin: 15px;">Helfy</h1>
+        </div>
+        <br /><br /><br />
+        <p style="text-align: center;">Über Helfy:</p>
+        <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+        <p style="text-align: center;">Helfy ist eine Plattform zur Mitfahrervermittlung und Nachbarschaftshilfe.</p>
+        <br /><br />
+        <p style="text-align: center;">Über die Entwickler:</p>
+        <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+    </div>
+
+        <div id="footer">
+            <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+            <p style="margin-top: 2%;">
+            <a href="login.html">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a href="index.html#about">Über uns</a> | <a href="impressum.html">Impressum</a>
+            </p>
+            <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear" style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+        </div>
+
+</body>
+
+</html>

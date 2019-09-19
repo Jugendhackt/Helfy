@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
+  <title>Helfy - Chat</title>
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="img/Icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/Icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/Icons/favicon-16x16.png">
+  <link rel="manifest" href="img/Icons/site.webmanifest">
+  <link rel="mask-icon" href="img/Icons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<style>
+  .dropinput {
+    padding: 7px 10px;
+  }
+
+  .dropcontent {
+    max-height: 150px;
+    overflow-y: scroll;
+    max-width: 300px;
+    width: 90%;
+  }
+
+  .dropelement {
+    border: 1px solid grey;
+    padding: 5px 15px;
+    background: white;
+  }
+
+  .dropelement:hover {
+    background: rgb(200, 200, 200);
+  }
+</style>
+
+<body onload="menu(); footer();">
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="me"><a href="home.html">Home</a></div>
+    <a href="einstellungen.html">Einstellungen</a>
+    <a href="notification.html">Nachrichten <span class="badge badge-pill badge-primary" id="notifyBadge"></span></a>
+    <a href="chat.html" id="here">Chats</a>
+    <a href="gruppen.html">Gruppen</a>
+    <a href="rides.html">Eigene Fahrten</a>
+  </div>
+
+  <div>
+
+    <div style="float: left; height:50px; width: 50px;" id="menu">
+      <img src="img/Menu.png" height="50px" style="margin-left: 5px; margin-top: 10%;" onclick="openNav()"></img>
+    </div>
+    <div style="float: left; height:60px; width: 50px; display: none;" id="backbutton">
+      <a href="chat.html"><img src="img/back.png" height="50px" style="margin-left: 5px; margin-top: 25%;"></img></a>
+    </div>
+  </div>
+
+  <div class="container-float" id="insertHere" style="margin-bottom: 6%; min-height:80%;">
+    <h1 class="header" id="header" style="height: 80px; margin-bottom: 0; display: none;"></h1>
+    <h1 class="header" id="helfy-header" style="height: 80px; margin-bottom: 0;">Helfy</h1>
+    <div class="texttype" style="margin: auto; width: 90%; max-width: 500px; margin-top: 20px; margin-bottom: 20px;">
+      <input type="text" id="searchUser" placeholder="Chatpartner finden..." style="width: 100%;"
+        onkeyup="UserKeyCode()">
+    </div>
+    <div id="searchnotification" class="notifyBox" style="width: 90%; max-width: 500px; margin: auto;"></div>
+    <div class="notifyBox" style="position: absolute; margin-bottom: 0;">
+      <div class="texttype" id="notification" style="width: 96%; max-width: 800px; margin: auto;">
+
+      </div>
+    </div>
+    <div id="notificationB" class="notifyBox" style="width: 90%; max-width: 500px; margin: auto;"></div>
+  </div>
+  <script src="js/session.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/chat.js"></script>
+  <script>
+    function getKeyCode(event) {
+      event = event || window.event;
+      if (event.keyCode == 13) {
+        sendMessage();
+      } else {
+        var ms = document.getElementById("messageSend")
+        if (ms.value.includes(":")) {
+          emojisReplace(ms);
+        }
+      }
+    }
+    function UserKeyCode(event) {
+      event = event || window.event;
+      if (event.keyCode == 13) {
+        searchUsername();
+      }
+    }
+
+  </script>
+  <div class="texttype" id="sendmessage" style="position: fixed; bottom: 0; left: 0; right: 0; margin: auto; width: device-width;">
+    <div id="sendmdiv" role="alert" class="alert alert-dark" style="padding: 10px 5px; margin-bottom: 0; width: 100%;">
+      <div style="margin-left: 3%;">
+        <div style="margin: auto; width: 100%; max-width: 800px;">
+          <div class="dropdiv" style="margin: auto; width: 100%; max-width: 500px">
+            <div class="dropcontent" style="position: absolute; bottom: 50px;" hidden></div>
+            <input id="messageSend" type="text" class="dropinput" style="width: 70%;" onkeyup="dropcalc()"
+              placeholder="Nachricht...">
+            <button id="sm" type="button" class="btn btn-primary" style="width: 20%; ; margin: 0px;"
+              onclick="sendMessage()">Senden</button>
+
+          </div>
+          <!--<input type="text" id="messageSend" list="emojis" placeholder="Nachricht..." style="width: 70%;" onkeyup="getKeyCode();">-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    getChats();
+  </script>
+
+
+</body>
+<div id="footer">
+  <hr style="margin: 10px; border-radius: 20px; color: darkgray; border-color: darkgrey;">
+  <p style="margin-top: 15px; margin-bottom: 7px;">
+    <a href="login.html" id="loginLink">Login</a> | <a href="#" onclick="logout()">Logout</a> | <a
+      href="index.html#about">Über uns</a> | <a href="impressum.html">Impressum</a>
+  </p>
+  <div style="color: grey; font-size: 10px; margin-bottom: 1%;">Copyright 2018 - <div id="thisyear"
+      style="display: inline-block;"></div> Achim Stumpp, Jakob Stolze</div>
+</div>
+
+</html>

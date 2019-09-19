@@ -1,0 +1,26 @@
+.bootstrap-tags-group{
+    margin-top: 10px;
+}
+
+.bootstrap-tags{
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #7bc4d9;
+    vertical-align: middle;
+    padding: 5px;
+    border: 1px solid #6babbd;
+    color: #275c6b;
+
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.bootstrap-tags a{
+    margin-left: 5px;
+}
+
+.bootstrap-tags a:hover{
+    text-decoration: none;
+}
