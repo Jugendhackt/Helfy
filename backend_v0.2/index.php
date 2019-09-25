@@ -1,9 +1,10 @@
-<?php 
+<?php
+
 /*
 	index.php - Helfy backend v0.2
-	
+
 	Copyright 2018-2019 Jakob Stolze <https://github.com/jaybeejs>
-	
+
 	This file is part of Helfy - https://github.com/Jugendhackt/Helfy
 	Helfy is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -65,3 +66,8 @@ if($request == "newSession"){
 	return login($_POST['username'], $_POST['password']);
 }
 
+if($request == "registrateUser"){
+	return registrateUser($_POST['username'], $_POST['password'], $_POST['email'], $_POST['vname'], $_POST['nname'], $_POST['dateofbirth']);
+}
+
+?>
