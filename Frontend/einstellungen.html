@@ -24,7 +24,6 @@
 </head>
 
 <body onload="menu(); footer();">
-    <div id="normal">
         <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <div id="me"><a href="home.html">Home</a></div>
@@ -162,7 +161,7 @@
                     <p style="color: red; text-align: center; display: none;">Bitte geben sie eine gültige E-Mail an!</p>
                     <input type="password" class="form-control" id="pwddel" placeholder="Passwort" value="" style="max-width: 250px; margin: auto;">
                     <div id="cemail" class="form-group" style="max-width: 250px; margin: auto; padding-top: 20px;">
-                        <button class="btn-danger btn" onclick="deleteHelfyAccount();" style="display: block; margin: 0 auto;">Account löschen</button>
+                        <a href="accdeleted.html"><button class="btn-danger btn" onclick="deleteHelfyAccount(); logout();" style="display: block; margin: 0 auto;">Account löschen</button></a>
                     </div>
                 </div>
             </div>
@@ -189,10 +188,6 @@
         setupSettings();   
     }
     </script>
-    </div>
-    <div id="deletedAcc" hidden>
-        <p style="max-width: 500px; width: 90%; margin: 5px; padding: 5px;">Ihr Account wurde erfolgreich gelöscht!</p>
-    </div>
 </body>
 
 </html>
