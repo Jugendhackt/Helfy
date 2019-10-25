@@ -100,6 +100,7 @@ async function getChats() {
                 document.getElementById("helfy-header").style.display = "none";
                 document.getElementById("header").style.display = "";
                 document.getElementById("searchUser").style.display = "none";
+                document.getElementById("searchUserdiv").style.display = "none";
                 document.getElementById("header").innerHTML = "<a href='profile.html?user=" + getQueryVariable("p") + "' style='color: black;'>" + getQueryVariable("p") + "</a>";
                 noti.setAttribute("class", "formular");
                 noti.innerHTML = "Es existiert keine Person mit dem Nutzernamen <i>@" + getQueryVariable("p") + "</i>";
@@ -123,6 +124,7 @@ async function getChats() {
                     document.getElementById("helfy-header").style.display = "none";
                     document.getElementById("header").style.display = "";
                     document.getElementById("searchUser").style.display = "none";
+                    document.getElementById("searchUserdiv").style.display = "none";
                     document.getElementById("header").innerHTML = "<a href='profile.html?user=" + getQueryVariable("p") + "' style='color: black;'>" + getQueryVariable("p") + "</a>";
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
@@ -156,6 +158,7 @@ async function getChats() {
                     document.getElementById("helfy-header").style.display = "none";
                     document.getElementById("header").style.display = "";
                     document.getElementById("searchUser").style.display = "none";
+                    document.getElementById("searchUserdiv").style.display = "none";
                     document.getElementById("header").innerHTML = "<a href='profile.html?user=" + getQueryVariable("p") + "' style='color: black;'>" + getQueryVariable("p") + "</a>";
                     noti.setAttribute("role", "alert");
                     noti.setAttribute("id", "alert" + i);
